@@ -1319,10 +1319,15 @@ footer {
     padding: 18px;
   }
 }
+
+
+
+
 /* ═══ Grand Tribute (pure CSS — no Tailwind) ═══ */
 .tribute-section {
   padding: 40px 0 80px;
-  background: #f0f4f5;
+  
+  background: #f7f9fb;
 }
 .tribute-wrap {
   max-width: 1120px;
@@ -1332,8 +1337,8 @@ footer {
   overflow: hidden;
   border-radius: 24px;
   border: 2px solid rgba(245, 158, 11, 0.35);
-  background: linear-gradient(135deg, #020617 0%, #0f172a 45%, #022c22 100%);
-  color: #e2e8f0;
+  background: #f7f9fb;
+  color: #16202a;
   padding: 28px 32px 32px;
   box-shadow: 0 25px 80px rgba(2, 6, 23, 0.4);
 }
@@ -1359,7 +1364,7 @@ footer {
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #fcd34d;
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.22), rgba(217, 119, 6, 0.12));
+  background: #f7f9fb;
   border: 1px solid rgba(251, 191, 36, 0.45);
 }
 .tribute-ribbon-badge svg {
@@ -1408,7 +1413,7 @@ footer {
   height: 160px;
   border-radius: 22px;
   padding: 3px;
-  background: linear-gradient(135deg, #fbbf24, #10b981, #0d9488);
+  background: #f7f9fb;
   box-shadow: 0 16px 40px rgba(245, 158, 11, 0.25);
 }
 .tribute-crest-inner {
@@ -1444,7 +1449,7 @@ footer {
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: #f7f9fb;
   color: #020617;
   display: grid;
   place-items: center;
@@ -1506,7 +1511,7 @@ footer {
   background: #3b82f6;
 }
 .tribute-btn-start {
-  background: linear-gradient(90deg, #10b981, #2dd4bf);
+  background: #f7f9fb;
   color: #020617;
 }
 
@@ -1861,7 +1866,7 @@ footer {
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  background: #064e3b;
+  background: #f7f9fb;
   color: #34d399;
   border: 1px solid #065f46;
   display: grid;
@@ -1918,7 +1923,7 @@ footer {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #fbbf24, #10b981);
+  background: #f7f9fb;
   color: #020617;
   font-weight: 900;
   display: grid;
@@ -1985,7 +1990,7 @@ footer {
   gap: 14px;
   padding: 18px;
   border-radius: 16px;
-  background: linear-gradient(90deg, rgba(127, 29, 29, 0.45), #0f172a);
+  background: #f7f9fb;
   border: 1px solid rgba(127, 29, 29, 0.45);
   margin-bottom: 14px;
 }
@@ -2066,7 +2071,7 @@ footer {
   gap: 16px;
   padding: 20px 22px;
   border-radius: 16px;
-  background: linear-gradient(90deg, #450a0a, #0f172a);
+  background: #f7f9fb;
   border: 1px solid rgba(127, 29, 29, 0.45);
 }
 .tribute-yt-banner .yt-title {
