@@ -57,22 +57,22 @@ function YoutubeIcon({ className, size, ...props }) {
 const recentVideos = [
   {
     id: '1',
-    title: 'Introduction to General Pharmacology',
-    youtubeId: '',
-    duration: '12:40',
-    topic: 'General Pharmacology',
-  },
+    title: '',
+    youtubeId: '0XbGRhGVVDY',
+    duration: '',
+    topic: ',
+  }, 
   {
     id: '2',
-    title: 'Pharmacokinetics — ADME Explained Simply',
-    youtubeId: '',
+    title: '',
+    youtubeId: 'KRKvPxiVTmw',
     duration: '15:20',
     topic: 'Pharmacokinetics',
   },
   {
     id: '3',
     title: 'Drug–Receptor Interactions',
-    youtubeId: '',
+    youtubeId: '7MUrNkgzjkU',
     duration: '11:05',
     topic: 'Pharmacodynamics',
   },
@@ -165,17 +165,19 @@ const teachingPillars = [
 
 const studentTributes = [
   {
-    name: 'A dedicated student',
-    role: 'Pharmacy learner',
+    name: 'Aman Sharma',
+    role: 'Pharm.D Clinical Pharmacist',
     batch: 'Mentored',
     institution: 'Inspired by classroom teaching',
     badge: 'Gratitude',
     message:
-      'Sir made receptors and pathways feel simple. This platform is our way of carrying that clarity forward.',
+      'Sir's passion for teaching is contagious. He didn't just teach us pharmacology for exams; 
+       he taught us the rationale behind saving patient lives at the bedside. 
+        This portal is our humble tribute to his legendary classroom pedagogy.',
   },
   {
-    name: 'Just Pharmacology community',
-    role: 'Learners worldwide',
+    name: 'Sneha Rawat',
+    role: 'Senior Research Scientist',
     batch: 'Online',
     institution: 'YouTube · @JustPharmacology',
     badge: 'Respect',
