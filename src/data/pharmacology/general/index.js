@@ -10,6 +10,7 @@ import { lessons as pharmacodynamicsLessons } from './pharmacodynamics.js';
 import { lessons as pharmacokineticsLessons } from './pharmacokinetics.js';
 import { lessons as rapid_revisionLessons } from './rapid-revision.js';
 import { lessons as receptorsLessons } from './receptors.js';
+import { lessons as advancedConceptsLessons } from './advanced-concepts.js';
 
 export { lessons as dosage_regimensLessons } from './dosage-regimens.js';
 export { lessons as dose_responseLessons } from './dose-response.js';
@@ -23,5 +24,6 @@ export { lessons as pharmacodynamicsLessons } from './pharmacodynamics.js';
 export { lessons as pharmacokineticsLessons } from './pharmacokinetics.js';
 export { lessons as rapid_revisionLessons } from './rapid-revision.js';
 export { lessons as receptorsLessons } from './receptors.js';
+export { lessons as advancedConceptsLessons } from './advanced-concepts.js';
 
-export const generalPharmacologyLessons = [dosage_regimensLessons,dose_responseLessons,drug_administrationLessons,drug_interactionsLessons,drug_responseLessons,drug_safetyLessons,foundationsLessons,individual_variationLessons,pharmacodynamicsLessons,pharmacokineticsLessons,rapid_revisionLessons,receptorsLessons].flat();
+export const generalPharmacologyLessons = [dosage_regimensLessons,dose_responseLessons,drug_administrationLessons,drug_interactionsLessons,drug_responseLessons,drug_safetyLessons,foundationsLessons,individual_variationLessons,pharmacodynamicsLessons,pharmacokineticsLessons,rapid_revisionLessons,receptorsLessons,advancedConceptsLessons].flat();

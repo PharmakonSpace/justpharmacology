@@ -109,3 +109,9 @@ This is an educational platform. Content should be reviewed against authoritativ
 The project separates pharmacology content from the React UI. Module 1 is stored under `src/data/pharmacology/general/` and is grouped by topic. `src/data/lessons.js` acts as the compatibility registry consumed by the existing lesson engine.
 
 To add future modules, create another module folder under `src/data/pharmacology/`, add its topic files and export them through the module registry. The lesson UI should not need to be rewritten.
+
+## Scalable content architecture
+
+Lessons are stored under `src/data/pharmacology/<module>/`. The React lesson engine renders structured content, animations, videos, drug cards, rapid revision and quizzes without requiring a separate page per lesson.
+
+See `CONTENT_GUIDE.md` for the non-coder content workflow.
