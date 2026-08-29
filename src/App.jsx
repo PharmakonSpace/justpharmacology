@@ -171,9 +171,9 @@ const studentTributes = [
     institution: 'Inspired by classroom teaching',
     badge: 'Gratitude',
     message:
-      'Sir's passion for teaching is contagious. He didn't just teach us pharmacology for exams; 
-       he taught us the rationale behind saving patient lives at the bedside. 
-        This portal is our humble tribute to his legendary classroom pedagogy.',
+    'Sir's passion for teaching is contagious. He didn't just teach us pharmacology for exams; 
+     he taught us the rationale behind saving patient lives at the bedside. 
+    This portal is our humble tribute to his legendary classroom pedagogy.',
   },
   {
     name: 'Sneha Rawat',
