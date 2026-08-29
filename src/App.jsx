@@ -74,7 +74,7 @@ const recentVideos = [
     title: 'Drug–Receptor Interactions',
     youtubeId: '7MUrNkgzjkU',
     duration: '',
-    topic: 's',
+    topic: '',
   },
 ];
 
