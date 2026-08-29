@@ -1323,7 +1323,6 @@ footer {
 
 
 
-/* ═══ Grand Tribute (pure CSS — no Tailwind) ═══ */
 /* ═══ Grand Tribute (pure CSS — no Tailwind) — LIGHT THEME ═══ */
 .tribute-section {
   padding: 40px 0 80px;
@@ -1339,7 +1338,7 @@ footer {
   border: 2px solid rgba(245, 158, 11, 0.45);
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 45%, #ecfdf5 100%);
   color: #1e293b;
-  padding: 28px 32px32px;
+  padding: 28px 32px 32px;
   box-shadow: 0 25px 80px rgba(148, 163, 184, 0.3);
 }
 
@@ -1347,7 +1346,7 @@ footer {
 .tribute-ribbon {
   display: flex;
   flex-wrap: wrap;
- -items: center;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding-bottom: 20px;
@@ -1355,7 +1354,7 @@ footer {
   border-bottom: 1px solid rgba(245, 158, 11, 0.3);
 }
 .tribute-ribbon-badge {
- : inline-flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
@@ -1364,7 +1363,7 @@ footer {
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #b45309;
-  background: linear(90deg rgba(254, 243, 199, 0.9), rgba(253, 230, 138, 0.4));
+  background: linear-gradient(90deg, rgba(254, 243, 199, 0.9), rgba(253, 230, 138, 0.4));
   border: 1px solid rgba(217, 119, 6, 0.35);
 }
 .tribute-ribbon-badge svg {
@@ -1408,12 +1407,12 @@ footer {
   display: inline-block;
   margin-bottom: 14px;
 }
-.tributecrest {
+.tribute-crest {
   width: 160px;
   height: 160px;
   border-radius: 22px;
   padding: 3px;
-  background: linear-gradient(135deg, #fbbf24, #10b981,0d9488);
+  background: linear-gradient(135deg, #fbbf24, #10b981, #0d9488);
   box-shadow: 0 16px 40px rgba(245, 158, 11, 0.25);
 }
 .tribute-crest-inner {
@@ -1449,12 +1448,12 @@ footer {
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  background:-gradient(90deg, #f59e0b, #d97706);
+  background: linear-gradient(90deg, #f59e0b, #d97706);
   color: #ffffff;
   display: grid;
   place-items: center;
-  border:2px solid #ffffff;
-  box-shadow: 0 4px12px rgba(0, 0, 0, 0.15);
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 .tribute-name {
   margin: 8px 0 4px;
@@ -1473,9 +1472,9 @@ footer {
 }
 .tribute-org {
   margin: 0 0 16px;
- -size: 12px;
+  font-size: 12px;
   line-height: 1.5;
- : #64748b;
+  color: #64748b;
 }
 
 .tribute-social {
@@ -1494,8 +1493,8 @@ footer {
   font-weight: 800;
   color: #fff;
   text-decoration: none;
-  border 0;
-  cursor pointer;
+  border: 0;
+  cursor: pointer;
   transition: 0.15s;
 }
 .tribute-btn-yt {
@@ -1518,18 +1517,18 @@ footer {
 /* Quotes + stats */
 .tribute-quote-card {
   background: #ffffff;
-  border: 2px solid(245, 158 11, 0.35);
+  border: 2px solid rgba(245, 158, 11, 0.35);
   border-radius: 20px;
   padding: 22px 24px;
   margin-bottom: 16px;
   box-shadow: 0 4px 14px rgba(148, 163, 184, 0.15);
 }
 .tribute-quote-head {
- display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding-bottom: 12;
+  padding-bottom: 12px;
   margin-bottom: 12px;
   border-bottom: 1px solid #e2e8f0;
   font-size: 11px;
@@ -1578,13 +1577,14 @@ footer {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  border: ;
+  border: 0;
   background: #cbd5e1;
   cursor: pointer;
   padding: 0;
 }
-.tribute-dots .dot {
-  width 24px  background: #f59e0b;
+.tribute-dots .dot.active {
+  width: 24px;
+  background: #f59e0b;
 }
 .tribute-quote-btns {
   display: flex;
@@ -1647,7 +1647,7 @@ footer {
 }
 .tribute-tabs-label {
   font-size: 11px;
- font-weight: 700;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #64748b;
@@ -1656,7 +1656,7 @@ footer {
   font-size: 11px;
   font-family: ui-monospace, monospace;
   color: #92400e;
-  background: rgba(254, 243, 199, .7);
+  background: rgba(254, 243, 199, 0.7);
   border: 1px solid rgba(217, 119, 6, 0.35);
   padding: 2px 8px;
   border-radius: 6px;
@@ -1698,14 +1698,14 @@ footer {
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 20px;
-  box-shadow: 0 4px 14px rgba(148, 163, 184, .12);
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.12);
 }
 .tribute-panel-box p {
   margin: 0 0 12px;
   color: #64748b;
 }
 .tribute-panel-box strong {
-  color:0f172a;
+  color: #0f172a;
 }
 .tribute-panel-head {
   display: flex;
@@ -1756,7 +1756,7 @@ footer {
 
 /* Degrees */
 .tribute-degrees {
- display: grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin-bottom: 20px;
@@ -1775,7 +1775,7 @@ footer {
 }
 .tribute-degree .num {
   font-size: 10px;
- font-weight: 800;
+  font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #b45309;
@@ -1845,7 +1845,7 @@ footer {
 }
 .tribute-pillar {
   background: #ffffff;
-  border 1px solid #e2e8f0;
+  border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
   display: flex;
@@ -1891,7 +1891,7 @@ footer {
 }
 .pillar-foot {
   padding-top: 10px;
-  border-top: 1px solid #e28f0;
+  border-top: 1px solid #e2e8f0;
   font-size: 11px;
   font-weight: 700;
   color: #059669;
@@ -1901,7 +1901,7 @@ footer {
 }
 
 /* Student wall */
-.-wall {
+.tribute-wall {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
@@ -1923,10 +1923,10 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12;
+  margin-bottom: 12px;
 }
 .stu-avatar {
-  width 40px;
+  width: 40px;
   height: 40px;
   border-radius: 12px;
   background: linear-gradient(135deg, #fbbf24, #10b981);
@@ -1970,7 +1970,7 @@ footer {
 .stu-foot {
   display: flex;
   justify-content: space-between;
-  align: center;
+  align-items: center;
   font-size: 11px;
   color: #64748b;
   padding-top: 10px;
@@ -2028,7 +2028,7 @@ footer {
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
-  box-shadow:  4px 14 rgba(148, 163, 184, 0.12);
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.12);
 }
 .tribute-lec .tag {
   font-size: 10px;
@@ -2052,8 +2052,8 @@ footer {
 }
 .tribute-lec a {
   display: flex;
-  align: center;
-  justify: center;
+  align-items: center;
+  justify-content: center;
   gap: 6px;
   padding: 10px;
   border-radius: 12px;
