@@ -575,7 +575,7 @@ function Home() {
                   { id: 'journey', label: 'Academic Degrees', Icon: GraduationCap },
                   { id: 'pedagogy', label: '4-Step Teaching Philosophy', Icon: Lightbulb },
                   { id: 'tributes', label: 'Student Gratitude', Icon: Users },
-                  { id: 'videos', label: 'Signature Lectures', Icon: Youtube },
+                  { id: 'videos', label: 'Signature Lectures', Icon: YoutubeIcon },
                 ].map(({ id, label, Icon }) => (
                   <button
                     key={id}
