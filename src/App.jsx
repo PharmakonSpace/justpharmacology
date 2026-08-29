@@ -188,29 +188,31 @@ function Home() {
         </div>
       </section>
 
-      {/* About Dr. Manoj Goyal */}
-      {/* About Dr. Manoj Goyal */}
+  
+{/* Dedicated to Dr. Manoj Goyal */}
 <section className="section tinted about-educator">
   <div className="container">
-    <div className="section-head">
+    <div className="section-head" style={{ marginBottom: '2rem' }}>
       <div>
-        <div className="eyebrow">THE EDUCATOR</div>
-        <h2>Guided by the vision of Dr. Manoj Goyal</h2>
+        <div className="eyebrow">WITH DEEP RESPECT</div>
+        <h2>Dedicated to Dr. Manoj Goyal</h2>
+        <p className="section-sub">
+          The teacher whose clarity, patience and vision made pharmacology
+          understandable — and this platform possible.
+        </p>
       </div>
-      <Link to="/about">Full profile <ArrowRight /></Link>
     </div>
 
-    <div className="educator-grid">
-      <div className="educator-card">
+    <div className="educator-spotlight">
+      <div className="educator-card educator-card--featured">
         <div className="educator-badge">MG</div>
         <div>
+          <p className="educator-label">Our inspiration</p>
           <h3>Dr. Manoj Goyal</h3>
           <p className="educator-role">
-            Associate Professor · Pharmacology Educator · Academic Leader
+            Associate Professor · Department of Pharmaceutical Sciences
           </p>
           <p className="educator-org">
-            Department of Pharmaceutical Sciences
-            <br />
             Hemvati Nandan Bahuguna Garhwal University (HNBGU)
             <br />
             Central University · Srinagar, Uttarakhand, India
@@ -219,45 +221,44 @@ function Home() {
       </div>
 
       <div className="educator-body">
-        <p>
-          <strong>Just Pharmacology</strong> stands on the teaching philosophy of{' '}
-          <strong>Dr. Manoj Goyal</strong> — a distinguished academician and
-          pharmacology educator whose work has helped countless students move from
-          rote memorisation to genuine understanding of how drugs act in the body.
+        <p className="educator-lead">
+          Every clear explanation, every animation, and every rapid-revision card
+          on this site exists because of one person —{' '}
+          <strong>Dr. Manoj Goyal</strong>.
         </p>
         <p>
-          With deep roots in pharmaceutical sciences and years of dedicated classroom
-          teaching, Dr. Goyal has built a reputation for clarity, clinical relevance,
-          and a rare ability to simplify complex mechanisms without losing scientific
-          depth. His approach — simple explanations, visual learning, and rapid
-          revision — forms the foundation of this platform.
+          He is not only an Associate Professor of Pharmaceutical Sciences; he is
+          the kind of teacher students remember years later. The one who turns
+          difficult mechanisms into simple, lasting understanding. The one who
+          never lets a student leave confused if he can help it.
+        </p>
+        <p>
+          Through years of dedicated teaching at HNBGU, Dr. Goyal has shaped how
+          countless students see pharmacology — not as a burden of memorisation,
+          but as a subject that can be understood, enjoyed, and applied with
+          confidence. His style — calm clarity, visual thinking, and structured
+          revision — is the heart of <strong>Just Pharmacology</strong>.
         </p>
 
-        <h4>Academic credentials</h4>
+        <h4>His academic journey</h4>
         <ul className="edu-list">
           <li>
-            <strong>Doctor of Philosophy (Ph.D.)</strong> in Pharmacy —
-            Birla Institute of Technology
+            <strong>Ph.D. (Pharmacy)</strong> — Birla Institute of Technology
           </li>
           <li>
-            <strong>Master of Pharmacy (Pharmacology)</strong> —
-            Birla Institute of Technology, 2004
+            <strong>M.Pharm (Pharmacology)</strong> — Birla Institute of Technology, 2004
           </li>
           <li>
-            <strong>Bachelor of Pharmacy (B.Pharm)</strong> —
-            Lachoo Memorial College of Science and Technology
+            <strong>B.Pharm</strong> — Lachoo Memorial College of Science and Technology
           </li>
           <li>
-            <strong>Bachelor of Laws (LL.B.)</strong> —
-            Jai Narain Vyas University, 2015–2018
+            <strong>LL.B.</strong> — Jai Narain Vyas University, 2015–2018
           </li>
         </ul>
 
-        <p style={{ marginTop: '1rem' }}>
-          Beyond formal qualifications, Dr. Goyal is widely regarded by students as a
-          mentor who makes pharmacology approachable, memorable, and clinically
-          meaningful — the same spirit that inspires every lesson, animation, and
-          revision card on this site.
+        <p className="educator-tribute">
+          This platform is a student’s quiet way of saying:  
+          <em>“Sir, your teaching mattered. We tried to carry a little of it forward.”</em>
         </p>
 
         <div className="educator-links">
@@ -267,7 +268,7 @@ function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            Watch on YouTube — Just Pharmacology
+            Watch his channel — Just Pharmacology
           </a>
           <a
             className="btn secondary"
@@ -277,6 +278,9 @@ function Home() {
           >
             Connect on LinkedIn
           </a>
+          <Link className="btn secondary" to="/about">
+            Full profile
+          </Link>
         </div>
       </div>
     </div>
@@ -734,43 +738,44 @@ function Search() {
 function About() {
   return (
     <main className="container page">
-      <div className="profile">
+      <div className="profile profile--tribute">
         <div className="profile-badge">MG</div>
         <div>
-          <div className="eyebrow">ABOUT THE INITIATIVE</div>
-          <h1>Just Pharmacology</h1>
+          <div className="eyebrow">IN HONOUR OF</div>
+          <h1>Dr. Manoj Goyal</h1>
           <p className="lead">
-            An educational initiative shaped by the teaching vision of{' '}
-            <strong>Dr. Manoj Goyal</strong> — created to help students truly
-            <em> understand</em> pharmacology through clear explanations,
-            animation-based learning, and rapid revision of essential drug concepts.
+            Associate Professor · Pharmacology Educator · The mind behind the clarity
+            of Just Pharmacology
           </p>
 
-          <h2>Dr. Manoj Goyal</h2>
           <p>
-            Dr. Manoj Goyal is a respected academician, pharmacology educator, and
-            pharmaceutical sciences professional with a long-standing commitment to
-            excellence in higher education. He currently serves as{' '}
-            <strong>Associate Professor</strong> in the Department of Pharmaceutical
+            This website exists because of <strong>Dr. Manoj Goyal</strong>.
+          </p>
+          <p>
+            He is a distinguished academician and a rare kind of teacher — one who
+            makes the difficult feel simple, the abstract feel real, and the student
+            feel capable. As Associate Professor in the Department of Pharmaceutical
             Sciences at <strong>Hemvati Nandan Bahuguna Garhwal University (HNBGU)</strong>,
-            a Central University in Srinagar, Uttarakhand, India.
+            a Central University in Srinagar, Uttarakhand, he has devoted years to
+            shaping how pharmacy and medical students understand drugs, mechanisms,
+            and clinical reasoning.
           </p>
           <p>
-            Known for his lucid teaching style and deep subject mastery, Dr. Goyal has
-            guided generations of pharmacy and medical students toward a clearer,
-            more confident grasp of drug action, mechanisms, and clinical application.
-            His emphasis on conceptual clarity over pure memorisation continues to
-            influence how pharmacology is taught and learned.
+            Students do not only learn facts from him. They learn a way of thinking:
+            start with the concept, see the mechanism, revise with purpose. That
+            philosophy is the foundation of everything you see here — the lessons,
+            the animations, the rapid revision cards, and the quiet belief that
+            pharmacology can be understood, not just memorised.
           </p>
 
-          <h3>Academic journey</h3>
+          <h2>Academic excellence</h2>
           <ul>
             <li>
               <strong>Doctor of Philosophy (Ph.D.)</strong> — Pharmacy,
               Birla Institute of Technology
             </li>
             <li>
-              <strong>Master’s Degree (Pharmacology)</strong> —
+              <strong>Master of Pharmacy (Pharmacology)</strong> —
               Birla Institute of Technology, 2004
             </li>
             <li>
@@ -783,20 +788,21 @@ function About() {
             </li>
           </ul>
 
-          <h3>Teaching philosophy</h3>
+          <h2>Why this site exists</h2>
           <p>
-            Dr. Goyal believes that pharmacology should not remain a list of facts to
-            be memorised under exam pressure. Instead, it should be experienced —
-            through simple language, visual mechanisms, and structured rapid revision —
-            so that students carry lasting understanding into the clinic and beyond.
+            Just Pharmacology, as a digital experience, is a student-built tribute
+            to Dr. Goyal’s teaching. It tries to extend his approach — simple
+            language, visual understanding, and focused revision — so that more
+            learners can benefit from the same clarity that his classroom students
+            have received for years.
           </p>
           <p>
-            This platform exists as a student-built tribute to that philosophy: an
-            attempt to extend his approach into an interactive digital space for
-            learners everywhere.
+            If anything on this platform helps even one student understand a
+            mechanism a little better, that credit belongs first to the teacher
+            who made such understanding possible.
           </p>
 
-          <h3>Connect</h3>
+          <h2>Connect with his work</h2>
           <div className="educator-links" style={{ marginTop: '0.75rem' }}>
             <a
               className="btn primary"
@@ -817,19 +823,19 @@ function About() {
           </div>
 
           <div className="disclaimer-box" style={{ marginTop: '2.5rem' }}>
-            <h3>Disclaimer</h3>
+            <h3>A note of responsibility</h3>
             <p>
-              This website is a student-built educational project created under the
-              inspiration of Dr. Manoj Goyal and the Just Pharmacology teaching
-              approach. It is intended solely for learning and revision.
+              This website is a student-built educational project, created with
+              deep respect for Dr. Manoj Goyal and the Just Pharmacology teaching
+              approach. It is meant only for learning and revision.
             </p>
             <p>
               <strong>
-                Any mistake, error, or incorrect information found on this platform is
+                Any mistake, error, or incorrect information on this platform is
                 the sole responsibility of the student developer.
               </strong>{' '}
               Dr. Manoj Goyal is not responsible for the content, accuracy, or any
-              consequences arising from the use of this website.
+              outcome of using this site.
             </p>
           </div>
         </div>
