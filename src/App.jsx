@@ -187,14 +187,14 @@ const signatureLectures = [
   {
     tag: 'General Pharmacology',
     title: 'Core concepts explained simply',
-    desc: 'Foundational ideas from the Just Pharmacology approach — clarity over cramming.',
-    link: 'https://www.youtube.com/@JustPharmacology',
+    desc: '',
+    link: 'https://www.youtube.com/watch?v=8AOAt2zKa4g',
   },
   {
     tag: 'Mechanisms',
-    title: 'Drug–receptor & signaling pathways',
+    title: '',
     desc: 'Visual, structured teaching of how drugs act — the heart of Dr. Goyal’s style.',
-    link: 'https://www.youtube.com/@JustPharmacology',
+    link: 'https://www.youtube.com/watch?v=kgKBICGXjW4',
   },
 ];
 
