@@ -7,7 +7,6 @@ import {
   Crown,
   GraduationCap,
   Medal,
-  Youtube,
   ExternalLink,
   Globe,
   Quote,
@@ -35,7 +34,26 @@ import VideoEmbed from './components/video/VideoEmbed';
 const safeArray = (v) => (Array.isArray(v) ? v : []);
 
 /* ───────────────────────── Recent videos ───────────────────────── */
-
+function YoutubeIcon({ className, size, ...props }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size || 24}
+      height={size || 24}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...props}
+    >
+      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+      <path d="m10 15 5-3-5-3z" />
+    </svg>
+  );
+}
 const recentVideos = [
   {
     id: '1',
@@ -427,7 +445,7 @@ function Home() {
                     rel="noreferrer"
                     className="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition-all shadow-md"
                   >
-                    <Youtube className="w-4 h-4" />
+                    <YoutubeIcon className="w-4 h-4" />
                     @JustPharmacology
                     <ExternalLink className="w-3 h-3 opacity-70" />
                   </a>
@@ -758,7 +776,7 @@ function Home() {
                 >
                   <div>
                     <h4 className="font-extrabold text-white text-base flex items-center gap-2">
-                      <Youtube className="w-5 h-5 text-red-500" />
+                      <YoutubeIcon className="w-5 h-5 text-red-500" />
                       Signature lectures · @JustPharmacology
                     </h4>
                     <p className="text-xs text-slate-300 mt-1">
@@ -820,7 +838,7 @@ function Home() {
             >
               <div className="space-y-2 text-center sm:text-left">
                 <div className="flex items-center justify-center sm:justify-start gap-2">
-                  <Youtube className="w-6 h-6 text-red-500" />
+                  <YoutubeIcon className="w-6 h-6 text-red-500" />
                   <span className="font-black text-white text-base">
                     Just Pharmacology on YouTube
                   </span>
