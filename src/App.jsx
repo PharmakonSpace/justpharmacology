@@ -1,16 +1,5 @@
 import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 import { useMemo, useState } from 'react';
-import { PlayCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import { categories } from './data/categories';
-import { lessons } from './data/lessons';
-import LessonCard from './components/lessons/LessonCard';
-import Animation from './components/animations/Animation';
-import Quiz from './components/quiz/Quiz';
-import { completeLesson, isComplete } from './utils/progress';
-import VideoEmbed from './components/video/VideoEmbed';
-import { useMemo, useState } from 'react';
 import {
   PlayCircle,
   ArrowRight,
@@ -27,14 +16,52 @@ import {
   Lightbulb,
   Users,
   Building2,
-  Award,
   Star,
   Play,
   FolderTree,
 } from 'lucide-react';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import { categories } from './data/categories';
+import { lessons } from './data/lessons';
+import LessonCard from './components/lessons/LessonCard';
+import Animation from './components/animations/Animation';
+import Quiz from './components/quiz/Quiz';
+import { completeLesson, isComplete } from './utils/progress';
+import VideoEmbed from './components/video/VideoEmbed';
+
 /* ───────────────────────── helpers ───────────────────────── */
 
 const safeArray = (v) => (Array.isArray(v) ? v : []);
+
+/* ───────────────────────── Recent videos ───────────────────────── */
+
+const recentVideos = [
+  {
+    id: '1',
+    title: 'Introduction to General Pharmacology',
+    youtubeId: '',
+    duration: '12:40',
+    topic: 'General Pharmacology',
+  },
+  {
+    id: '2',
+    title: 'Pharmacokinetics — ADME Explained Simply',
+    youtubeId: '',
+    duration: '15:20',
+    topic: 'Pharmacokinetics',
+  },
+  {
+    id: '3',
+    title: 'Drug–Receptor Interactions',
+    youtubeId: '',
+    duration: '11:05',
+    topic: 'Pharmacodynamics',
+  },
+];
+
+/* ───────────────────────── Dr. Goyal tribute data ───────────────────────── */
+
 const drGoyalQuotes = [
   {
     quote:
@@ -72,8 +99,7 @@ const degreesAndQualifications = [
     institution: 'Birla Institute of Technology (BIT Mesra)',
     field: 'Pharmacology',
     year: '2004',
-    highlight:
-      'Advanced training in drug action, mechanisms, and therapeutic reasoning.',
+    highlight: 'Advanced training in drug action, mechanisms, and therapeutic reasoning.',
   },
   {
     degree: 'Bachelor of Pharmacy (B.Pharm)',
@@ -145,44 +171,13 @@ const signatureLectures = [
     tag: 'General Pharmacology',
     title: 'Core concepts explained simply',
     desc: 'Foundational ideas from the Just Pharmacology approach — clarity over cramming.',
-    views: '—',
-    duration: '—',
     link: 'https://www.youtube.com/@JustPharmacology',
   },
   {
     tag: 'Mechanisms',
     title: 'Drug–receptor & signaling pathways',
     desc: 'Visual, structured teaching of how drugs act — the heart of Dr. Goyal’s style.',
-    views: '—',
-    duration: '—',
     link: 'https://www.youtube.com/@JustPharmacology',
-  },
-];
-/* ───────────────────────── Recent videos ─────────────────────────
-   Paste real YouTube video IDs into youtubeId to show thumbnails.
-   Example: youtubeId: 'dQw4w9WgXcQ'
-*/
-const recentVideos = [
-  {
-    id: '1',
-    title: 'Introduction to General Pharmacology',
-    youtubeId: '',
-    duration: '12:40',
-    topic: 'General Pharmacology',
-  },
-  {
-    id: '2',
-    title: 'Pharmacokinetics — ADME Explained Simply',
-    youtubeId: '',
-    duration: '15:20',
-    topic: 'Pharmacokinetics',
-  },
-  {
-    id: '3',
-    title: 'Drug–Receptor Interactions',
-    youtubeId: '',
-    duration: '11:05',
-    topic: 'Pharmacodynamics',
   },
 ];
 
@@ -334,10 +329,7 @@ function Home() {
         </div>
       </section>
 
-  
-{/* ═══════════════════════════════════════════════
-          GRAND TRIBUTE — Dr. Manoj Goyal
-      ═══════════════════════════════════════════════ */}
+      {/* ═══ GRAND TRIBUTE — Dr. Manoj Goyal ═══ */}
       <section className="section" style={{ paddingTop: 40, paddingBottom: 80 }}>
         <div className="container" style={{ maxWidth: 1120 }}>
           <div
@@ -348,7 +340,6 @@ function Home() {
               boxShadow: '0 25px 80px rgba(2, 6, 23, 0.45)',
             }}
           >
-            {/* Ambient glows */}
             <div
               className="pointer-events-none absolute top-0 right-0 w-96 h-96 rounded-full"
               style={{ background: 'rgba(245, 158, 11, 0.1)', filter: 'blur(80px)' }}
@@ -358,12 +349,13 @@ function Home() {
               style={{ background: 'rgba(16, 185, 129, 0.1)', filter: 'blur(80px)' }}
             />
 
-            {/* Top ribbon */}
+            {/* Ribbon */}
             <div className="relative flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-amber-500/20">
               <div
                 className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-black tracking-wide"
                 style={{
-                  background: 'linear-gradient(90deg, rgba(245,158,11,0.2), rgba(217,119,6,0.1))',
+                  background:
+                    'linear-gradient(90deg, rgba(245,158,11,0.2), rgba(217,119,6,0.1))',
                   border: '1px solid rgba(251, 191, 36, 0.4)',
                   color: '#fcd34d',
                 }}
@@ -382,7 +374,6 @@ function Home() {
 
             {/* Profile + quotes */}
             <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Crest */}
               <div className="lg:col-span-4 flex flex-col items-center text-center space-y-4">
                 <div className="relative">
                   <div
@@ -407,7 +398,10 @@ function Home() {
                   </div>
                   <div
                     className="absolute -bottom-3 -right-2 p-2 rounded-2xl shadow-lg border-2 border-slate-950"
-                    style={{ background: 'linear-gradient(90deg, #f59e0b, #d97706)', color: '#020617' }}
+                    style={{
+                      background: 'linear-gradient(90deg, #f59e0b, #d97706)',
+                      color: '#020617',
+                    }}
                   >
                     <Medal className="w-5 h-5" />
                   </div>
@@ -450,7 +444,6 @@ function Home() {
                 </div>
               </div>
 
-              {/* Quotes + stats */}
               <div className="lg:col-span-8 space-y-6">
                 <div
                   className="relative rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl"
@@ -487,7 +480,9 @@ function Home() {
                           type="button"
                           onClick={() => setActiveQuoteIdx(qIdx)}
                           className={`h-2 rounded-full transition-all ${
-                            activeQuoteIdx === qIdx ? 'w-6 bg-amber-400' : 'w-2 bg-slate-700 hover:bg-slate-500'
+                            activeQuoteIdx === qIdx
+                              ? 'w-6 bg-amber-400'
+                              : 'w-2 bg-slate-700 hover:bg-slate-500'
                           }`}
                         />
                       ))}
@@ -496,7 +491,9 @@ function Home() {
                       <button
                         type="button"
                         onClick={() =>
-                          setActiveQuoteIdx((p) => (p === 0 ? drGoyalQuotes.length - 1 : p - 1))
+                          setActiveQuoteIdx((p) =>
+                            p === 0 ? drGoyalQuotes.length - 1 : p - 1
+                          )
                         }
                         className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"
                       >
@@ -505,7 +502,9 @@ function Home() {
                       <button
                         type="button"
                         onClick={() =>
-                          setActiveQuoteIdx((p) => (p === drGoyalQuotes.length - 1 ? 0 : p + 1))
+                          setActiveQuoteIdx((p) =>
+                            p === drGoyalQuotes.length - 1 ? 0 : p + 1
+                          )
                         }
                         className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold"
                       >
@@ -527,7 +526,10 @@ function Home() {
                     <div
                       key={s.l}
                       className="p-3.5 rounded-2xl text-center space-y-1"
-                      style={{ background: 'rgba(15,23,42,0.8)', border: '1px solid #1e293b' }}
+                      style={{
+                        background: 'rgba(15,23,42,0.8)',
+                        border: '1px solid #1e293b',
+                      }}
                     >
                       <div className="text-xl font-black" style={{ color: s.c }}>
                         {s.v}
@@ -539,7 +541,7 @@ function Home() {
               </div>
             </div>
 
-            {/* Tabs */}
+            {/* Tabs nav */}
             <div className="relative pt-4 border-t border-slate-800">
               <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
@@ -588,23 +590,26 @@ function Home() {
                   <span className="text-xs text-slate-400">HNBGU · Pharmaceutical Sciences</span>
                 </div>
                 <p className="italic text-emerald-200 font-serif text-lg border-l-4 border-amber-400 pl-4 py-1">
-                  &ldquo;Pharmacology is not an intimidating directory of chemicals to memorize—it is
-                  the fascinating science of molecular keys unlocking living cells to relieve human
-                  suffering.&rdquo;
+                  &ldquo;Pharmacology is not an intimidating directory of chemicals to
+                  memorize—it is the fascinating science of molecular keys unlocking living
+                  cells to relieve human suffering.&rdquo;
                 </p>
                 <p>Dear Students, Doctors, Pharmacists, and Healthcare Aspirants,</p>
                 <p className="text-slate-300">
-                  Welcome to <strong className="text-white">Just Pharmacology</strong>. This space
-                  is built under the inspiration of Dr. Manoj Goyal&apos;s classroom approach —
-                  clarity first, mechanisms next, revision with purpose.
+                  Welcome to <strong className="text-white">Just Pharmacology</strong>. This
+                  space is built under the inspiration of Dr. Manoj Goyal&apos;s classroom
+                  approach — clarity first, mechanisms next, revision with purpose.
                 </p>
                 <p className="text-slate-300">
-                  When receptor signaling and pathways are understood, lists of drugs stop being a
-                  burden and start forming a logical map. That is the spirit we try to honour here.
+                  When receptor signaling and pathways are understood, lists of drugs stop
+                  being a burden and start forming a logical map. That is the spirit we try to
+                  honour here.
                 </p>
                 <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-800">
                   <div>
-                    <div className="font-serif italic text-xl text-amber-300">Dr. Manoj Goyal</div>
+                    <div className="font-serif italic text-xl text-amber-300">
+                      Dr. Manoj Goyal
+                    </div>
                     <div className="text-xs text-slate-400">
                       Ph.D., M.Pharm (BIT), B.Pharm, LL.B · Associate Professor of Pharmacology
                     </div>
@@ -638,7 +643,9 @@ function Home() {
                         <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold">
                           Academic Qualification 0{idx + 1}
                         </span>
-                        <h4 className="font-extrabold text-white text-base mt-0.5">{deg.degree}</h4>
+                        <h4 className="font-extrabold text-white text-base mt-0.5">
+                          {deg.degree}
+                        </h4>
                       </div>
                       {deg.year && (
                         <span className="text-xs font-mono font-bold text-amber-300 bg-amber-950/60 border border-amber-800/60 px-2.5 py-1 rounded-lg">
@@ -708,7 +715,9 @@ function Home() {
                         <div className="flex items-center gap-3">
                           <div
                             className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm text-slate-950"
-                            style={{ background: 'linear-gradient(135deg, #fbbf24, #10b981)' }}
+                            style={{
+                              background: 'linear-gradient(135deg, #fbbf24, #10b981)',
+                            }}
                           >
                             {st.name.charAt(0)}
                           </div>
@@ -773,7 +782,10 @@ function Home() {
                     <div
                       key={lIdx}
                       className="p-6 rounded-2xl space-y-3 flex flex-col justify-between"
-                      style={{ background: 'rgba(15,23,42,0.9)', border: '1px solid #1e293b' }}
+                      style={{
+                        background: 'rgba(15,23,42,0.9)',
+                        border: '1px solid #1e293b',
+                      }}
                     >
                       <div className="space-y-2.5">
                         <span className="text-[11px] font-mono font-bold text-red-300 bg-red-950/60 border border-red-800/40 px-2.5 py-0.5 rounded">
@@ -809,12 +821,14 @@ function Home() {
               <div className="space-y-2 text-center sm:text-left">
                 <div className="flex items-center justify-center sm:justify-start gap-2">
                   <Youtube className="w-6 h-6 text-red-500" />
-                  <span className="font-black text-white text-base">Just Pharmacology on YouTube</span>
+                  <span className="font-black text-white text-base">
+                    Just Pharmacology on YouTube
+                  </span>
                 </div>
                 <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
                   Free, high-quality pharmacology teaching inspired by{' '}
-                  <strong>Dr. Manoj Goyal</strong> — for medical, pharmacy, nursing, and healthcare
-                  students.
+                  <strong>Dr. Manoj Goyal</strong> — for medical, pharmacy, nursing, and
+                  healthcare students.
                 </p>
               </div>
               <a
@@ -832,6 +846,34 @@ function Home() {
         </div>
       </section>
 
+      {/* Disclaimer */}
+      <section className="section disclaimer-section">
+        <div className="container">
+          <div className="disclaimer-box">
+            <h3>Disclaimer</h3>
+            <p>
+              This website is a student-built educational project created under the
+              inspiration of <strong>Dr. Manoj Goyal</strong> and the Just Pharmacology
+              teaching approach. It is intended solely for learning and revision purposes.
+            </p>
+            <p>
+              <strong>
+                Any mistake, error, or incorrect information found on this platform is the
+                sole responsibility of the student developer.
+              </strong>{' '}
+              Dr. Manoj Goyal is not responsible for the content, accuracy, or any
+              consequences arising from the use of this website.
+            </p>
+            <p className="disclaimer-note">
+              Always cross-check critical drug information with standard textbooks,
+              official guidelines, and your teachers.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
 
 /* ───────────────────────── Learn ───────────────────────── */
 
@@ -1261,66 +1303,38 @@ function About() {
           <div className="eyebrow">IN HONOUR OF</div>
           <h1>Dr. Manoj Goyal</h1>
           <p className="lead">
-            Associate Professor · Pharmacology Educator · The mind behind the clarity
-            of Just Pharmacology
+            Associate Professor · Pharmacology Educator · The mind behind the clarity of
+            Just Pharmacology
+          </p>
+          <p>
+            This website exists because of <strong>Dr. Manoj Goyal</strong> — a
+            distinguished academician and educator whose teaching made pharmacology
+            understandable for countless students.
+          </p>
+          <p>
+            As Associate Professor in the Department of Pharmaceutical Sciences at{' '}
+            <strong>Hemvati Nandan Bahuguna Garhwal University (HNBGU)</strong>, a Central
+            University in Srinagar, Uttarakhand, he has devoted years to shaping how
+            students understand drug action, mechanisms, and clinical reasoning.
           </p>
 
-          <p>
-            This website exists because of <strong>Dr. Manoj Goyal</strong>.
-          </p>
-          <p>
-            He is a distinguished academician and a rare kind of teacher — one who
-            makes the difficult feel simple, the abstract feel real, and the student
-            feel capable. As Associate Professor in the Department of Pharmaceutical
-            Sciences at <strong>Hemvati Nandan Bahuguna Garhwal University (HNBGU)</strong>,
-            a Central University in Srinagar, Uttarakhand, he has devoted years to
-            shaping how pharmacy and medical students understand drugs, mechanisms,
-            and clinical reasoning.
-          </p>
-          <p>
-            Students do not only learn facts from him. They learn a way of thinking:
-            start with the concept, see the mechanism, revise with purpose. That
-            philosophy is the foundation of everything you see here — the lessons,
-            the animations, the rapid revision cards, and the quiet belief that
-            pharmacology can be understood, not just memorised.
-          </p>
-
-          <h2>Academic excellence</h2>
+          <h2>Academic journey</h2>
           <ul>
             <li>
-              <strong>Doctor of Philosophy (Ph.D.)</strong> — Pharmacy,
-              Birla Institute of Technology
+              <strong>Ph.D. (Pharmacy)</strong> — Birla Institute of Technology
             </li>
             <li>
-              <strong>Master of Pharmacy (Pharmacology)</strong> —
-              Birla Institute of Technology, 2004
+              <strong>M.Pharm (Pharmacology)</strong> — Birla Institute of Technology, 2004
             </li>
             <li>
-              <strong>Bachelor of Pharmacy (B.Pharm)</strong> —
-              Lachoo Memorial College of Science and Technology
+              <strong>B.Pharm</strong> — Lachoo Memorial College of Science and Technology
             </li>
             <li>
-              <strong>Bachelor of Laws (LL.B.)</strong> —
-              Jai Narain Vyas University, 2015–2018
+              <strong>LL.B.</strong> — Jai Narain Vyas University, 2015–2018
             </li>
           </ul>
 
-          <h2>Why this site exists</h2>
-          <p>
-            Just Pharmacology, as a digital experience, is a student-built tribute
-            to Dr. Goyal’s teaching. It tries to extend his approach — simple
-            language, visual understanding, and focused revision — so that more
-            learners can benefit from the same clarity that his classroom students
-            have received for years.
-          </p>
-          <p>
-            If anything on this platform helps even one student understand a
-            mechanism a little better, that credit belongs first to the teacher
-            who made such understanding possible.
-          </p>
-
-          <h2>Connect with his work</h2>
-          <div className="educator-links" style={{ marginTop: '0.75rem' }}>
+          <div className="educator-links" style={{ marginTop: '1.25rem' }}>
             <a
               className="btn primary"
               href="https://www.youtube.com/@JustPharmacology"
@@ -1335,24 +1349,17 @@ function About() {
               target="_blank"
               rel="noreferrer"
             >
-              LinkedIn — Dr. Manoj Goyal
+              LinkedIn
             </a>
           </div>
 
           <div className="disclaimer-box" style={{ marginTop: '2.5rem' }}>
-            <h3>A note of responsibility</h3>
+            <h3>Disclaimer</h3>
             <p>
-              This website is a student-built educational project, created with
-              deep respect for Dr. Manoj Goyal and the Just Pharmacology teaching
-              approach. It is meant only for learning and revision.
-            </p>
-            <p>
-              <strong>
-                Any mistake, error, or incorrect information on this platform is
-                the sole responsibility of the student developer.
-              </strong>{' '}
-              Dr. Manoj Goyal is not responsible for the content, accuracy, or any
-              outcome of using this site.
+              This website is a student-built educational project created under the
+              inspiration of Dr. Manoj Goyal. Any mistake or incorrect information is the
+              sole responsibility of the student developer. Dr. Manoj Goyal is not
+              responsible for the content of this platform.
             </p>
           </div>
         </div>
@@ -1360,6 +1367,7 @@ function About() {
     </main>
   );
 }
+
 /* ───────────────────────── App ───────────────────────── */
 
 export default function App() {
