@@ -1335,7 +1335,7 @@ footer {
   position: relative;
   overflow: hidden;
   border-radius: 24px;
-  border: 2px solid rgba(245, 158, 11);
+  border: 2px solid rgba(11, 245, 198);
   background: linear-gradient(135deg, #ffffff 0%, #f8fafc 45%, #ecfdf5 100%);
   color: #1e293b;
   padding: 28px 32px 32px;
