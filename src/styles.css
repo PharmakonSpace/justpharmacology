@@ -1324,7 +1324,7 @@ footer {
 
 
 /* ═══ Grand Tribute (pure CSS — no Tailwind) ═══ */
-/* ═══ Grand Tribute (pure CSS — no Tailwind) ═══ */
+/* ═══ Grand Tribute (pure CSS — no Tailwind) — LIGHT THEME ═══ */
 .tribute-section {
   padding: 40px 0 80px;
   background: #f8fafc;
@@ -1336,26 +1336,26 @@ footer {
   position: relative;
   overflow: hidden;
   border-radius: 24px;
-  border: 2px solid rgba(217, 119, 6, 0.35);
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 45%, #ecfdf5 100%);
-  color: #334155;
-  padding: 28px 32px 32px;
-  box-shadow: 0 25px 80px rgba(15, 23, 42, 0.08);
+  border: 2px solid rgba(245, 158, 11, 0.45);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 45%, #ecfdf5 100%);
+  color: #1e293b;
+  padding: 28px 32px32px;
+  box-shadow: 0 25px 80px rgba(148, 163, 184, 0.3);
 }
 
 /* Ribbon */
 .tribute-ribbon {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+ -items: center;
   justify-content: space-between;
   gap: 12px;
   padding-bottom: 20px;
   margin-bottom: 24px;
-  border-bottom: 1px solid rgba(217, 119, 6, 0.25);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.3);
 }
 .tribute-ribbon-badge {
-  display: inline-flex;
+ : inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
@@ -1364,8 +1364,8 @@ footer {
   font-weight: 800;
   letter-spacing: 0.02em;
   color: #b45309;
-  background: linear-gradient(90deg, rgba(254, 243, 199, 0.8), rgba(253, 230, 138, 0.5));
-  border: 1px solid rgba(245, 158, 11, 0.45);
+  background: linear(90deg rgba(254, 243, 199, 0.9), rgba(253, 230, 138, 0.4));
+  border: 1px solid rgba(217, 119, 6, 0.35);
 }
 .tribute-ribbon-badge svg {
   color: #d97706;
@@ -1408,19 +1408,19 @@ footer {
   display: inline-block;
   margin-bottom: 14px;
 }
-.tribute-crest {
+.tributecrest {
   width: 160px;
   height: 160px;
   border-radius: 22px;
   padding: 3px;
-  background: linear-gradient(135deg, #f59e0b, #10b981, #0d9488);
-  box-shadow: 0 16px 40px rgba(245, 158, 11, 0.2);
+  background: linear-gradient(135deg, #fbbf24, #10b981,0d9488);
+  box-shadow: 0 16px 40px rgba(245, 158, 11, 0.25);
 }
 .tribute-crest-inner {
   width: 100%;
   height: 100%;
   border-radius: 19px;
-  background: #ffffff;
+  background: #fffbeb;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1449,12 +1449,12 @@ footer {
   width: 36px;
   height: 36px;
   border-radius: 12px;
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background:-gradient(90deg, #f59e0b, #d97706);
   color: #ffffff;
   display: grid;
   place-items: center;
-  border: 2px solid #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border:2px solid #ffffff;
+  box-shadow: 0 4px12px rgba(0, 0, 0, 0.15);
 }
 .tribute-name {
   margin: 8px 0 4px;
@@ -1473,9 +1473,9 @@ footer {
 }
 .tribute-org {
   margin: 0 0 16px;
-  font-size: 12px;
+ -size: 12px;
   line-height: 1.5;
-  color: #64748b;
+ : #64748b;
 }
 
 .tribute-social {
@@ -1494,8 +1494,8 @@ footer {
   font-weight: 800;
   color: #fff;
   text-decoration: none;
-  border: 0;
-  cursor: pointer;
+  border 0;
+  cursor pointer;
   transition: 0.15s;
 }
 .tribute-btn-yt {
@@ -1511,32 +1511,32 @@ footer {
   background: #3b82f6;
 }
 .tribute-btn-start {
-  background: linear-gradient(90deg, #059669, #0d9488);
+  background: linear-gradient(90deg, #10b981, #2dd4bf);
   color: #ffffff;
 }
 
 /* Quotes + stats */
 .tribute-quote-card {
   background: #ffffff;
-  border: 2px solid rgba(245, 158, 11, 0.3);
+  border: 2px solid(245, 158 11, 0.35);
   border-radius: 20px;
   padding: 22px 24px;
   margin-bottom: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.15);
 }
 .tribute-quote-head {
-  display: flex;
+ display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding-bottom: 12px;
+  padding-bottom: 12;
   margin-bottom: 12px;
   border-bottom: 1px solid #e2e8f0;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #d97706;
+  color: #b45309;
 }
 .tribute-quote-head span:last-child {
   color: #64748b;
@@ -1578,14 +1578,13 @@ footer {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  border: 0;
+  border: ;
   background: #cbd5e1;
   cursor: pointer;
   padding: 0;
 }
-.tribute-dots .dot.active {
-  width: 24px;
-  background: #f59e0b;
+.tribute-dots .dot {
+  width 24px  background: #f59e0b;
 }
 .tribute-quote-btns {
   display: flex;
@@ -1594,17 +1593,18 @@ footer {
 .tribute-quote-btns button {
   padding: 6px 12px;
   border-radius: 8px;
-  border: 0;
+  border: 1px solid #e2e8f0;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  background: #e2e8f0;
+  background: #f1f5f9;
   color: #334155;
 }
 .tribute-quote-btns button.next {
   background: #f59e0b;
   color: #ffffff;
   font-weight: 800;
+  border-color: #f59e0b;
 }
 
 .tribute-stats {
@@ -1621,7 +1621,7 @@ footer {
   text-align: center;
   padding: 12px 10px;
   border-radius: 14px;
-  background: #ffffff;
+  background: #f8fafc;
   border: 1px solid #e2e8f0;
 }
 .tribute-stat-v {
@@ -1647,7 +1647,7 @@ footer {
 }
 .tribute-tabs-label {
   font-size: 11px;
-  font-weight: 700;
+ font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #64748b;
@@ -1655,9 +1655,9 @@ footer {
 .tribute-tabs-hub {
   font-size: 11px;
   font-family: ui-monospace, monospace;
-  color: #b45309;
-  background: rgba(254, 243, 199, 0.8);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #92400e;
+  background: rgba(254, 243, 199, .7);
+  border: 1px solid rgba(217, 119, 6, 0.35);
   padding: 2px 8px;
   border-radius: 6px;
 }
@@ -1673,7 +1673,7 @@ footer {
   gap: 6px;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #e2e8f0;
   background: #ffffff;
   color: #475569;
   font-size: 12px;
@@ -1685,7 +1685,7 @@ footer {
   color: #ffffff;
   border-color: #f59e0b;
   font-weight: 800;
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
 }
 
 /* Shared panel box */
@@ -1694,18 +1694,18 @@ footer {
   border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 24px;
-  color: #334155;
+  color: #475569;
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 14px rgba(148, 163, 184, .12);
 }
 .tribute-panel-box p {
   margin: 0 0 12px;
-  color: #475569;
+  color: #64748b;
 }
 .tribute-panel-box strong {
-  color: #0f172a;
+  color:0f172a;
 }
 .tribute-panel-head {
   display: flex;
@@ -1729,8 +1729,8 @@ footer {
   font-family: Georgia, serif;
   font-style: italic;
   font-size: 17px !important;
-  color: #047857 !important;
-  border-left: 4px solid #f59e0b;
+  color: #065f46 !important;
+  border-left: 4px solid #fbbf24;
   padding-left: 14px;
   margin-bottom: 16px !important;
 }
@@ -1756,7 +1756,7 @@ footer {
 
 /* Degrees */
 .tribute-degrees {
-  display: grid;
+ display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin-bottom: 20px;
@@ -1771,13 +1771,14 @@ footer {
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.12);
 }
 .tribute-degree .num {
   font-size: 10px;
-  font-weight: 800;
+ font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #d97706;
+  color: #b45309;
 }
 .tribute-degree h4 {
   margin: 4px 0 10px;
@@ -1787,9 +1788,9 @@ footer {
 .tribute-degree .year {
   font-size: 11px;
   font-weight: 700;
-  color: #b45309;
-  background: rgba(254, 243, 199, 0.8);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #92400e;
+  background: rgba(254, 243, 199, 0.7);
+  border: 1px solid rgba(217, 119, 6, 0.35);
   padding: 4px 8px;
   border-radius: 8px;
 }
@@ -1814,7 +1815,7 @@ footer {
   margin-bottom: 10px;
 }
 .tribute-degree .field strong {
-  color: #334155;
+  color: #475569;
 }
 .tribute-degree p {
   margin: 0;
@@ -1844,12 +1845,13 @@ footer {
 }
 .tribute-pillar {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.12);
 }
 .pillar-top {
   display: flex;
@@ -1859,9 +1861,9 @@ footer {
 .phase {
   font-size: 10px;
   font-weight: 900;
-  color: #b45309;
-  background: rgba(254, 243, 199, 0.8);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #92400e;
+  background: rgba(254, 243, 199, 0.7);
+  border: 1px solid rgba(217, 119, 6, 0.3);
   padding: 4px 8px;
   border-radius: 8px;
 }
@@ -1889,7 +1891,7 @@ footer {
 }
 .pillar-foot {
   padding-top: 10px;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #e28f0;
   font-size: 11px;
   font-weight: 700;
   color: #059669;
@@ -1899,7 +1901,7 @@ footer {
 }
 
 /* Student wall */
-.tribute-wall {
+.-wall {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
@@ -1915,18 +1917,19 @@ footer {
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
+  box-shadow: 0 4px 14px rgba(148, 163, 184, 0.12);
 }
 .stu-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 12;
 }
 .stu-avatar {
-  width: 40px;
+  width 40px;
   height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #f59e0b, #10b981);
+  background: linear-gradient(135deg, #fbbf24, #10b981);
   color: #ffffff;
   font-weight: 900;
   display: grid;
@@ -1947,8 +1950,8 @@ footer {
   margin-left: auto;
   font-size: 10px;
   font-weight: 700;
-  color: #059669;
-  background: #ecfdf5;
+  color: #047857;
+  background: rgba(209, 250, 229, 0.7);
   border: 1px solid #a7f3d0;
   padding: 2px 8px;
   border-radius: 6px;
@@ -1958,7 +1961,7 @@ footer {
   padding: 12px;
   font-size: 12px;
   font-style: italic;
-  color: #475569;
+  color: #64748b;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -1967,14 +1970,14 @@ footer {
 .stu-foot {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align: center;
   font-size: 11px;
   color: #64748b;
   padding-top: 10px;
   border-top: 1px solid #e2e8f0;
 }
 .stu-foot .badge {
-  color: #d97706;
+  color: #b45309;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -1993,14 +1996,14 @@ footer {
   gap: 14px;
   padding: 18px;
   border-radius: 16px;
-  background: linear-gradient(90deg, #fef2f2, #f1f5f9);
-  border: 1px solid #fecaca;
+  background: linear-gradient(90deg, rgba(254, 226, 226, 0.8), #ffffff);
+  border: 1px solid rgba(185, 28, 28, 0.25);
   margin-bottom: 14px;
 }
 .tribute-videos-banner h4 {
   margin: 0 0 4px;
   font-size: 15px;
-  color: #991b1b;
+  color: #0f172a;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2025,13 +2028,14 @@ footer {
   border: 1px solid #e2e8f0;
   border-radius: 16px;
   padding: 18px;
+  box-shadow:  4px 14 rgba(148, 163, 184, 0.12);
 }
 .tribute-lec .tag {
   font-size: 10px;
   font-weight: 800;
-  color: #991b1b;
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  color: #b91c1c;
+  background: rgba(254, 226, 226, 0.7);
+  border: 1px solid rgba(185, 28, 28, 0.3);
   padding: 3px 8px;
   border-radius: 6px;
 }
@@ -2048,13 +2052,13 @@ footer {
 }
 .tribute-lec a {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align: center;
+  justify: center;
   gap: 6px;
   padding: 10px;
   border-radius: 12px;
   background: #f8fafc;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #e2e8f0;
   color: #334155;
   font-size: 12px;
   font-weight: 700;
@@ -2062,7 +2066,7 @@ footer {
 }
 .tribute-lec a:hover {
   border-color: #dc2626;
-  color: #dc2626;
+  color: #b91c1c;
   background: #fef2f2;
 }
 
@@ -2075,8 +2079,8 @@ footer {
   gap: 16px;
   padding: 20px 22px;
   border-radius: 16px;
-  background: linear-gradient(90deg, #fef2f2, #ffffff);
-  border: 1px solid #fecaca;
+  background: linear-gradient(90deg, rgba(254, 226, 226, 0.85), #ffffff);
+  border: 1px solid rgba(185, 28, 28, 0.25);
 }
 .tribute-yt-banner .yt-title {
   display: flex;
@@ -2084,7 +2088,7 @@ footer {
   gap: 8px;
   font-size: 16px;
   font-weight: 900;
-  color: #991b1b;
+  color: #0f172a;
   margin-bottom: 6px;
 }
 .tribute-yt-banner p {
@@ -2106,10 +2110,6 @@ footer {
     width: 140px;
     height: 140px;
   }
-  .tribute-name {
-    font-size: 22px;
-  }
-}
   .tribute-name {
     font-size: 22px;
   }
