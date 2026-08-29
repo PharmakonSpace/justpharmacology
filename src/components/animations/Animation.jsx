@@ -1,0 +1,1 @@
+import DrugReceptor from './DrugReceptor'; import ADME from './ADME'; import AgonistAntagonist from './AgonistAntagonist'; export default function Animation({type}){if(type==='adme')return <ADME/>;if(type==='agonist-antagonist')return <AgonistAntagonist/>;return <DrugReceptor/>}

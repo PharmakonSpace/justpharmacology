@@ -1,0 +1,1 @@
+export default function Footer(){return <footer><div className="container footer"><div><strong>Just Pharmacology</strong><p>Understand Pharmacology. Don't Just Memorize It.</p></div><div><p>Educational initiative by Dr. Manoj Goyal</p><a href="https://www.youtube.com/@JustPharmacology" target="_blank" rel="noreferrer">YouTube ↗</a></div></div></footer>}

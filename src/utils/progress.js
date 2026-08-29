@@ -1,0 +1,1 @@
+const KEY='jp_progress_v1'; export function getProgress(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return {}}} export function completeLesson(id){const p=getProgress();p[id]=true;localStorage.setItem(KEY,JSON.stringify(p));return p} export function isComplete(id){return !!getProgress()[id]}
