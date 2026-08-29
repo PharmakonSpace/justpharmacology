@@ -60,21 +60,21 @@ const recentVideos = [
     title: '',
     youtubeId: '0XbGRhGVVDY',
     duration: '',
-    topic: ',
+    topic: '',
   }, 
   {
     id: '2',
     title: '',
     youtubeId: 'KRKvPxiVTmw',
-    duration: '15:20',
-    topic: 'Pharmacokinetics',
+    duration: '',
+    topic: '',
   },
   {
     id: '3',
     title: 'Drug–Receptor Interactions',
     youtubeId: '7MUrNkgzjkU',
-    duration: '11:05',
-    topic: 'Pharmacodynamics',
+    duration: '',
+    topic: 's',
   },
 ];
 
