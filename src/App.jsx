@@ -348,547 +348,337 @@ function Home() {
       </section>
 
       {/* ═══ GRAND TRIBUTE — Dr. Manoj Goyal ═══ */}
-      <section className="section" style={{ paddingTop: 40, paddingBottom: 80 }}>
-        <div className="container" style={{ maxWidth: 1120 }}>
-          <div
-            className="relative overflow-hidden text-white rounded-3xl p-6 sm:p-10 border-2 space-y-10"
-            style={{
-              background: 'linear-gradient(135deg, #020617 0%, #0f172a 45%, #022c22 100%)',
-              borderColor: 'rgba(245, 158, 11, 0.3)',
-              boxShadow: '0 25px 80px rgba(2, 6, 23, 0.45)',
-            }}
-          >
-            <div
-              className="pointer-events-none absolute top-0 right-0 w-96 h-96 rounded-full"
-              style={{ background: 'rgba(245, 158, 11, 0.1)', filter: 'blur(80px)' }}
-            />
-            <div
-              className="pointer-events-none absolute bottom-0 left-0 w-96 h-96 rounded-full"
-              style={{ background: 'rgba(16, 185, 129, 0.1)', filter: 'blur(80px)' }}
-            />
+<section className="section tribute-section">
+  <div className="container tribute-wrap">
+    <div className="tribute-panel">
+      {/* Ribbon */}
+      <div className="tribute-ribbon">
+        <div className="tribute-ribbon-badge">
+          <Crown size={16} />
+          <span>Dedicated with Deepest Respect &amp; Gratitude by his Students</span>
+        </div>
+        <div className="tribute-ribbon-meta">
+          <span>Associate Professor of Pharmacology</span>
+          <span className="dot" />
+          <span>HNBGU Central University</span>
+        </div>
+      </div>
 
-            {/* Ribbon */}
-            <div className="relative flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-amber-500/20">
-              <div
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-black tracking-wide"
-                style={{
-                  background:
-                    'linear-gradient(90deg, rgba(245,158,11,0.2), rgba(217,119,6,0.1))',
-                  border: '1px solid rgba(251, 191, 36, 0.4)',
-                  color: '#fcd34d',
-                }}
-              >
-                <Crown className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Dedicated with Deepest Respect &amp; Gratitude by his Students</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <span className="text-xs text-amber-200/80 font-medium hidden sm:inline">
-                  Associate Professor of Pharmacology
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                <span className="text-xs text-slate-300 font-mono">HNBGU Central University</span>
+      {/* Profile + quotes */}
+      <div className="tribute-main">
+        <div className="tribute-profile">
+          <div className="tribute-crest-wrap">
+            <div className="tribute-crest">
+              <div className="tribute-crest-inner">
+                <GraduationCap size={48} />
+                <div className="tribute-crest-name">Dr. Manoj Goyal</div>
+                <div className="tribute-crest-deg">Ph.D. · M.Pharm · LL.B</div>
               </div>
             </div>
-
-            {/* Profile + quotes */}
-            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-4 flex flex-col items-center text-center space-y-4">
-                <div className="relative">
-                  <div
-                    className="w-36 h-36 sm:w-44 sm:h-44 rounded-3xl p-1 shadow-2xl"
-                    style={{
-                      background: 'linear-gradient(135deg, #fbbf24, #10b981, #0d9488)',
-                      boxShadow: '0 20px 50px rgba(245, 158, 11, 0.2)',
-                    }}
-                  >
-                    <div
-                      className="w-full h-full rounded-[22px] flex flex-col items-center justify-center p-4 relative overflow-hidden"
-                      style={{ background: '#020617' }}
-                    >
-                      <GraduationCap className="w-14 h-14 text-amber-400 mb-2 relative z-10" />
-                      <div className="font-serif italic font-black text-amber-300 text-base relative z-10">
-                        Dr. Manoj Goyal
-                      </div>
-                      <div className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider relative z-10">
-                        Ph.D. · M.Pharm · LL.B
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="absolute -bottom-3 -right-2 p-2 rounded-2xl shadow-lg border-2 border-slate-950"
-                    style={{
-                      background: 'linear-gradient(90deg, #f59e0b, #d97706)',
-                      color: '#020617',
-                    }}
-                  >
-                    <Medal className="w-5 h-5" />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                    Dr. Manoj Goyal
-                  </h2>
-                  <p className="text-xs text-amber-300 font-bold tracking-wide uppercase">
-                    Distinguished Pharmacologist &amp; Master Educator
-                  </p>
-                  <p className="text-xs text-slate-300 max-w-xs leading-snug pt-1">
-                    Department of Pharmaceutical Sciences, Hemvati Nandan Bahuguna Garhwal
-                    University (Central University), Srinagar, Uttarakhand, India
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-                  <a
-                    href="https://www.youtube.com/@JustPharmacology"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition-all shadow-md"
-                  >
-                    <YoutubeIcon className="w-4 h-4" />
-                    @JustPharmacology
-                    <ExternalLink className="w-3 h-3 opacity-70" />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/manoj-goyal-327231ab/"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5 transition-all shadow-md"
-                  >
-                    <Globe className="w-4 h-4" />
-                    LinkedIn
-                    <ExternalLink className="w-3 h-3 opacity-70" />
-                  </a>
-                </div>
-              </div>
-
-              <div className="lg:col-span-8 space-y-6">
-                <div
-                  className="relative rounded-3xl p-6 sm:p-8 space-y-4 shadow-xl"
-                  style={{
-                    background: 'rgba(15, 23, 42, 0.9)',
-                    border: '2px solid rgba(245, 158, 11, 0.3)',
-                  }}
-                >
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div className="flex items-center gap-2 text-amber-400 text-xs font-black tracking-wider uppercase">
-                      <Quote className="w-4 h-4" />
-                      Words of Wisdom from Dr. Manoj Goyal
-                    </div>
-                    <span className="text-xs text-slate-400">
-                      {activeQuoteIdx + 1} of {drGoyalQuotes.length}
-                    </span>
-                  </div>
-
-                  <div className="min-h-[90px] flex flex-col justify-center space-y-2">
-                    <p className="italic text-base sm:text-lg text-amber-100 font-serif leading-relaxed">
-                      &ldquo;{drGoyalQuotes[activeQuoteIdx].quote}&rdquo;
-                    </p>
-                    <div className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      {drGoyalQuotes[activeQuoteIdx].context}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-800/80">
-                    <div className="flex items-center gap-1.5">
-                      {drGoyalQuotes.map((_, qIdx) => (
-                        <button
-                          key={qIdx}
-                          type="button"
-                          onClick={() => setActiveQuoteIdx(qIdx)}
-                          className={`h-2 rounded-full transition-all ${
-                            activeQuoteIdx === qIdx
-                              ? 'w-6 bg-amber-400'
-                              : 'w-2 bg-slate-700 hover:bg-slate-500'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setActiveQuoteIdx((p) =>
-                            p === 0 ? drGoyalQuotes.length - 1 : p - 1
-                          )
-                        }
-                        className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold"
-                      >
-                        ← Previous
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setActiveQuoteIdx((p) =>
-                            p === drGoyalQuotes.length - 1 ? 0 : p + 1
-                          )
-                        }
-                        className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold"
-                      >
-                        Next Quote →
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {[
-                    { v: '20+ Yrs', l: 'Academic Pedagogy', c: '#fbbf24' },
-                    { v: 'BIT Mesra', l: 'Ph.D. & M.Pharm', c: '#34d399' },
-                    { v: 'LL.B.', l: 'Pharma Jurisprudence', c: '#22d3ee' },
-                    { v: 'Central Univ.', l: 'HNBGU Faculty', c: '#fcd34d' },
-                    { v: 'YouTube', l: 'Just Pharmacology', c: '#f87171' },
-                    { v: 'Mentor', l: 'Students worldwide', c: '#c084fc' },
-                  ].map((s) => (
-                    <div
-                      key={s.l}
-                      className="p-3.5 rounded-2xl text-center space-y-1"
-                      style={{
-                        background: 'rgba(15,23,42,0.8)',
-                        border: '1px solid #1e293b',
-                      }}
-                    >
-                      <div className="text-xl font-black" style={{ color: s.c }}>
-                        {s.v}
-                      </div>
-                      <div className="text-[11px] text-slate-400 font-medium">{s.l}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="tribute-medal">
+              <Medal size={18} />
             </div>
+          </div>
 
-            {/* Tabs nav */}
-            <div className="relative pt-4 border-t border-slate-800">
-              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                  Explore Dr. Goyal&apos;s profile &amp; teachings
-                </span>
-                <span className="text-[11px] font-mono text-amber-400/80 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-800/40">
-                  Interactive Mentor Hub
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  { id: 'letter', label: 'Personal Welcome Letter', Icon: Heart },
-                  { id: 'journey', label: 'Academic Degrees', Icon: GraduationCap },
-                  { id: 'pedagogy', label: '4-Step Teaching Philosophy', Icon: Lightbulb },
-                  { id: 'tributes', label: 'Student Gratitude', Icon: Users },
-                  { id: 'videos', label: 'Signature Lectures', Icon: YoutubeIcon },
-                ].map(({ id, label, Icon }) => (
-                  <button
-                    key={id}
-                    type="button"
-                    onClick={() => setMentorActiveTab(id)}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition-all ${
-                      mentorActiveTab === id
-                        ? 'bg-amber-500 text-slate-950 shadow-md scale-[1.02]'
-                        : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
+          <h2 className="tribute-name">Dr. Manoj Goyal</h2>
+          <p className="tribute-title">Distinguished Pharmacologist &amp; Master Educator</p>
+          <p className="tribute-org">
+            Department of Pharmaceutical Sciences, Hemvati Nandan Bahuguna Garhwal
+            University (Central University), Srinagar, Uttarakhand, India
+          </p>
 
-            {/* Tab: Letter */}
-            {mentorActiveTab === 'letter' && (
-              <div
-                className="rounded-3xl p-6 sm:p-8 space-y-5 text-slate-200 leading-relaxed text-sm sm:text-base"
-                style={{ background: 'rgba(15,23,42,0.9)', border: '1px solid #1e293b' }}
-              >
-                <div className="flex items-center justify-between pb-3 border-b border-slate-800 flex-wrap gap-2">
-                  <div className="text-xs font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1.5">
-                    <Heart className="w-4 h-4 text-rose-400" />
-                    A message in the spirit of Dr. Manoj Goyal&apos;s teaching
-                  </div>
-                  <span className="text-xs text-slate-400">HNBGU · Pharmaceutical Sciences</span>
-                </div>
-                <p className="italic text-emerald-200 font-serif text-lg border-l-4 border-amber-400 pl-4 py-1">
-                  &ldquo;Pharmacology is not an intimidating directory of chemicals to
-                  memorize—it is the fascinating science of molecular keys unlocking living
-                  cells to relieve human suffering.&rdquo;
-                </p>
-                <p>Dear Students, Doctors, Pharmacists, and Healthcare Aspirants,</p>
-                <p className="text-slate-300">
-                  Welcome to <strong className="text-white">Just Pharmacology</strong>. This
-                  space is built under the inspiration of Dr. Manoj Goyal&apos;s classroom
-                  approach — clarity first, mechanisms next, revision with purpose.
-                </p>
-                <p className="text-slate-300">
-                  When receptor signaling and pathways are understood, lists of drugs stop
-                  being a burden and start forming a logical map. That is the spirit we try to
-                  honour here.
-                </p>
-                <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-800">
-                  <div>
-                    <div className="font-serif italic text-xl text-amber-300">
-                      Dr. Manoj Goyal
-                    </div>
-                    <div className="text-xs text-slate-400">
-                      Ph.D., M.Pharm (BIT), B.Pharm, LL.B · Associate Professor of Pharmacology
-                    </div>
-                  </div>
-                  <Link
-                    to="/learn"
-                    className="px-5 py-3 rounded-xl text-xs font-black flex items-center gap-2 shadow-lg"
-                    style={{
-                      background: 'linear-gradient(90deg, #10b981, #2dd4bf)',
-                      color: '#020617',
-                    }}
-                  >
-                    <FolderTree className="w-4 h-4" />
-                    Start Learning
-                  </Link>
-                </div>
-              </div>
-            )}
-
-            {/* Tab: Journey */}
-            {mentorActiveTab === 'journey' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {degreesAndQualifications.map((deg, idx) => (
-                  <div
-                    key={idx}
-                    className="p-6 rounded-2xl space-y-3"
-                    style={{ background: 'rgba(15,23,42,0.9)', border: '1px solid #1e293b' }}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold">
-                          Academic Qualification 0{idx + 1}
-                        </span>
-                        <h4 className="font-extrabold text-white text-base mt-0.5">
-                          {deg.degree}
-                        </h4>
-                      </div>
-                      {deg.year && (
-                        <span className="text-xs font-mono font-bold text-amber-300 bg-amber-950/60 border border-amber-800/60 px-2.5 py-1 rounded-lg">
-                          {deg.year}
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-xs font-bold text-emerald-400 flex items-center gap-2">
-                      <Building2 className="w-4 h-4 shrink-0" />
-                      {deg.institution}
-                    </div>
-                    <div className="text-xs text-slate-400">
-                      <strong className="text-slate-300">Specialization:</strong> {deg.field}
-                    </div>
-                    <p className="text-xs text-slate-300 leading-relaxed pt-2 border-t border-slate-800">
-                      {deg.highlight}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Tab: Pedagogy */}
-            {mentorActiveTab === 'pedagogy' && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {teachingPillars.map((tp) => {
-                  const Icon = tp.icon;
-                  return (
-                    <div
-                      key={tp.step}
-                      className="p-6 rounded-2xl space-y-3 flex flex-col justify-between"
-                      style={{ background: 'rgba(15,23,42,0.9)', border: '1px solid #1e293b' }}
-                    >
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-mono font-black text-amber-400 bg-amber-950/60 px-2.5 py-1 rounded-lg border border-amber-800/40">
-                            PHASE 0{tp.step}
-                          </span>
-                          <div className="w-9 h-9 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-800/60 flex items-center justify-center">
-                            <Icon className="w-4 h-4" />
-                          </div>
-                        </div>
-                        <h4 className="font-extrabold text-white text-sm">{tp.title}</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">{tp.desc}</p>
-                      </div>
-                      <div className="pt-3 border-t border-slate-800/80 text-[11px] text-emerald-300 font-bold flex items-center gap-1">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        Core classroom tenet
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Tab: Tributes */}
-            {mentorActiveTab === 'tributes' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {studentTributes.map((st, sIdx) => (
-                  <div
-                    key={sIdx}
-                    className="p-6 rounded-2xl space-y-4 flex flex-col justify-between"
-                    style={{ background: 'rgba(15,23,42,0.9)', border: '1px solid #1e293b' }}
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-3">
-                          <div
-                            className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm text-slate-950"
-                            style={{
-                              background: 'linear-gradient(135deg, #fbbf24, #10b981)',
-                            }}
-                          >
-                            {st.name.charAt(0)}
-                          </div>
-                          <div>
-                            <h5 className="font-bold text-white text-sm">{st.name}</h5>
-                            <p className="text-xs text-amber-300/90 font-medium">{st.role}</p>
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
-                          {st.batch}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-300 italic leading-relaxed bg-slate-950/60 p-3.5 rounded-xl border border-slate-800/80">
-                        &ldquo;{st.message}&rdquo;
-                      </p>
-                    </div>
-                    <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-400 font-medium">{st.institution}</span>
-                      <span className="text-amber-400 font-bold flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                        {st.badge}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Tab: Videos */}
-            {mentorActiveTab === 'videos' && (
-              <div className="space-y-6">
-                <div
-                  className="p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
-                  style={{
-                    background: 'linear-gradient(90deg, rgba(127,29,29,0.4), #0f172a)',
-                    border: '1px solid rgba(127,29,29,0.4)',
-                  }}
-                >
-                  <div>
-                    <h4 className="font-extrabold text-white text-base flex items-center gap-2">
-                      <YoutubeIcon className="w-5 h-5 text-red-500" />
-                      Signature lectures · @JustPharmacology
-                    </h4>
-                    <p className="text-xs text-slate-300 mt-1">
-                      Animated, clear pharmacology teaching in the spirit of Dr. Goyal&apos;s
-                      classroom.
-                    </p>
-                  </div>
-                  <a
-                    href="https://www.youtube.com/@JustPharmacology"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-black flex items-center gap-1.5"
-                  >
-                    <Play className="w-3.5 h-3.5 fill-current" />
-                    Visit channel
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {signatureLectures.map((lec, lIdx) => (
-                    <div
-                      key={lIdx}
-                      className="p-6 rounded-2xl space-y-3 flex flex-col justify-between"
-                      style={{
-                        background: 'rgba(15,23,42,0.9)',
-                        border: '1px solid #1e293b',
-                      }}
-                    >
-                      <div className="space-y-2.5">
-                        <span className="text-[11px] font-mono font-bold text-red-300 bg-red-950/60 border border-red-800/40 px-2.5 py-0.5 rounded">
-                          {lec.tag}
-                        </span>
-                        <h5 className="font-bold text-white text-sm leading-snug">{lec.title}</h5>
-                        <p className="text-xs text-slate-300 leading-relaxed">{lec.desc}</p>
-                      </div>
-                      <a
-                        href={lec.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="w-full mt-2 py-2.5 bg-slate-950 hover:bg-red-950/60 text-slate-200 border border-slate-800 hover:border-red-700/60 rounded-xl text-xs font-bold flex items-center justify-center gap-2"
-                      >
-                        <Play className="w-3.5 h-3.5 text-red-500 fill-current" />
-                        Watch on YouTube
-                        <ExternalLink className="w-3 h-3 opacity-60" />
-                      </a>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* YouTube banner */}
-            <div
-              className="rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6"
-              style={{
-                background: 'linear-gradient(90deg, #450a0a, #0f172a)',
-                border: '1px solid rgba(127, 29, 29, 0.4)',
-              }}
+          <div className="tribute-social">
+            <a
+              href="https://www.youtube.com/@JustPharmacology"
+              target="_blank"
+              rel="noreferrer"
+              className="tribute-btn tribute-btn-yt"
             >
-              <div className="space-y-2 text-center sm:text-left">
-                <div className="flex items-center justify-center sm:justify-start gap-2">
-                  <YoutubeIcon className="w-6 h-6 text-red-500" />
-                  <span className="font-black text-white text-base">
-                    Just Pharmacology on YouTube
+              <YoutubeIcon size={16} />
+              @JustPharmacology
+              <ExternalLink size={12} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/manoj-goyal-327231ab/"
+              target="_blank"
+              rel="noreferrer"
+              className="tribute-btn tribute-btn-li"
+            >
+              <Globe size={16} />
+              LinkedIn
+              <ExternalLink size={12} />
+            </a>
+          </div>
+        </div>
+
+        <div className="tribute-right">
+          <div className="tribute-quote-card">
+            <div className="tribute-quote-head">
+              <span>
+                <Quote size={14} /> Words of Wisdom from Dr. Manoj Goyal
+              </span>
+              <span>
+                {activeQuoteIdx + 1} of {drGoyalQuotes.length}
+              </span>
+            </div>
+            <p className="tribute-quote-text">
+              &ldquo;{drGoyalQuotes[activeQuoteIdx].quote}&rdquo;
+            </p>
+            <p className="tribute-quote-ctx">
+              <Sparkles size={14} /> {drGoyalQuotes[activeQuoteIdx].context}
+            </p>
+            <div className="tribute-quote-nav">
+              <div className="tribute-dots">
+                {drGoyalQuotes.map((_, qIdx) => (
+                  <button
+                    key={qIdx}
+                    type="button"
+                    className={activeQuoteIdx === qIdx ? 'dot active' : 'dot'}
+                    onClick={() => setActiveQuoteIdx(qIdx)}
+                  />
+                ))}
+              </div>
+              <div className="tribute-quote-btns">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveQuoteIdx((p) =>
+                      p === 0 ? drGoyalQuotes.length - 1 : p - 1
+                    )
+                  }
+                >
+                  ← Previous
+                </button>
+                <button
+                  type="button"
+                  className="next"
+                  onClick={() =>
+                    setActiveQuoteIdx((p) =>
+                      p === drGoyalQuotes.length - 1 ? 0 : p + 1
+                    )
+                  }
+                >
+                  Next Quote →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="tribute-stats">
+            {[
+              { v: '20+ Yrs', l: 'Academic Pedagogy', c: '#fbbf24' },
+              { v: 'BIT Mesra', l: 'Ph.D. & M.Pharm', c: '#34d399' },
+              { v: 'LL.B.', l: 'Pharma Jurisprudence', c: '#22d3ee' },
+              { v: 'Central Univ.', l: 'HNBGU Faculty', c: '#fcd34d' },
+              { v: 'YouTube', l: 'Just Pharmacology', c: '#f87171' },
+              { v: 'Mentor', l: 'Students worldwide', c: '#c084fc' },
+            ].map((s) => (
+              <div className="tribute-stat" key={s.l}>
+                <div className="tribute-stat-v" style={{ color: s.c }}>
+                  {s.v}
+                </div>
+                <div className="tribute-stat-l">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="tribute-tabs-bar">
+        <span className="tribute-tabs-label">Explore Dr. Goyal&apos;s profile &amp; teachings</span>
+        <span className="tribute-tabs-hub">Interactive Mentor Hub</span>
+      </div>
+      <div className="tribute-tabs">
+        {[
+          { id: 'letter', label: 'Personal Welcome Letter', Icon: Heart },
+          { id: 'journey', label: 'Academic Degrees', Icon: GraduationCap },
+          { id: 'pedagogy', label: '4-Step Teaching Philosophy', Icon: Lightbulb },
+          { id: 'tributes', label: 'Student Gratitude', Icon: Users },
+          { id: 'videos', label: 'Signature Lectures', Icon: YoutubeIcon },
+        ].map(({ id, label, Icon }) => (
+          <button
+            key={id}
+            type="button"
+            className={mentorActiveTab === id ? 'tab active' : 'tab'}
+            onClick={() => setMentorActiveTab(id)}
+          >
+            <Icon size={14} />
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab panels */}
+      {mentorActiveTab === 'letter' && (
+        <div className="tribute-panel-box">
+          <div className="tribute-panel-head">
+            <span>
+              <Heart size={16} className="rose" /> A message in the spirit of Dr. Manoj
+              Goyal&apos;s teaching
+            </span>
+            <span>HNBGU · Pharmaceutical Sciences</span>
+          </div>
+          <p className="tribute-letter-quote">
+            &ldquo;Pharmacology is not an intimidating directory of chemicals to
+            memorize—it is the fascinating science of molecular keys unlocking living cells
+            to relieve human suffering.&rdquo;
+          </p>
+          <p>Dear Students, Doctors, Pharmacists, and Healthcare Aspirants,</p>
+          <p>
+            Welcome to <strong>Just Pharmacology</strong>. This space is built under the
+            inspiration of Dr. Manoj Goyal&apos;s classroom approach — clarity first,
+            mechanisms next, revision with purpose.
+          </p>
+          <p>
+            When receptor signaling and pathways are understood, lists of drugs stop being a
+            burden and start forming a logical map. That is the spirit we try to honour here.
+          </p>
+          <div className="tribute-letter-foot">
+            <div>
+              <div className="sign">Dr. Manoj Goyal</div>
+              <div className="sign-sub">
+                Ph.D., M.Pharm (BIT), B.Pharm, LL.B · Associate Professor of Pharmacology
+              </div>
+            </div>
+            <Link to="/learn" className="tribute-btn tribute-btn-start">
+              <FolderTree size={16} />
+              Start Learning
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {mentorActiveTab === 'journey' && (
+        <div className="tribute-degrees">
+          {degreesAndQualifications.map((deg, idx) => (
+            <div className="tribute-degree" key={idx}>
+              <div className="tribute-degree-top">
+                <div>
+                  <span className="num">Academic Qualification 0{idx + 1}</span>
+                  <h4>{deg.degree}</h4>
+                </div>
+                {deg.year && <span className="year">{deg.year}</span>}
+              </div>
+              <div className="inst">
+                <Building2 size={14} /> {deg.institution}
+              </div>
+              <div className="field">
+                <strong>Specialization:</strong> {deg.field}
+              </div>
+              <p>{deg.highlight}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {mentorActiveTab === 'pedagogy' && (
+        <div className="tribute-pillars">
+          {teachingPillars.map((tp) => {
+            const Icon = tp.icon;
+            return (
+              <div className="tribute-pillar" key={tp.step}>
+                <div className="pillar-top">
+                  <span className="phase">PHASE 0{tp.step}</span>
+                  <span className="pillar-icon">
+                    <Icon size={16} />
                   </span>
                 </div>
-                <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
-                  Free, high-quality pharmacology teaching inspired by{' '}
-                  <strong>Dr. Manoj Goyal</strong> — for medical, pharmacy, nursing, and
-                  healthcare students.
-                </p>
+                <h4>{tp.title}</h4>
+                <p>{tp.desc}</p>
+                <div className="pillar-foot">
+                  <CheckCircle2 size={14} /> Core classroom tenet
+                </div>
               </div>
-              <a
-                href="https://www.youtube.com/@JustPharmacology"
-                target="_blank"
-                rel="noreferrer"
-                className="px-5 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-extrabold text-xs shrink-0 flex items-center gap-2 shadow-md"
-              >
-                <Play className="w-4 h-4 fill-current" />
-                Subscribe &amp; Watch
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
+            );
+          })}
         </div>
-      </section>
+      )}
 
-      {/* Disclaimer */}
-      <section className="section disclaimer-section">
-        <div className="container">
-          <div className="disclaimer-box">
-            <h3>Disclaimer</h3>
-            <p>
-              This website is a student-built educational project created under the
-              inspiration of <strong>Dr. Manoj Goyal</strong> and the Just Pharmacology
-              teaching approach. It is intended solely for learning and revision purposes.
-            </p>
-            <p>
-              <strong>
-                Any mistake, error, or incorrect information found on this platform is the
-                sole responsibility of the student developer.
-              </strong>{' '}
-              Dr. Manoj Goyal is not responsible for the content, accuracy, or any
-              consequences arising from the use of this website.
-            </p>
-            <p className="disclaimer-note">
-              Always cross-check critical drug information with standard textbooks,
-              official guidelines, and your teachers.
-            </p>
+      {mentorActiveTab === 'tributes' && (
+        <div className="tribute-wall">
+          {studentTributes.map((st, sIdx) => (
+            <div className="tribute-card-stu" key={sIdx}>
+              <div className="stu-head">
+                <div className="stu-avatar">{st.name.charAt(0)}</div>
+                <div>
+                  <h5>{st.name}</h5>
+                  <p>{st.role}</p>
+                </div>
+                <span className="batch">{st.batch}</span>
+              </div>
+              <p className="stu-msg">&ldquo;{st.message}&rdquo;</p>
+              <div className="stu-foot">
+                <span>{st.institution}</span>
+                <span className="badge">
+                  <Star size={12} /> {st.badge}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {mentorActiveTab === 'videos' && (
+        <div className="tribute-videos">
+          <div className="tribute-videos-banner">
+            <div>
+              <h4>
+                <YoutubeIcon size={20} /> Signature lectures · @JustPharmacology
+              </h4>
+              <p>
+                Animated, clear pharmacology teaching in the spirit of Dr. Goyal&apos;s
+                classroom.
+              </p>
+            </div>
+            <a
+              href="https://www.youtube.com/@JustPharmacology"
+              target="_blank"
+              rel="noreferrer"
+              className="tribute-btn tribute-btn-yt"
+            >
+              <Play size={14} /> Visit channel <ExternalLink size={12} />
+            </a>
+          </div>
+          <div className="tribute-lec-grid">
+            {signatureLectures.map((lec, lIdx) => (
+              <div className="tribute-lec" key={lIdx}>
+                <span className="tag">{lec.tag}</span>
+                <h5>{lec.title}</h5>
+                <p>{lec.desc}</p>
+                <a href={lec.link} target="_blank" rel="noreferrer">
+                  <Play size={14} /> Watch on YouTube <ExternalLink size={12} />
+                </a>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
+      )}
+
+      {/* YouTube footer banner */}
+      <div className="tribute-yt-banner">
+        <div>
+          <div className="yt-title">
+            <YoutubeIcon size={22} /> Just Pharmacology on YouTube
+          </div>
+          <p>
+            Free, high-quality pharmacology teaching inspired by{' '}
+            <strong>Dr. Manoj Goyal</strong> — for medical, pharmacy, nursing, and healthcare
+            students.
+          </p>
+        </div>
+        <a
+          href="https://www.youtube.com/@JustPharmacology"
+          target="_blank"
+          rel="noreferrer"
+          className="tribute-btn tribute-btn-yt"
+        >
+          <Play size={16} /> Subscribe &amp; Watch <ExternalLink size={14} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
     </>
   );
 }
