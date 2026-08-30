@@ -1,4 +1,5 @@
 import { generalPharmacologyLessons } from './general/index.js';
+import { HealthcarePsychologyandcommunicationskillLessons } from './Healthcare_Psychology/index.js'; // Adjust path if needed
 
 export const modules = [
   { id:'general', title:'General Pharmacology', status:'available', lessons:generalPharmacologyLessons },
