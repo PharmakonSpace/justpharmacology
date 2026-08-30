@@ -119,3 +119,109 @@ export function isNewArrival(lessonId) {
   const newArrivals = getNewArrivals();
   return newArrivals.some((l) => l.id === lessonId);
 }
+
+/**
+ * Automatically gathers all video lectures from across all lessons/modules.
+ * Automatically synchronizes with any new lessons added in any subfolder.
+ * Prioritizes newly added lessons (isNew / badge: 'NEW' / healthcare_psychology) at the top,
+ * followed by all other lessons with videos.
+ */
+export function getAllCurriculumVideos() {
+  const videoList = [];
+  const seenVideoIds = new Set();
+
+  allLessons.forEach((lesson) => {
+    if (!lesson.video) return;
+
+    let youtubeId = '';
+    let title = lesson.title;
+
+    if (typeof lesson.video === 'string' && lesson.video.trim() !== '') {
+      youtubeId = lesson.video.trim();
+    } else if (typeof lesson.video === 'object' && lesson.video.youtubeId && lesson.video.youtubeId.trim() !== '') {
+      youtubeId = lesson.video.youtubeId.trim();
+      title = lesson.video.title || lesson.title;
+    }
+
+    if (youtubeId && !seenVideoIds.has(youtubeId)) {
+      seenVideoIds.add(youtubeId);
+      const cat = categories.find((c) => c.id === lesson.categoryId);
+      const isNew = Boolean(lesson.isNew || lesson.badge === 'NEW' || lesson.categoryId === 'healthcare_psychology');
+
+      videoList.push({
+        id: `${lesson.id}-vid`,
+        lessonId: lesson.id,
+        title,
+        lessonTitle: lesson.title,
+        topic: lesson.topic || 'Pharmacology',
+        categoryId: lesson.categoryId,
+        categoryName: cat?.name || lesson.categoryId,
+        youtubeId,
+        duration: `${lesson.time || 10}m`,
+        level: lesson.level || 'Intermediate',
+        isNew,
+        badge: lesson.badge || (isNew ? 'NEW' : null),
+        description: lesson.description || '',
+      });
+    }
+  });
+
+  // Sort so newly added / updated lesson videos appear first!
+  return videoList.sort((a, b) => {
+    if (a.isNew && !b.isNew) return -1;
+    if (!a.isNew && b.isNew) return 1;
+    return 0;
+  });
+}
+
+/**
+ * Returns recent videos for the home page.
+ * Gathers all automatic lesson videos first, and complements with channel signature lectures if needed.
+ */
+export function getRecentCurriculumVideos(limit = 6) {
+  const curriculumVideos = getAllCurriculumVideos();
+  
+  // High quality signature videos from @JustPharmacology to supplement if needed
+  const fallbackSignatureVideos = [
+    {
+      id: 'sig-1',
+      title: 'Adrenergic & Cholinergic Receptors: Fast Visual Mechanisms',
+      topic: 'Autonomic Nervous System',
+      youtubeId: '0XbGRhGVVDY',
+      duration: '12m',
+      categoryName: 'Autonomic Pharmacology',
+      isNew: false,
+    },
+    {
+      id: 'sig-2',
+      title: 'GPCR Signaling Pathways: Gs, Gi, Gq Cascades',
+      topic: 'Pharmacodynamics',
+      youtubeId: 'KRKvPxiVTmw',
+      duration: '14m',
+      categoryName: 'General Pharmacology',
+      isNew: false,
+    },
+    {
+      id: 'sig-3',
+      title: 'Renin-Angiotensin-Aldosterone System (RAAS) Blockade',
+      topic: 'Cardiovascular',
+      youtubeId: '7MUrNkgzjkU',
+      duration: '15m',
+      categoryName: 'Cardiovascular Pharmacology',
+      isNew: false,
+    },
+  ];
+
+  // Combine: lesson videos first, then signature channel lectures if unique
+  const combined = [...curriculumVideos];
+  const seenIds = new Set(curriculumVideos.map((v) => v.youtubeId));
+
+  fallbackSignatureVideos.forEach((sig) => {
+    if (!seenIds.has(sig.youtubeId)) {
+      combined.push(sig);
+      seenIds.add(sig.youtubeId);
+    }
+  });
+
+  return combined.slice(0, limit);
+}

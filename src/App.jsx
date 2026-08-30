@@ -18,6 +18,15 @@ import {
   Star,
   Play,
   FolderTree,
+  Search as SearchIcon,
+  Filter,
+  Clock,
+  BookOpen,
+  Layers,
+  Tv,
+  HelpCircle,
+  Shuffle,
+  RotateCcw,
 } from 'lucide-react';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -29,13 +38,13 @@ import Quiz from './components/quiz/Quiz';
 import { completeLesson, isComplete } from './utils/progress';
 import VideoEmbed from './components/video/VideoEmbed';
 import NewArrivalsSection from './components/home/NewArrivalsSection';
-import { getModulesWithStats } from './utils/contentUtils';
+import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals } from './utils/contentUtils';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
 const safeArray = (v) => (Array.isArray(v) ? v : []);
 
-/* ───────────────────────── Recent videos ───────────────────────── */
+/* ───────────────────────── YouTube icon helper ───────────────────────── */
 function YoutubeIcon({ className, size, ...props }) {
   return (
     <svg
@@ -56,29 +65,6 @@ function YoutubeIcon({ className, size, ...props }) {
     </svg>
   );
 }
-const recentVideos = [
-  {
-    id: '1',
-    title: '',
-    youtubeId: '0XbGRhGVVDY',
-    duration: '',
-    topic: '',
-  }, 
-  {
-    id: '2',
-    title: '',
-    youtubeId: 'KRKvPxiVTmw',
-    duration: '',
-    topic: '',
-  },
-  {
-    id: '3',
-    title: '',
-    youtubeId: '7MUrNkgzjkU',
-    duration: '',
-    topic: '',
-  },
-];
 
 /* ───────────────────────── Dr. Goyal tribute data ───────────────────────── */
 
@@ -206,6 +192,8 @@ function Home() {
   const [activeQuoteIdx, setActiveQuoteIdx] = useState(0);
   const [mentorActiveTab, setMentorActiveTab] = useState('letter');
   const modulesWithStats = useMemo(() => getModulesWithStats(), []);
+  const recentVideos = useMemo(() => getRecentCurriculumVideos(6), []);
+  const allCurriculumVideos = useMemo(() => getAllCurriculumVideos(), []);
 
   return (
     <>
@@ -330,58 +318,114 @@ function Home() {
         </div>
       </section>
 
-      {/* Recent Videos */}
-      <section className="section">
+      {/* Recent Videos - Synchronized with All Lessons and New Arrivals */}
+      <section className="section" id="recent-videos">
         <div className="container">
           <div className="section-head">
             <div>
-              <div className="eyebrow">FROM THE CHANNEL</div>
-              <h2>Recent videos</h2>
+              <div className="eyebrow">
+                <PlayCircle size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 5 }} />
+                AUTOMATIC CURRICULUM SYNC
+              </div>
+              <h2>Recent Videos &amp; Lesson Lectures</h2>
               <p className="section-sub">
-                Short, focused lessons from the Just Pharmacology YouTube channel.
+                Watch focused video explanations automatically synchronized across all pharmacology modules and newly updated lessons.
               </p>
             </div>
-            <a
-              className="btn secondary"
-              href="https://www.youtube.com/@JustPharmacology"
-              target="_blank"
-              rel="noreferrer"
-            >
-              View channel <ArrowRight />
-            </a>
-          </div>
-          <div className="video-grid">
-            {recentVideos.map((v) => (
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <Link className="btn primary" to="/videos">
+                Explore Video Library ({allCurriculumVideos.length}) <ArrowRight size={16} />
+              </Link>
               <a
-                key={v.id}
-                className="video-card"
-                href={
-                  v.youtubeId
-                    ? `https://www.youtube.com/watch?v=${v.youtubeId}`
-                    : 'https://www.youtube.com/@JustPharmacology'
-                }
+                className="btn secondary"
+                href="https://www.youtube.com/@JustPharmacology"
                 target="_blank"
                 rel="noreferrer"
               >
-                <div className="video-thumb">
-                  {v.youtubeId ? (
-                    <img
-                      src={`https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`}
-                      alt={v.title}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="video-thumb-placeholder">
-                      <PlayCircle size={40} />
-                    </div>
-                  )}
-                  {v.duration && <span className="video-duration">{v.duration}</span>}
-                </div>
-                <div className="video-meta">
-                  <span className="video-topic">{v.topic}</span>
-                  <h3>{v.title}</h3>
-                </div>
+                <YoutubeIcon size={16} /> Channel <ExternalLink size={12} />
               </a>
+            </div>
+          </div>
+
+          <div className="video-grid">
+            {recentVideos.map((v) => (
+              <div key={v.id} className="video-card">
+                <a
+                  href={
+                    v.youtubeId
+                      ? `https://www.youtube.com/watch?v=${v.youtubeId}`
+                      : 'https://www.youtube.com/@JustPharmacology'
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                  className="video-thumb-link"
+                >
+                  <div className="video-thumb">
+                    {v.youtubeId ? (
+                      <img
+                        src={`https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`}
+                        alt={v.title}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="video-thumb-placeholder">
+                        <PlayCircle size={40} />
+                      </div>
+                    )}
+                    <div className="video-play-overlay">
+                      <div className="play-btn-circle">
+                        <Play size={20} fill="currentColor" />
+                      </div>
+                    </div>
+                    {v.isNew && (
+                      <span className="video-new-pill">✨ NEW ARRIVAL</span>
+                    )}
+                    {v.duration && <span className="video-duration">{v.duration}</span>}
+                  </div>
+                </a>
+                <div className="video-meta">
+                  <div className="video-meta-top">
+                    <span className="video-topic">{v.topic || v.categoryName || 'Pharmacology'}</span>
+                    {v.isNew && <span className="badge-new-tiny">NEW</span>}
+                  </div>
+                  <h3>
+                    <a
+                      href={
+                        v.youtubeId
+                          ? `https://www.youtube.com/watch?v=${v.youtubeId}`
+                          : 'https://www.youtube.com/@JustPharmacology'
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {v.title}
+                    </a>
+                  </h3>
+                  {v.description && (
+                    <p className="video-card-desc-clamp">{v.description}</p>
+                  )}
+                  <div className="video-card-actions">
+                    {v.lessonId ? (
+                      <Link to={`/lesson/${v.lessonId}`} className="video-lesson-quicklink">
+                        <BookOpen size={13} />
+                        <span>Go to Lesson Notes</span>
+                        <ArrowRight size={13} />
+                      </Link>
+                    ) : (
+                      <a
+                        href={`https://www.youtube.com/watch?v=${v.youtubeId}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="video-lesson-quicklink"
+                      >
+                        <Play size={13} />
+                        <span>Watch on YouTube</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -729,6 +773,7 @@ function Learn() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCat = searchParams.get('category') || 'all';
   const [filter, setFilter] = useState(initialCat);
+  const newArrivals = useMemo(() => getNewArrivals(), []);
 
   useEffect(() => {
     const cat = searchParams.get('category');
@@ -762,6 +807,15 @@ function Learn() {
     return a;
   }, {});
 
+  // Sort topic groups: topics with new/recent lessons appear first!
+  const sortedTopicEntries = Object.entries(topicGroups).sort(([topicA, itemsA], [topicB, itemsB]) => {
+    const aHasNew = itemsA.some((item) => item.isNew || item.badge === 'NEW' || item.categoryId === 'healthcare_psychology');
+    const bHasNew = itemsB.some((item) => item.isNew || item.badge === 'NEW' || item.categoryId === 'healthcare_psychology');
+    if (aHasNew && !bHasNew) return -1;
+    if (!aHasNew && bHasNew) return 1;
+    return 0;
+  });
+
   const currentCategory = categories.find((c) => c.id === filter);
   const completedCount = shown.filter((l) => isComplete(l.id)).length;
 
@@ -789,6 +843,49 @@ function Learn() {
           </p>
         </div>
       </div>
+
+      {/* ── TOP ACCESS: Recently Added & New Topics ── */}
+      {newArrivals.length > 0 && filter === 'all' && (
+        <section className="learn-recent-top-banner">
+          <div className="learn-recent-top-head">
+            <div className="learn-recent-top-title">
+              <span className="badge-new-pill">✨ RECENTLY ADDED &amp; UPDATED</span>
+              <h3>Quick Access: Latest Curriculum Topics</h3>
+            </div>
+            <span className="learn-recent-top-sub">
+              Access new topics immediately without scrolling through all categories
+            </span>
+          </div>
+
+          <div className="learn-recent-chips-grid">
+            {newArrivals.map((item) => (
+              <Link
+                key={item.id}
+                to={`/lesson/${item.id}`}
+                className="learn-recent-chip-card"
+              >
+                <div className="learn-recent-chip-icon">
+                  <BookOpen size={18} />
+                </div>
+                <div className="learn-recent-chip-body">
+                  <div className="learn-recent-chip-topic">
+                    {item.topic || item.categoryId}
+                    <span className="badge-new-tiny">NEW</span>
+                  </div>
+                  <div className="learn-recent-chip-title">{item.title}</div>
+                  <div className="learn-recent-chip-meta">
+                    <span>{item.level || 'Beginner'}</span>
+                    <span>·</span>
+                    <span>{item.time || 10} min read</span>
+                    {item.video && <span>· 🎬 Video</span>}
+                  </div>
+                </div>
+                <ArrowRight size={16} className="learn-recent-chip-arrow" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="module-strip">
         <div>
@@ -847,23 +944,29 @@ function Learn() {
             View Available Lessons
           </button>
         </div>
-      ) : Object.keys(topicGroups).length > 0 ? (
+      ) : sortedTopicEntries.length > 0 ? (
         <div className="topic-groups">
-          {Object.entries(topicGroups).map(([topic, items]) => (
-            <section className="topic-group" key={topic}>
-              <div className="topic-group-head">
-                <h2>{topic}</h2>
-                <span>
-                  {items.length} {items.length === 1 ? 'lesson' : 'lessons'}
-                </span>
-              </div>
-              <div className="lesson-grid">
-                {items.map((l) => (
-                  <LessonCard lesson={l} key={l.id} />
-                ))}
-              </div>
-            </section>
-          ))}
+          {sortedTopicEntries.map(([topic, items]) => {
+            const hasNew = items.some((i) => i.isNew || i.badge === 'NEW' || i.categoryId === 'healthcare_psychology');
+            return (
+              <section className="topic-group" key={topic}>
+                <div className="topic-group-head">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <h2>{topic}</h2>
+                    {hasNew && <span className="badge-new-tiny">RECENT</span>}
+                  </div>
+                  <span>
+                    {items.length} {items.length === 1 ? 'lesson' : 'lessons'}
+                  </span>
+                </div>
+                <div className="lesson-grid">
+                  {items.map((l) => (
+                    <LessonCard lesson={l} key={l.id} />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       ) : (
         <div className="lesson-grid">
@@ -1113,31 +1216,180 @@ function Animations() {
 /* ───────────────────────── Videos ───────────────────────── */
 
 function Videos() {
+  const [selectedCat, setSelectedCat] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [onlyNew, setOnlyNew] = useState(false);
+
+  // Automatically gathered all videos from across all lessons/modules
+  const allVideos = useMemo(() => getAllCurriculumVideos(), []);
+
+  // Category counts
+  const categoryCounts = useMemo(() => {
+    const counts = { all: allVideos.length };
+    allVideos.forEach((v) => {
+      counts[v.categoryId] = (counts[v.categoryId] || 0) + 1;
+    });
+    return counts;
+  }, [allVideos]);
+
+  // Filtered videos
+  const filteredVideos = useMemo(() => {
+    return allVideos.filter((v) => {
+      if (selectedCat !== 'all' && v.categoryId !== selectedCat) return false;
+      if (onlyNew && !v.isNew) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const matchTitle = v.title.toLowerCase().includes(q);
+        const matchTopic = v.topic.toLowerCase().includes(q);
+        const matchLesson = v.lessonTitle.toLowerCase().includes(q);
+        const matchDesc = v.description.toLowerCase().includes(q);
+        if (!matchTitle && !matchTopic && !matchLesson && !matchDesc) return false;
+      }
+      return true;
+    });
+  }, [allVideos, selectedCat, onlyNew, searchQuery]);
+
+  const newVideosCount = useMemo(() => allVideos.filter((v) => v.isNew).length, [allVideos]);
+
   return (
     <main className="container page">
-      <div className="page-head">
-        <div>
-          <div className="eyebrow">VIDEO LEARNING</div>
-          <h1>Short Video Lessons</h1>
-          <p>Connect lesson content to the Just Pharmacology YouTube channel.</p>
+      <div className="video-hub-header">
+        <div className="page-head" style={{ marginBottom: 0 }}>
+          <div className="eyebrow">CURRICULUM VIDEO LIBRARY</div>
+          <h1>Video Lectures & Tutorials</h1>
+          <p>
+            Watch all clinical and mechanistic video tutorials from across every pharmacology topic in one place.
+            Newly arrived lectures are automatically prioritized at the top.
+          </p>
+        </div>
+
+        <div className="video-stats-banner">
+          <div className="video-stat-item">
+            <strong>{allVideos.length}</strong>
+            <span>Lectures Available</span>
+          </div>
+          <div style={{ width: '1px', height: '24px', background: '#e2e8f0' }} />
+          <div className="video-stat-item">
+            <strong>{newVideosCount}</strong>
+            <span>New Arrivals</span>
+          </div>
+          <div style={{ width: '1px', height: '24px', background: '#e2e8f0' }} />
+          <a
+            className="btn outline"
+            href="https://www.youtube.com/@JustPharmacology"
+            target="_blank"
+            rel="noreferrer"
+            style={{ padding: '8px 12px', fontSize: '12px' }}
+          >
+            <ExternalLink size={14} /> YouTube Channel
+          </a>
         </div>
       </div>
-      <div className="video-placeholder">
-        <PlayCircle size={48} />
-        <h2>Videos can be added lesson-by-lesson</h2>
-        <p>
-          The content model supports a YouTube ID for every lesson. Add the real video ID
-          when available.
-        </p>
-        <a
-          className="btn primary"
-          href="https://www.youtube.com/@JustPharmacology"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open YouTube Channel
-        </a>
+
+      <div className="video-controls-bar">
+        <div className="video-search-wrap">
+          <SearchIcon size={18} className="video-search-icon" />
+          <input
+            type="text"
+            className="video-search-input"
+            placeholder="Search videos by title, topic, or keyword (e.g., SPIKES, Absorption, Bioavailability)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <div className="video-filter-chips">
+          <button
+            className={`video-chip ${selectedCat === 'all' ? 'active' : ''}`}
+            onClick={() => setSelectedCat('all')}
+          >
+            <Layers size={14} /> All Modules
+            <span className="video-chip-badge">{categoryCounts['all'] || 0}</span>
+          </button>
+
+          {categories.map((cat) => {
+            const count = categoryCounts[cat.id] || 0;
+            if (count === 0) return null;
+            return (
+              <button
+                key={cat.id}
+                className={`video-chip ${selectedCat === cat.id ? 'active' : ''}`}
+                onClick={() => setSelectedCat(cat.id)}
+              >
+                {cat.name}
+                <span className="video-chip-badge">{count}</span>
+              </button>
+            );
+          })}
+
+          {newVideosCount > 0 && (
+            <button
+              className={`video-chip ${onlyNew ? 'active' : ''}`}
+              onClick={() => setOnlyNew(!onlyNew)}
+              style={{ marginLeft: 'auto', border: onlyNew ? '1px solid #14b8a6' : '1px dashed #14b8a6' }}
+            >
+              <Sparkles size={14} style={{ color: onlyNew ? 'white' : '#0d9488' }} />
+              New Arrivals Only
+              <span className="video-chip-badge">{newVideosCount}</span>
+            </button>
+          )}
+        </div>
       </div>
+
+      {filteredVideos.length === 0 ? (
+        <div className="empty">
+          <Tv size={36} style={{ color: '#16807d', marginBottom: '12px' }} />
+          <h3>No videos match your filter</h3>
+          <p>Try clearing your search query or switching to All Modules.</p>
+          <button
+            className="btn primary"
+            onClick={() => {
+              setSelectedCat('all');
+              setSearchQuery('');
+              setOnlyNew(false);
+            }}
+            style={{ marginTop: '14px' }}
+          >
+            Reset Filters
+          </button>
+        </div>
+      ) : (
+        <div className="video-grid-layout">
+          {filteredVideos.map((vid) => (
+            <div
+              key={vid.id}
+              className={`video-lecture-card ${vid.isNew ? 'is-new-video' : ''}`}
+            >
+              <div className="video-player-container">
+                <VideoEmbed video={{ youtubeId: vid.youtubeId, title: vid.title }} />
+              </div>
+              <div className="video-content-body">
+                <div className="video-tag-row">
+                  <span className="video-topic-tag">{vid.topic}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    {vid.isNew && <span className="pill-new-pulse">NEW ARRIVAL</span>}
+                    <span className="video-duration-tag">
+                      <Clock size={12} /> {vid.time}m
+                    </span>
+                  </div>
+                </div>
+
+                <h3 className="video-title-heading">{vid.title}</h3>
+                {vid.description && <p className="video-desc-text">{vid.description}</p>}
+
+                <div className="video-footer-row">
+                  <span style={{ fontSize: '11.5px', color: '#64748b', fontWeight: 600 }}>
+                    {vid.categoryName}
+                  </span>
+                  <Link to={`/lesson/${vid.lessonId}`} className="video-lesson-btn">
+                    Lesson & Notes <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
@@ -1145,22 +1397,176 @@ function Videos() {
 /* ───────────────────────── Quiz Center ───────────────────────── */
 
 function QuizPage() {
-  const questions = lessons.flatMap((l) => safeArray(l.quiz));
+  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [randomMode, setRandomMode] = useState(false);
+  const [quizSessionKey, setQuizSessionKey] = useState(0);
+
+  // Aggregate all quiz questions across all lessons
+  const allAggregatedQuestions = useMemo(() => {
+    const items = [];
+    lessons.forEach((lesson) => {
+      const qArray = safeArray(lesson.quiz);
+      const catObj = categories.find((c) => c.id === lesson.categoryId);
+      qArray.forEach((q, idx) => {
+        items.push({
+          ...q,
+          uniqueKey: `${lesson.id}-q-${idx}`,
+          lessonId: lesson.id,
+          lessonTitle: lesson.title,
+          topic: lesson.topic || 'Pharmacology',
+          categoryId: lesson.categoryId,
+          categoryName: catObj ? catObj.name : lesson.categoryId,
+          level: lesson.level || 'Intermediate',
+          isNew: Boolean(lesson.isNew || lesson.badge === 'NEW'),
+        });
+      });
+    });
+    return items;
+  }, []);
+
+  // Distinct topics and categories for filter options
+  const filterOptions = useMemo(() => {
+    const topicMap = new Map();
+    allAggregatedQuestions.forEach((q) => {
+      if (!topicMap.has(q.topic)) {
+        topicMap.set(q.topic, {
+          topic: q.topic,
+          categoryId: q.categoryId,
+          categoryName: q.categoryName,
+          count: 0,
+        });
+      }
+      topicMap.get(q.topic).count++;
+    });
+    return Array.from(topicMap.values());
+  }, [allAggregatedQuestions]);
+
+  const newQuestionsCount = useMemo(
+    () => allAggregatedQuestions.filter((q) => q.isNew).length,
+    [allAggregatedQuestions]
+  );
+
+  // Active question set based on filter / mode
+  const activeQuestions = useMemo(() => {
+    let list = [...allAggregatedQuestions];
+
+    if (selectedFilter === 'new') {
+      list = list.filter((q) => q.isNew);
+    } else if (selectedFilter !== 'all') {
+      list = list.filter((q) => q.topic === selectedFilter || q.categoryId === selectedFilter);
+    }
+
+    if (randomMode) {
+      // Shuffle and take up to 10
+      const shuffled = [...list].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, Math.min(10, shuffled.length));
+    }
+
+    return list;
+  }, [allAggregatedQuestions, selectedFilter, randomMode, quizSessionKey]);
+
+  const handleRestartSession = () => {
+    setQuizSessionKey((prev) => prev + 1);
+  };
 
   return (
     <main className="container page">
-      <div className="page-head">
-        <div>
-          <div className="eyebrow">PRACTICE</div>
-          <h1>Quiz Center</h1>
-          <p>Practice the questions currently available in the demo content.</p>
+      <div className="video-hub-header">
+        <div className="page-head" style={{ marginBottom: 0 }}>
+          <div className="eyebrow">CENTRALIZED ASSESSMENT</div>
+          <h1>Pharmacology Quiz Center</h1>
+          <p>
+            Test your understanding across all topics and modules in one place. Practice comprehensive
+            curriculum exams, filter by specific topics, or test new arrivals.
+          </p>
+        </div>
+
+        <div className="video-stats-banner">
+          <div className="video-stat-item">
+            <strong>{allAggregatedQuestions.length}</strong>
+            <span>Total Questions</span>
+          </div>
+          <div style={{ width: '1px', height: '24px', background: '#e2e8f0' }} />
+          <div className="video-stat-item">
+            <strong>{filterOptions.length}</strong>
+            <span>Active Topics</span>
+          </div>
+          <div style={{ width: '1px', height: '24px', background: '#e2e8f0' }} />
+          <div className="video-stat-item">
+            <strong>{newQuestionsCount}</strong>
+            <span>New Arrivals</span>
+          </div>
         </div>
       </div>
-      {questions.length === 0 ? (
-        <div className="empty">No quiz questions yet.</div>
-      ) : (
-        <Quiz questions={questions} />
-      )}
+
+      <div className="video-controls-bar" style={{ marginBottom: '24px' }}>
+        <div className="video-filter-chips">
+          <button
+            className={`video-chip ${selectedFilter === 'all' && !randomMode ? 'active' : ''}`}
+            onClick={() => {
+              setSelectedFilter('all');
+              setRandomMode(false);
+              handleRestartSession();
+            }}
+          >
+            <Layers size={14} /> Full Curriculum Exam
+            <span className="video-chip-badge">{allAggregatedQuestions.length}</span>
+          </button>
+
+          {newQuestionsCount > 0 && (
+            <button
+              className={`video-chip ${selectedFilter === 'new' ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedFilter('new');
+                setRandomMode(false);
+                handleRestartSession();
+              }}
+              style={{ border: selectedFilter === 'new' ? '1px solid #14b8a6' : '1px dashed #14b8a6' }}
+            >
+              <Sparkles size={14} style={{ color: selectedFilter === 'new' ? 'white' : '#0d9488' }} />
+              New Topic Questions
+              <span className="video-chip-badge">{newQuestionsCount}</span>
+            </button>
+          )}
+
+          <button
+            className={`video-chip ${randomMode ? 'active' : ''}`}
+            onClick={() => {
+              setRandomMode(true);
+              handleRestartSession();
+            }}
+          >
+            <Shuffle size={14} /> 10-Question Quick Blitz
+          </button>
+
+          {filterOptions.map((opt) => (
+            <button
+              key={opt.topic}
+              className={`video-chip ${selectedFilter === opt.topic ? 'active' : ''}`}
+              onClick={() => {
+                setSelectedFilter(opt.topic);
+                setRandomMode(false);
+                handleRestartSession();
+              }}
+            >
+              {opt.topic}
+              <span className="video-chip-badge">{opt.count}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop: '16px' }}>
+        <Quiz
+          key={`${selectedFilter}-${randomMode ? 'random' : 'all'}-${quizSessionKey}`}
+          questions={activeQuestions}
+          onResetCategory={() => {
+            setSelectedFilter('all');
+            setRandomMode(false);
+            handleRestartSession();
+          }}
+        />
+      </div>
     </main>
   );
 }

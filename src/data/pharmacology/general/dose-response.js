@@ -11,7 +11,8 @@ export const lessons = [
     description:'Differentiate individual response curves from population response distributions.',
     objectives:['Define graded response','Define quantal response','Understand why each curve is used'],
     sections:[{heading:'Graded response',content:'A graded response measures the magnitude of an effect in an individual biological system as dose or concentration changes.'},{heading:'Quantal response',content:'A quantal response records whether a defined all-or-none outcome occurs in members of a population, allowing estimation of measures such as ED50 for that population outcome.'}],
-    keyPoints:['Graded = magnitude of response','Quantal = fraction of population with defined outcome','The two curves answer different questions'],rapid:['Graded → how much?','Quantal → how many?'],quiz:[]
+    keyPoints:['Graded = magnitude of response','Quantal = fraction of population with defined outcome','The two curves answer different questions'],rapid:['Graded → how much?','Quantal → how many?'],
+    quiz:[{question:'A quantal dose-response curve is constructed to measure:',options:['Graded muscle contraction percentage in a single organ','The fraction or percentage of individuals in a population displaying a defined all-or-none biological endpoint','The molecular binding affinity to purified receptor protein','The rate of biliary drug excretion'],answer:1,explanation:'Quantal dose-response curves plot the cumulative percentage of a population exhibiting a predetermined all-or-none response (e.g. therapeutic relief, sleep, or lethality) as a function of dose.'}]
   }
 ];
 

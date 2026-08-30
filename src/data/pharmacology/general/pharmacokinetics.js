@@ -4,35 +4,42 @@ export const lessons = [
     description:'Learn how drugs move from their site of administration into systemic circulation.',
     objectives:['Define absorption','Identify factors affecting absorption','Understand bioavailability'],
     sections:[{heading:'The basic concept',content:'Absorption is the movement of a drug from its site of administration into the systemic circulation.'},{heading:'What changes absorption?',content:'Route, formulation, blood flow, surface area, lipid solubility, pH and transport mechanisms can influence absorption.'},{heading:'Bioavailability',content:'Bioavailability is the fraction of an administered dose that reaches systemic circulation in unchanged form. Intravenous administration is the reference for complete systemic availability in the usual model.'}],
-    keyPoints:['IV administration bypasses an absorption step','Bioavailability describes systemic availability','First-pass metabolism can reduce oral bioavailability'],rapid:['Absorption → systemic circulation','F = fraction reaching systemic circulation'],animation:'absorption',quiz:[{question:'Which route most directly bypasses an absorption step?',options:['Oral','Intramuscular','Intravenous','Subcutaneous'],answer:2,explanation:'An IV dose is delivered directly into systemic circulation.'}]
+    keyPoints:['IV administration bypasses an absorption step','Bioavailability describes systemic availability','First-pass metabolism can reduce oral bioavailability'],rapid:['Absorption → systemic circulation','F = fraction reaching systemic circulation'],animation:'absorption',
+    video: { youtubeId: '', title: 'Drug Absorption: Mechanisms, Routes & Bioavailability' },
+    quiz:[{question:'Which route most directly bypasses an absorption step?',options:['Oral','Intramuscular','Intravenous','Subcutaneous'],answer:2,explanation:'An IV dose is delivered directly into systemic circulation.'}]
   },
 {
     id:'bioavailability-first-pass',categoryId:'general',topic:'Pharmacokinetics',title:'Bioavailability & First-Pass Effect',level:'Intermediate',time:10,
     description:'Understand why the same dose can produce different systemic exposure depending on route.',
     objectives:['Define bioavailability','Explain first-pass metabolism','Relate route to systemic exposure'],
     sections:[{heading:'Bioavailability',content:'Bioavailability compares the amount of active drug reaching systemic circulation with the administered dose. It is influenced by absorption and presystemic elimination.'},{heading:'First-pass effect',content:'After oral administration, some drugs undergo metabolism in the intestinal wall and liver before reaching systemic circulation. This can reduce the fraction of active drug that becomes systemically available.'}],
-    keyPoints:['F can be less than 1 for many non-IV routes','First-pass effect is presystemic metabolism','Route selection can change systemic exposure'],rapid:['F = systemic fraction','First pass → intestine/liver before systemic circulation'],quiz:[]
+    keyPoints:['F can be less than 1 for many non-IV routes','First-pass effect is presystemic metabolism','Route selection can change systemic exposure'],rapid:['F = systemic fraction','First pass → intestine/liver before systemic circulation'],
+    video: { youtubeId: '', title: 'Bioavailability (F) & First-Pass Hepatic Metabolism' },
+    quiz:[{question:'What occurs during the "first-pass effect"?',options:['Drug is instantly excreted by kidneys before entering blood','Drug is metabolized in the gut wall and liver prior to reaching systemic circulation','Drug binds permanently to plasma albumin','Drug bypasses the systemic circulation completely'],answer:1,explanation:'First-pass metabolism refers to the presystemic biotransformation of orally absorbed drugs in the intestinal mucosa and liver before reaching systemic arterial circulation.'}]
   },
 {
     id:'drug-distribution',categoryId:'general',topic:'Pharmacokinetics',title:'Drug Distribution',level:'Beginner',time:9,
     description:'Explore how drugs distribute between blood and tissues.',
     objectives:['Define distribution','Understand protein binding','Explain volume of distribution'],
     sections:[{heading:'Distribution',content:'Distribution is the reversible movement of drug between the bloodstream and tissues.'},{heading:'What affects distribution?',content:'Tissue perfusion, capillary permeability, lipid solubility, tissue binding and plasma protein binding can all influence distribution.'},{heading:'Volume of distribution',content:'Apparent volume of distribution relates the amount of drug in the body to its measured plasma concentration. It is a calculated pharmacokinetic parameter, not necessarily an anatomical volume.'}],
-    keyPoints:['Blood flow strongly affects early distribution','Only unbound drug is generally available to leave plasma','A large apparent Vd suggests extensive distribution relative to plasma'],rapid:['Vd = amount in body / plasma concentration','Free drug can distribute'],quiz:[]
+    keyPoints:['Blood flow strongly affects early distribution','Only unbound drug is generally available to leave plasma','A large apparent Vd suggests extensive distribution relative to plasma'],rapid:['Vd = amount in body / plasma concentration','Free drug can distribute'],
+    quiz:[{question:'A drug with a very large apparent volume of distribution (Vd > 100 L) is likely:',options:['Confined purely to the intravascular plasma compartment','Extensively distributed or sequestered into peripheral tissues','Completely unbound to tissue proteins','Incapable of crossing cellular membranes'],answer:1,explanation:'A high apparent Vd (exceeding total body water) indicates substantial drug distribution or binding in peripheral extravascular tissue compartments relative to plasma.'}]
   },
 {
     id:'plasma-protein-binding',categoryId:'general',topic:'Pharmacokinetics',title:'Plasma Protein Binding',level:'Intermediate',time:9,
     description:'Understand bound and unbound drug and why free concentration matters.',
     objectives:['Differentiate bound and unbound drug','Explain reversible protein binding','Understand why free drug is pharmacologically important'],
     sections:[{heading:'Bound versus unbound',content:'Many drugs reversibly bind plasma proteins. The unbound fraction can leave the vascular compartment and interact with targets or undergo elimination.'},{heading:'Clinical meaning',content:'Changes in protein concentration or binding can alter free drug concentration, but the overall clinical effect depends on distribution, clearance and the therapeutic window of the drug.'}],
-    keyPoints:['Unbound drug is generally able to distribute and interact with targets','Albumin commonly binds many acidic drugs','Protein binding is usually reversible'],rapid:['Bound ↔ unbound','Free drug → distribution/effect/elimination'],quiz:[]
+    keyPoints:['Unbound drug is generally able to distribute and interact with targets','Albumin commonly binds many acidic drugs','Protein binding is usually reversible'],rapid:['Bound ↔ unbound','Free drug → distribution/effect/elimination'],
+    quiz:[{question:'Which fraction of a drug in the bloodstream is pharmacologically active and able to cross biological membranes?',options:['Total drug concentration','Unbound (free) fraction','Albumin-bound fraction','Alpha-1-acid glycoprotein bound fraction'],answer:1,explanation:'Only the unbound (free) fraction of drug molecules can traverse capillary membranes to bind therapeutic targets and undergo hepatic or renal elimination.'}]
   },
 {
     id:'drug-metabolism',categoryId:'general',topic:'Pharmacokinetics',title:'Drug Metabolism',level:'Intermediate',time:10,
     description:'Understand biotransformation and why metabolism can alter drug activity.',
     objectives:['Explain biotransformation','Differentiate Phase I and Phase II reactions','Understand enzyme induction and inhibition'],
     sections:[{heading:'Why metabolism matters',content:'Drug metabolism can convert compounds into metabolites with different pharmacological properties and can facilitate elimination.'},{heading:'Phase I and Phase II',content:'Phase I reactions commonly include oxidation, reduction and hydrolysis. Phase II reactions commonly involve conjugation. Not every drug undergoes both phases in sequence.'},{heading:'CYP enzymes',content:'Cytochrome P450 enzymes are important in the metabolism of many drugs. Enzyme inhibition and induction can change exposure to substrate drugs.'}],
-    keyPoints:['Phase I often introduces or exposes functional groups','Phase II often conjugates the molecule','Enzyme inhibition can increase exposure to some substrates','Enzyme induction can decrease exposure to some substrates'],rapid:['Phase I = functionalization','Phase II = conjugation'],animation:'adme',quiz:[]
+    keyPoints:['Phase I often introduces or exposes functional groups','Phase II often conjugates the molecule','Enzyme inhibition can increase exposure to some substrates','Enzyme induction can decrease exposure to some substrates'],rapid:['Phase I = functionalization','Phase II = conjugation'],animation:'adme',
+    quiz:[{question:'Phase II drug metabolism typically involves:',options:['Oxidation via Cytochrome P450','Conjugation with an endogenous polar substrate (e.g., glucuronic acid)','Hydrolysis by plasma esterases','Reduction of nitro groups'],answer:1,explanation:'Phase II biotransformation involves conjugation reactions (such as glucuronidation, sulfation, or glutathione conjugation) yielding water-soluble, easily excretable metabolites.'}]
   },
 {
     id:'enzyme-induction-inhibition',categoryId:'general',topic:'Pharmacokinetics',title:'Enzyme Induction & Inhibition',level:'Intermediate',time:9,
@@ -46,7 +53,8 @@ export const lessons = [
     description:'Learn how drugs and metabolites leave the body, with emphasis on renal elimination.',
     objectives:['Define excretion','Describe renal filtration and secretion','Understand reabsorption at a basic level'],
     sections:[{heading:'Excretion versus metabolism',content:'Excretion removes drug or metabolites from the body. Metabolism chemically modifies a drug; the metabolite may then be excreted.'},{heading:'Renal excretion',content:'Renal elimination can involve glomerular filtration, tubular secretion and tubular reabsorption. Unbound drug is more readily filtered at the glomerulus.'}],
-    keyPoints:['Kidney is a major route of excretion for many drugs','Filtration depends on unbound drug','Reabsorption can influence final urinary elimination'],rapid:['Excretion = leaving the body','Kidney: filtration + secretion − reabsorption'],quiz:[]
+    keyPoints:['Kidney is a major route of excretion for many drugs','Filtration depends on unbound drug','Reabsorption can influence final urinary elimination'],rapid:['Excretion = leaving the body','Kidney: filtration + secretion − reabsorption'],
+    quiz:[{question:'Glomerular filtration of drugs depends primarily on which factor?',options:['Only unbound, free drug fraction in plasma','Total drug concentration including albumin-bound molecules','Lipid solubility only','Active ATP-dependent transport pumps'],answer:0,explanation:'Only the unbound (free) drug fraction dissolved in plasma water is filtered across the glomerulus into the renal tubule; large protein-bound complexes cannot pass through the normal glomerular barrier.'}]
   },
 {
     id:'clearance',categoryId:'general',topic:'Pharmacokinetics',title:'Clearance',level:'Intermediate',time:10,
@@ -60,14 +68,16 @@ export const lessons = [
     description:'Learn what drug half-life means and why it influences dosing intervals and time to steady state.',
     objectives:['Define half-life','Understand repeated-dose accumulation','Estimate time to steady state'],
     sections:[{heading:'Definition',content:'Half-life is the time required for the plasma concentration or amount of drug in the body to decrease by approximately 50% under the relevant elimination conditions.'},{heading:'Why it matters',content:'Half-life helps guide dosing intervals and predicts the approach to steady state after repeated dosing or infusion. A common approximation is that about 4–5 half-lives are needed to approach steady state.'}],
-    keyPoints:['Longer half-life usually means slower concentration decline','Half-life is influenced by clearance and volume of distribution','Steady state is approached over several half-lives'],rapid:['1 t½ → 50%','~4–5 t½ → near steady state'],quiz:[]
+    keyPoints:['Longer half-life usually means slower concentration decline','Half-life is influenced by clearance and volume of distribution','Steady state is approached over several half-lives'],rapid:['1 t½ → 50%','~4–5 t½ → near steady state'],
+    quiz:[{question:'Approximately how many half-lives are required for a drug to reach steady-state plasma concentration during continuous administration?',options:['1 to 2 half-lives','4 to 5 half-lives','8 to 10 half-lives','15 half-lives'],answer:1,explanation:'It takes approximately 4 to 5 elimination half-lives (~93.75% to 96.875%) for drug concentrations to reach steady state during continuous or regular interval dosing.'}]
   },
 {
     id:'pharmacokinetic-models',categoryId:'general',topic:'Pharmacokinetics',title:'One-Compartment & Multi-Compartment Models',level:'Intermediate',time:9,
     description:'Use simplified compartment models to visualize drug movement after administration.',
     objectives:['Understand a pharmacokinetic compartment','Differentiate one- and multi-compartment models','Recognize that compartments are mathematical models'],
     sections:[{heading:'A useful abstraction',content:'A compartment is a mathematical representation of drug distribution, not necessarily a single anatomical organ.'},{heading:'One versus multiple compartments',content:'A one-compartment model treats the body as a single kinetically uniform space. Multi-compartment models represent an initial distribution phase followed by slower changes associated with other compartments.'}],
-    keyPoints:['Compartments are mathematical abstractions','More compartments can describe complex concentration-time curves','Model choice depends on the observed pharmacokinetics'],rapid:['Compartment = model, not organ','Multi-compartment → distribution phases'],animation:'adme',quiz:[]
+    keyPoints:['Compartments are mathematical abstractions','More compartments can describe complex concentration-time curves','Model choice depends on the observed pharmacokinetics'],rapid:['Compartment = model, not organ','Multi-compartment → distribution phases'],animation:'adme',
+    quiz:[{question:'In a two-compartment pharmacokinetic model, the rapid initial decline in plasma concentration following IV bolus injection is termed the:',options:['Elimination phase (beta phase)','Distribution phase (alpha phase)','Absorption phase','Lag phase'],answer:1,explanation:'The alpha phase represents rapid distribution of drug from the central vascular compartment into peripheral tissue compartments before elimination becomes the dominant process.'}]
   },
 {
     id:'zero-first-order',categoryId:'general',topic:'Pharmacokinetics',title:'First-Order & Zero-Order Elimination',level:'Intermediate',time:10,
@@ -81,7 +91,8 @@ export const lessons = [
     description:'Visualize how repeated dosing leads toward a plateau when drug input and elimination balance.',
     objectives:['Define steady state','Explain accumulation','Relate steady state to half-life'],
     sections:[{heading:'Steady state',content:'At steady state, the average rate of drug input equals the average rate of drug elimination over the dosing interval.'},{heading:'Accumulation',content:'With repeated dosing, drug remains in the body between doses. Concentrations rise until input and elimination balance, producing a repeating concentration pattern around a steady average.'}],
-    keyPoints:['Steady state depends mainly on half-life, not simply dose size','About 4–5 half-lives is a common approximation to approach steady state','Changing dose changes the level; changing half-life changes how quickly it is reached'],rapid:['Steady state = input ≈ elimination','~4–5 t½ → near steady state'],animation:'adme',quiz:[]
+    keyPoints:['Steady state depends mainly on half-life, not simply dose size','About 4–5 half-lives is a common approximation to approach steady state','Changing dose changes the level; changing half-life changes how quickly it is reached'],rapid:['Steady state = input ≈ elimination','~4–5 t½ → near steady state'],animation:'adme',
+    quiz:[{question:'What occurs at pharmacological steady state (Css)?',options:['Drug elimination ceases completely','The rate of drug administration equals the rate of drug elimination','Drug concentration continuously doubles every 24 hours','Receptors become completely non-functional'],answer:1,explanation:'Steady state is achieved when the rate of drug entry into the system equals the rate of elimination, creating a stable average plasma concentration.'}]
   }
 ];
 
