@@ -9,7 +9,7 @@ export const lessons = [
     description:
       "Learn how clinicians deliver devastating diagnoses using the six-stage SPIKES protocol — a structured, evidence-based method for managing a patient's cognitive load and emotional shock.",
     video: {
-      youtubeId: 'Qs1x9W6ubi0',
+      youtubeId: 'K1Vb4uBB5AE',
       title: 'Breaking Bad News: SPIKES Protocol for Healthcare Professionals'
     },
     objectives: [
