@@ -1,207 +1,219 @@
-export const lessons = [
+import React, { useState, useEffect } from 'react';
+
+const STAGES = [
   {
-    id: 'spikes-protocol',
-    categoryId: 'healthcare_psychology',
-    topic: 'Breaking Bad News',
-    title: 'The SPIKES Protocol: Structured Clinical Empathy',
-    level: 'Beginner',
-    time: 8,
-    description:
-      "Learn how clinicians deliver devastating diagnoses using the six-stage SPIKES protocol — a structured, evidence-based method for managing a patient's cognitive load and emotional shock.",
-    video: {
-      youtubeId: 'K1Vb4uBB5AE',
-      title: 'Breaking Bad News: SPIKES Protocol for Healthcare Professionals'
-    },
-    objectives: [
-      'Recognize clinical compassion as a sequential, evidence-based procedure rather than an innate trait',
-      'Explain each of the six stages of the SPIKES protocol and what it accomplishes',
-      'Understand how emotion constrains cognitive bandwidth, and how clinicians manage autonomic panic and information overload'
+    step: 'S',
+    name: 'Setting',
+    tagline: 'Physical Engineering & SOLER Framework',
+    icon: '🪑',
+    metricLabel: 'Hierarchy Neutralization',
+    metricValue: '100%',
+    details: [
+      'Bypass physical barriers (desks) for a collaborative lateral triangle.',
+      'Achieve horizontal par with the patient’s eye level.',
+      'Apply SOLER: Squarely face, Open posture, Lean in, Eye contact, Relax.'
     ],
-
-    // 🎨 Visual Draw Format / Process Flow for the 6 Steps
-    spikesSteps: [
-      {
-        step: 'S',
-        title: 'Setting',
-        description: 'Arrange physical space, ensure privacy, and use the SOLER posture framework to establish emotional safety.'
-      },
-      {
-        step: 'P',
-        title: 'Perception',
-        description: 'Assess what the patient already knows or suspects before introducing new diagnostic information.'
-      },
-      {
-        step: 'I',
-        title: 'Invitation',
-        description: 'Ask the patient how much detail they want to receive (e.g., full medical details vs. general overview).'
-      },
-      {
-        step: 'K',
-        title: 'Knowledge',
-        description: 'Deliver news in small, plain-language chunks using an ask-tell-ask feedback loop to prevent overload.'
-      },
-      {
-        step: 'E',
-        title: 'Emotions',
-        description: 'Acknowledge emotional shock using the NURSE model; de-escalate trauma before moving forward.'
-      },
-      {
-        step: 'S',
-        title: 'Strategy',
-        description: 'Co-author a clear, actionable follow-up plan with written materials to restore a sense of control.'
-      }
+    badApproach: 'Speaking downward across a desk, reinforcing clinical hierarchy.',
+    goodApproach: 'Lateral positioning to construct an emotional safety container.'
+  },
+  {
+    step: 'P',
+    name: 'Perception',
+    tagline: 'Measuring Expectation vs. Reality',
+    icon: '📊',
+    metricLabel: 'Cognitive Gap Assessment',
+    metricValue: 'Active',
+    details: [
+      'Ask open questions: "What is your understanding of your condition so far?"',
+      'Surface hidden blind spots (e.g., patient expecting a 100% cure after past surgery).',
+      'Calibrate disclosure pace based on the identified gap.'
     ],
-
-    // 🩺 Sub-frameworks referenced inside the six stages — rendered by
-    // LessonDetail as side-by-side "readout" panels wherever they're present.
-    frameworks: [
-      {
-        name: 'SOLER',
-        context: 'Physical setup, before a word is spoken',
-        items: [
-          { init: 'S', label: 'Squarely face the patient' },
-          { init: 'O', label: 'Open posture, no crossed arms' },
-          { init: 'L', label: 'Lean in slightly' },
-          { init: 'E', label: 'Eye contact, appropriately held' },
-          { init: 'R', label: 'Relax' }
-        ]
-      },
-      {
-        name: 'NURSE',
-        context: "The emotional response, after news lands",
-        items: [
-          { init: 'N', label: 'Naming the emotion' },
-          { init: 'U', label: 'Understanding, expressed' },
-          { init: 'R', label: "Respecting how they've coped" },
-          { init: 'S', label: 'Supporting them' },
-          { init: 'E', label: 'Exploring what it means to them' }
-        ]
-      }
+    badApproach: 'Blasting test results before knowing what the patient expects.',
+    goodApproach: 'Measuring expectations first to avoid colliding with existing beliefs.'
+  },
+  {
+    step: 'I',
+    name: 'Invitation',
+    tagline: 'Autonomy & Information Pacing',
+    icon: '✉️',
+    metricLabel: 'Patient Control',
+    metricValue: 'High',
+    details: [
+      'Directly ask how much technical detail they wish to receive.',
+      'Differentiate between patients who want full biological mechanics vs. macro steps.',
+      'Prevent iatrogenic harm from unwanted data dumping.'
     ],
-
-    // 📖 Sections with explicit `id` attributes so Lesson Contents links scroll correctly
-    sections: [
-      {
-        id: 'architecture-of-empathy',
-        heading: 'The Architecture of Empathy',
-        content:
-          'Delivering devastating news — a malignancy, a recurrence, a treatment failure — is one of the highest-stakes moments in medicine. Medicine has long treated this as an art form, assuming good communication comes down to an untrainable trait: "bedside manner." In practice, clinicians who rely purely on instinct and recite raw data often cause real psychological harm. Developed by oncologists Walter Baile and Robert Buckman, the SPIKES protocol reframes compassion as a precise, sequential, evidence-based procedure — an architecture designed to stabilize a frightened nervous system rather than simply transmit facts.'
-      },
-      {
-        id: 'cognitive-bottleneck',
-        heading: 'Why Structure Matters: The Cognitive Bottleneck',
-        content:
-          "Fear sharply narrows working memory and the capacity to process new information. A patient who feels frightened cannot absorb medical detail, no matter how clearly it is explained. This means a clinician must manage the patient's emotional state and cognitive load *before* attempting to convey a treatment strategy — trying to do both at once is what causes the message to be lost."
-      },
-      {
-        id: 'six-stages-of-spikes',
-        heading: 'The Six Stages of SPIKES',
-        content:
-          'The protocol outlines six sequential steps designed to balance information disclosure with emotional stabilization:'
-      },
-      {
-        id: 'setting-removing-the-barrier',
-        heading: 'Setting: Removing the Barrier',
-        content:
-          'The traditional setup — a clinician speaking downward across a desk to a seated patient — reinforces hierarchy and distance. SPIKES calls for physically restructuring the space into a collaborative, lateral arrangement. This is formalized in the SOLER framework: sit Squarely facing the patient, adopt an Open posture, Lean in slightly, make appropriate Eye contact, and Relax. Before a single medical term is spoken, this positioning builds the emotional safety needed for what follows.'
-      },
-      {
-        id: 'perception-and-invitation',
-        heading: 'Perception and Invitation: Calibrating Before Disclosing',
-        content:
-          'Opening with test results risks colliding head-on with what the patient already believes. In the Perception phase, the clinician asks what the patient understands so far — surfacing gaps between expectation and reality. In the Invitation phase, the clinician asks directly how much detail the patient wants. Together, these two steps prevent unwanted "data dumping" and put the pace of disclosure in the patient\'s hands.'
-      },
-      {
-        id: 'knowledge-delivering-news',
-        heading: 'Knowledge: Delivering the News',
-        content:
-          'Disclosure begins with a brief warning shot — "I\'m afraid I have some difficult news" — to prime the patient before the impact lands. Instead of giving long explanations, SPIKES uses an ask-tell-ask loop: deliver information in small, plain-language chunks, then pause to check understanding before continuing. This chunking respects the brain\'s limited capacity to take in threatening information.'
-      },
-      {
-        id: 'emotions-stabilizing',
-        heading: 'Emotions: Stabilizing Before Advancing',
-        content:
-          'Even with careful pacing, the moment a diagnosis lands, many patients enter a sympathetic nervous system response — acute distress that temporarily blocks further processing. To respond, clinicians use the NURSE model: Naming the emotion, expressing Understanding, Respecting how the patient has coped, Supporting them, and Exploring what the emotion means to them. Advancing to strategy before this stabilization occurs generally fails.'
-      },
-      {
-        id: 'strategy-restoring-agency',
-        heading: 'Strategy: Restoring a Sense of Agency',
-        content:
-          'Once the patient is emotionally steadier, the clinician shifts to co-authoring next steps: summarizing the path forward, providing written materials (since much of what is said in this state will be forgotten), and agreeing on concrete next actions. A bad-news conversation should never end without a clear follow-up plan — this is what turns helpless uncertainty into a structured sense of control.'
-      },
-      {
-        id: 'why-it-matters',
-        heading: 'Why It Matters',
-        content:
-          'The older, paternalistic model treats patients as passive recipients of data. SPIKES treats them as complex, vulnerable systems that need structure, not just information, to stay engaged. Used well, it helps clinicians navigate the hardest conversations in medicine while building trust rather than trauma.'
-      }
+    badApproach: 'Assuming every patient wants a 20-minute pathology breakdown.',
+    goodApproach: 'Tailoring the level of detail strictly to patient preference.'
+  },
+  {
+    step: 'K',
+    name: 'Knowledge',
+    tagline: 'The Ask-Tell-Ask Loop',
+    icon: '🧠',
+    metricLabel: 'Bandwidth Protection',
+    metricValue: 'Optimal',
+    details: [
+      'Deliver a warning shot: "I am afraid I have some difficult news to share."',
+      'Chunk data into small, plain-language discrete blocks.',
+      'Force frequent pauses to check understanding before moving to the next chunk.'
     ],
-    keyPoints: [
-      "Fear sharply reduces a patient's capacity to process new information — emotional state must be managed before facts can land",
-      'The SOLER framework (Squarely face, Open posture, Lean in, Eye contact, Relax) builds physical and emotional safety before disclosure',
-      'Perception and Invitation calibrate what to say and how much, preventing unwanted data dumping',
-      'The ask-tell-ask loop delivers information in small, checked chunks rather than one dense explanation',
-      'The NURSE model (Naming, Understanding, Respecting, Supporting, Exploring) helps de-escalate emotional shock',
-      'Emotion dictates pacing: a clinician must stabilize distress before moving to strategy and next steps',
-      'Every bad-news conversation should end with a clear, written, collaborative follow-up plan'
+    badApproach: 'Filling silent gaps with rapid-fire medical jargon.',
+    goodApproach: 'Chunking information to bypass natural cognitive overload.'
+  },
+  {
+    step: 'E',
+    name: 'Emotions',
+    tagline: 'Trauma De-escalation (NURSE Model)',
+    icon: '❤️',
+    metricLabel: 'Autonomic Panic State',
+    metricValue: 'Contained',
+    details: [
+      'Recognize sympathetic nervous system freeze/panic (hard stop).',
+      'Deploy NURSE: Naming, Understanding, Respecting, Supporting, Exploring.',
+      'Emotion dictates pacing; never advance to strategy during panic.'
     ],
-    rapid: [
-      'SPIKES: Setting → Perception → Invitation → Knowledge → Emotions → Strategy',
-      'SOLER sets up the room; NURSE handles the emotional reaction',
-      "Never advance to strategy before the patient's distress is stabilized"
+    badApproach: 'Explaining treatment plans while the patient is in panic mode.',
+    goodApproach: 'Algorithmic containment of trauma before discussing options.'
+  },
+  {
+    step: 'S',
+    name: 'Strategy',
+    tagline: 'Restoring Agency & Next Steps',
+    icon: '🗺️',
+    metricLabel: 'Therapeutic Alliance',
+    metricValue: 'Established',
+    details: [
+      'Co-author the path forward once de-escalation is achieved.',
+      'Provide written materials for details that fade from memory.',
+      'Ensure a clear, structured follow-up plan is finalized.'
     ],
-    animation: 'spikes',
-    quiz: [
-      {
-        question: 'What is the primary function of the SPIKES protocol during a difficult diagnosis?',
-        options: [
-          'To ensure all medical facts are delivered as quickly as possible',
-          "To systematically manage the patient's cognitive load and emotional state before delivering a strategy",
-          'To replace the need for written follow-up materials',
-          'To shift full legal responsibility onto the patient'
-        ],
-        answer: 1,
-        explanation:
-          "SPIKES is an architecture for systemic empathy: it manages fear and cognitive load first, because a frightened patient cannot absorb medical detail regardless of how clearly it's explained."
-      },
-      {
-        question: 'What does the SOLER framework help a clinician do?',
-        options: [
-          'Decide how much medical detail to share',
-          'Structure the physical setting to reduce hierarchy and build safety',
-          'Summarize the treatment plan at the end of the conversation',
-          "Name and validate the patient's emotional reaction"
-        ],
-        answer: 1,
-        explanation:
-          'SOLER (sit Squarely, Open posture, Lean in, Eye contact, Relax) is used in the Setting stage to physically restructure the encounter into a collaborative, non-hierarchical arrangement.'
-      },
-      {
-        question: 'Why does SPIKES use an ask-tell-ask loop during the Knowledge stage?',
-        options: [
-          'To make the conversation shorter',
-          'To avoid giving the patient any written materials',
-          'To deliver information in small, plain-language pieces and check understanding along the way',
-          "To determine the patient's legal next of kin"
-        ],
-        answer: 2,
-        explanation:
-          "Delivering dense information all at once overwhelms a frightened patient. Chunking the news and checking comprehension between pieces respects the brain's limited capacity to absorb threatening information."
-      },
-      {
-        question: 'What does the NURSE model address?',
-        options: [
-          'Physical positioning in the room',
-          'How much technical detail the patient wants',
-          "The patient's emotional reaction after the news lands",
-          'Insurance and billing logistics'
-        ],
-        answer: 2,
-        explanation:
-          'NURSE (Naming, Understanding, Respecting, Supporting, Exploring) is used in the Emotions stage to de-escalate acute distress before moving on to Strategy.'
-      }
-    ]
+    badApproach: 'Ending the consultation without concrete next steps.',
+    goodApproach: 'Replacing helpless terror with a structured sense of agency.'
   }
 ];
 
-export const topic = 'Breaking Bad News';
+export default function spikes() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    if (!playing) return;
+    const interval = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % STAGES.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [playing]);
+
+  const current = STAGES[activeTab];
+
+  return (
+    <div style={{
+      border: '1px solid #e2e8f0',
+      borderRadius: '12px',
+      padding: '1.25rem',
+      background: '#ffffff',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+      margin: '1.5rem 0',
+      fontFamily: 'sans-serif'
+    }}>
+      {/* Header Badge */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+        <div>
+          <b style={{ fontSize: '1.1rem', color: '#0f172a' }}>SPIKES Protocol: Algorithmic Empathy</b>
+          <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748b' }}>Click a stage or press Play to navigate steps.</p>
+        </div>
+        <span style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#2563eb', background: '#eff6ff', padding: '4px 10px', borderRadius: '12px', border: '1px solid #bfdbfe' }}>
+          INTERACTIVE
+        </span>
+      </div>
+
+      {/* Step Buttons Track */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '6px', marginBottom: '1.25rem' }}>
+        {STAGES.map((s, idx) => {
+          const isActive = idx === activeTab;
+          return (
+            <button
+              key={s.step + idx}
+              onClick={() => { setActiveTab(idx); setPlaying(false); }}
+              style={{
+                border: isActive ? '2px solid #2563eb' : '1px solid #cbd5e1',
+                background: isActive ? '#3b82f6' : '#f8fafc',
+                color: isActive ? '#ffffff' : '#334155',
+                padding: '8px 2px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                textAlign: 'center',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              <div style={{ fontSize: '1rem', fontWeight: 'bold' }}>{s.step}</div>
+              <div style={{ fontSize: '0.65rem', textTransform: 'uppercase', opacity: isActive ? 1 : 0.7 }}>{s.name}</div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Details Card */}
+      <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '1rem', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '0.75rem' }}>
+          <span style={{ fontSize: '1.75rem', background: '#ffffff', padding: '6px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+            {current.icon}
+          </span>
+          <div>
+            <h4 style={{ margin: 0, fontSize: '1.1rem', color: '#1e293b' }}>
+              Step {activeTab + 1}: {current.step} — {current.name}
+            </h4>
+            <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748b' }}>{current.tagline}</p>
+          </div>
+        </div>
+
+        {/* Metric */}
+        <div style={{ background: '#ffffff', padding: '8px 12px', borderRadius: '6px', marginBottom: '0.75rem', border: '1px solid #e2e8f0', display: 'inline-block' }}>
+          <span style={{ fontSize: '0.7rem', color: '#64748b', display: 'block' }}>{current.metricLabel}</span>
+          <strong style={{ fontSize: '0.9rem', color: '#2563eb' }}>{current.metricValue}</strong>
+        </div>
+
+        {/* Action Directives */}
+        <ul style={{ margin: '0 0 0.75rem 0', paddingLeft: '1.2rem', color: '#334155', fontSize: '0.85rem', lineHeight: '1.5' }}>
+          {current.details.map((detail, dIdx) => (
+            <li key={dIdx} style={{ marginBottom: '3px' }}>{detail}</li>
+          ))}
+        </ul>
+
+        {/* Right vs Wrong */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', fontSize: '0.75rem' }}>
+          <div style={{ background: '#fef2f2', border: '1px solid #fecaca', padding: '6px 10px', borderRadius: '6px', color: '#991b1b' }}>
+            <strong>❌ Traditional Trap:</strong> {current.badApproach}
+          </div>
+          <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', padding: '6px 10px', borderRadius: '6px', color: '#166534' }}>
+            <strong>✅ SPIKES Standard:</strong> {current.goodApproach}
+          </div>
+        </div>
+      </div>
+
+      {/* Control Buttons (Standard React Controls) */}
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+        <button
+          onClick={() => { setActiveTab(0); setPlaying(false); }}
+          style={{ padding: '6px 14px', borderRadius: '6px', border: '1px solid #cbd5e1', background: '#ffffff', cursor: 'pointer' }}
+        >
+          Reset
+        </button>
+        <button
+          onClick={() => setPlaying((v) => !v)}
+          style={{ padding: '6px 14px', borderRadius: '6px', border: '1px solid #2563eb', background: playing ? '#2563eb' : '#ffffff', color: playing ? '#ffffff' : '#2563eb', cursor: 'pointer', fontWeight: 'bold' }}
+        >
+          {playing ? 'Pause' : 'Play'}
+        </button>
+        <button
+          disabled={activeTab === STAGES.length - 1}
+          onClick={() => { setActiveTab((v) => Math.min(STAGES.length - 1, v + 1)); setPlaying(false); }}
+          style={{ padding: '6px 14px', borderRadius: '6px', border: '1px solid #cbd5e1', background: activeTab === STAGES.length - 1 ? '#f1f5f9' : '#ffffff', cursor: activeTab === STAGES.length - 1 ? 'not-allowed' : 'pointer' }}
+        >
+          Next step →
+        </button>
+      </div>
+    </div>
+  );
+}
