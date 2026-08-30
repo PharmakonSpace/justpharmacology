@@ -123,7 +123,7 @@ export const lessons = [
       'SOLER sets up the room; NURSE handles the emotional reaction',
       "Never advance to strategy before the patient's distress is stabilized"
     ],
-    animation: 'Spikes',
+    animation: 'spikes',
     quiz: [
       {
         question: 'What is the primary function of the SPIKES protocol during a difficult diagnosis?',
