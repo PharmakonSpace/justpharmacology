@@ -3,7 +3,7 @@ import ADME from './ADME';
 import AgonistAntagonist from './AgonistAntagonist';
 import AbsorptionAnimation from './AbsorptionAnimation';
 import Spikes from './spikes';
-import soler from './soler.jsx;
+import soler from './soler.jsx';
 export default function Animation({ type }) {
   const normalizedType = type ? type.toLowerCase().trim() : '';
 
