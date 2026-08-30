@@ -2,7 +2,7 @@ import DrugReceptor from './DrugReceptor';
 import ADME from './ADME';
 import AgonistAntagonist from './AgonistAntagonist';
 import AbsorptionAnimation from './AbsorptionAnimation';
-import Spikes from './Spikes';
+import Spikes from './spikes';
 
 export default function Animation({ type }) {
   const normalizedType = type ? type.toLowerCase().trim() : '';
