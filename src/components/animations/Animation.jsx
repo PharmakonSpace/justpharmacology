@@ -11,7 +11,7 @@ export default function Animation({ type }) {
   if (normalizedType === 'absorption') return <AbsorptionAnimation />;
   if (normalizedType === 'adme') return <ADME />;
   if (normalizedType === 'agonist-antagonist') return <AgonistAntagonist />;
-  if (normalizedType === 'spikes') return <Spikes />; // 2. Add Spikes route
+  if (normalizedType === 'spikes') return <spikes />; // 2. Add Spikes route
 
   return <DrugReceptor />;
 }
