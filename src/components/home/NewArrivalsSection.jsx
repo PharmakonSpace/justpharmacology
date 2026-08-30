@@ -91,7 +91,7 @@ export default function NewArrivalsSection() {
         <div className="active-modules-banner">
           <div className="active-modules-banner-head">
             <span className="module-banner-tag">ACTIVE MODULES</span>
-            <h3>Explore Live Curriculum Subfolders</h3>
+            <h3>Explore Live Curriculum Modules</h3>
           </div>
           <div className="active-modules-grid">
             {availableModules.map((mod) => (
@@ -222,21 +222,6 @@ export default function NewArrivalsSection() {
             ))}
           </div>
         )}
-
-        {/* Live Notification Bar */}
-        <div className="new-content-footer-alert">
-          <div className="alert-left">
-            <span className="alert-badge">AUTOMATIC SYNC</span>
-            <p>
-              New topics and lessons added to any pharmacology subfolder (e.g.{' '}
-              <code>Healthcare_Psychology</code>, <code>general</code>, <code>cns</code>, etc.)
-              are automatically organized and surfaced here.
-            </p>
-          </div>
-          <Link to="/learn" className="alert-action-link">
-            Explore All Modules <ArrowRight size={14} />
-          </Link>
-        </div>
       </div>
     </section>
   );

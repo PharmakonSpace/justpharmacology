@@ -254,7 +254,7 @@ function Home() {
               <div className="eyebrow">CURRICULUM MODULES</div>
               <h2>Build your pharmacology foundation</h2>
               <p className="section-sub">
-                Explore available subfolders with active interactive lessons or preview the upcoming curriculum.
+                Explore core modules with active interactive lessons or preview upcoming topics in the curriculum.
               </p>
             </div>
             <Link to="/learn">
@@ -325,11 +325,11 @@ function Home() {
             <div>
               <div className="eyebrow">
                 <PlayCircle size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 5 }} />
-                AUTOMATIC CURRICULUM SYNC
+                VIDEO LECTURES &amp; HIGH-YIELD CONCEPTS
               </div>
               <h2>Recent Videos &amp; Lesson Lectures</h2>
               <p className="section-sub">
-                Watch focused video explanations automatically synchronized across all pharmacology modules and newly updated lessons.
+                Watch concise video explanations and high-yield clinical walk-throughs across core pharmacology topics.
               </p>
             </div>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
@@ -837,7 +837,7 @@ function Learn() {
           </h1>
           <p>
             {filter === 'all'
-              ? 'Explore all active lessons, clinical empathy frameworks, and interactive pharmacology mechanisms across subfolders.'
+              ? 'Explore all active lessons, clinical empathy frameworks, and interactive pharmacology mechanisms.'
               : currentCategory?.description ||
                 'Structured lessons covering high-yield pharmacology principles and clinical applications.'}
           </p>
@@ -932,8 +932,7 @@ function Learn() {
         <div className="empty">
           <h3>Lessons for this module are coming soon!</h3>
           <p>
-            This module is part of the Just Pharmacology roadmap. When new lessons are added to
-            its subfolder, they will appear here and on the Home page automatically.
+            This module is part of the Just Pharmacology roadmap. New high-yield lessons and visual explanations will be published here soon.
           </p>
           <button
             type="button"
