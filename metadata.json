@@ -1,0 +1,6 @@
+{
+  "name": "Just Pharmacology",
+  "description": "Interactive pharmacology learning platform featuring structured lessons, mechanism animations, quizzes, and rapid revision.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

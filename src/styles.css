@@ -2114,3 +2114,680 @@ footer {
     font-size: 22px;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   NEW ARRIVALS & CURRICULUM UPDATES STYLES
+   ───────────────────────────────────────────────────────────── */
+
+.header-new-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-left: 4px;
+  vertical-align: middle;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.3);
+}
+
+.hero-update-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(22, 128, 125, 0.08);
+  border: 1px solid rgba(22, 128, 125, 0.22);
+  color: #102c3b;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.hero-update-pill .pulse-dot,
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0d9488;
+  box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7);
+  animation: pulse-ring 2s infinite cubic-bezier(0.45, 0, 0.55, 1);
+  display: inline-block;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(13, 148, 136, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 148, 136, 0);
+  }
+}
+
+.hero-update-pill a {
+  color: #0d9488;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.new-arrivals-section {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.new-arrivals-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.new-arrivals-badge-pulse {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.new-arrivals-head h2 {
+  font-size: 32px;
+  margin: 0 0 8px;
+  color: #0f172a;
+  letter-spacing: -0.8px;
+}
+
+.new-arrivals-sub {
+  color: #64748b;
+  max-width: 620px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.view-all-btn {
+  font-size: 14px;
+}
+
+/* Metrics strip */
+.curriculum-metrics-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.metric-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #e2e8f0;
+  color: #0f172a;
+  display: grid;
+  place-items: center;
+}
+
+.metric-icon-wrap.accent {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.metric-icon-wrap.new-badge-icon {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.metric-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.metric-label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.metric-divider {
+  width: 1px;
+  height: 36px;
+  background: #cbd5e1;
+}
+
+/* Active Modules Banner */
+.active-modules-banner {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.active-modules-banner-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.module-banner-tag {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: #0f172a;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.active-modules-banner-head h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.active-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.active-module-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  color: inherit;
+}
+
+.active-module-card:hover {
+  transform: translateY(-3px);
+  border-color: #0d9488;
+  box-shadow: 0 12px 30px rgba(13, 148, 136, 0.1);
+}
+
+.active-module-card.is-new-mod {
+  border: 2px solid #14b8a6;
+  background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%);
+}
+
+.mod-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.mod-icon {
+  font-size: 26px;
+}
+
+.new-pill-pulse {
+  font-size: 11px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #0d9488, #059669);
+  color: white;
+  padding: 4px 9px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(13, 148, 136, 0.35);
+  animation: pulse-ring 2.5s infinite;
+}
+
+.status-pill-avail {
+  font-size: 11px;
+  font-weight: 800;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.active-module-card h4 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.active-module-card p {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.45;
+  margin: 0 0 14px;
+}
+
+.mod-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 13px;
+}
+
+.mod-count-pill {
+  color: #475569;
+  font-size: 12px;
+}
+
+.mod-link-arrow {
+  color: #0d9488;
+  font-weight: 800;
+}
+
+/* Filter Bar */
+.arrivals-filter-bar {
+  margin-bottom: 22px;
+}
+
+.arrivals-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arrival-tab {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.15s;
+}
+
+.arrival-tab:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.arrival-tab.active {
+  background: #0f172a;
+  color: white;
+  border-color: #0f172a;
+}
+
+.tab-new-dot {
+  background: #14b8a6;
+  color: white;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-weight: 900;
+}
+
+/* New arrivals grid */
+.new-arrivals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.new-lesson-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: 0.2s;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
+}
+
+.new-lesson-card:hover {
+  transform: translateY(-3px);
+  border-color: #0d9488;
+  box-shadow: 0 16px 36px rgba(13, 148, 136, 0.1);
+}
+
+.new-lesson-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.new-lesson-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.new-indicator-badge {
+  font-size: 11px;
+  font-weight: 800;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.topic-tag-pill {
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.level-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.new-lesson-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+
+.new-lesson-desc {
+  font-size: 13.5px;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0 0 16px;
+  flex-grow: 1;
+}
+
+.feature-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.feat-chip {
+  font-size: 11.5px;
+  font-weight: 650;
+  color: #0f766e;
+  background: #f0fdfa;
+  border: 1px solid #ccfbf1;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.new-lesson-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.time-est {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.start-new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #102c3b;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 750;
+  text-decoration: none;
+  transition: 0.15s;
+}
+
+.start-new-btn:hover {
+  background: #0d9488;
+}
+
+/* Topics overview grid */
+.topics-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.topic-highlight-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.topic-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.topic-mod-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.badge-new-tiny {
+  font-size: 10px;
+  font-weight: 800;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.topic-highlight-card h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.topic-lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.topic-lesson-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #334155;
+  padding: 6px 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.15s;
+  background: #f8fafc;
+}
+
+.topic-lesson-link:hover {
+  background: #f0fdfa;
+  color: #0d9488;
+}
+
+.topic-lesson-link .link-arrow {
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+/* Footer Alert Banner */
+.new-content-footer-alert {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.alert-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.alert-badge {
+  font-size: 11px;
+  font-weight: 800;
+  background: #0f172a;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  letter-spacing: 0.5px;
+}
+
+.alert-left p {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+}
+
+.alert-left code {
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  color: #0f172a;
+}
+
+.alert-action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #0d9488;
+  font-weight: 750;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+/* Lesson card enhancements */
+.lesson-card.lesson-card-new {
+  border: 1.5px solid #a7f3d0;
+  background: linear-gradient(180deg, #fafffd 0%, #ffffff 100%);
+}
+
+.card-top-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.card-topic-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0d9488;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Active navigation link in header */
+.navlinks a.active-nav {
+  color: #102c3b;
+  font-weight: 800;
+}
+
+.category-card.is-new-cat {
+  border: 2px solid #14b8a6;
+  background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%);
+}
+
+.cat-badge-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .curriculum-metrics-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .metric-divider {
+    display: none;
+  }
+  .new-arrivals-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

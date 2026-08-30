@@ -1,5 +1,5 @@
-import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
-import { useMemo, useState } from 'react';
+import { Routes, Route, Link, useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useMemo, useState, useEffect } from 'react';
 import {
   PlayCircle,
   ArrowRight,
@@ -28,6 +28,8 @@ import Animation from './components/animations/Animation';
 import Quiz from './components/quiz/Quiz';
 import { completeLesson, isComplete } from './utils/progress';
 import VideoEmbed from './components/video/VideoEmbed';
+import NewArrivalsSection from './components/home/NewArrivalsSection';
+import { getModulesWithStats } from './utils/contentUtils';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -203,6 +205,7 @@ const signatureLectures = [
 function Home() {
   const [activeQuoteIdx, setActiveQuoteIdx] = useState(0);
   const [mentorActiveTab, setMentorActiveTab] = useState('letter');
+  const modulesWithStats = useMemo(() => getModulesWithStats(), []);
 
   return (
     <>
@@ -210,11 +213,18 @@ function Home() {
       <section className="hero">
         <div className="container hero-grid">
           <div>
+            <div className="hero-update-pill">
+              <span className="pulse-dot" />
+              <span>
+                <strong>Curriculum Update:</strong> New module &ldquo;Healthcare Psychology&rdquo; &amp; clinical topics added!
+              </span>
+              <a href="#new-arrivals">Explore what&apos;s new ↓</a>
+            </div>
             <div className="eyebrow">INTERACTIVE PHARMACOLOGY LEARNING</div>
             <h1>
               Understand Pharmacology.
               <br />
-              <span>Don't Just Memorize It.</span>
+              <span>Don&apos;t Just Memorize It.</span>
             </h1>
             <p>
               An educational initiative inspired by the teaching of{' '}
@@ -225,6 +235,9 @@ function Home() {
               <Link className="btn primary" to="/learn">
                 Start Learning <ArrowRight />
               </Link>
+              <a className="btn secondary" href="#new-arrivals">
+                <Sparkles size={16} /> What&apos;s New
+              </a>
               <Link className="btn secondary" to="/revision">
                 Rapid Revision
               </Link>
@@ -242,31 +255,59 @@ function Home() {
         </div>
       </section>
 
+      {/* Dynamic New Arrivals & Curriculum Updates Section */}
+      <NewArrivalsSection />
+
       {/* Learning path */}
       <section className="section">
         <div className="container">
           <div className="section-head">
             <div>
-              <div className="eyebrow">LEARNING PATH</div>
+              <div className="eyebrow">CURRICULUM MODULES</div>
               <h2>Build your pharmacology foundation</h2>
+              <p className="section-sub">
+                Explore available subfolders with active interactive lessons or preview the upcoming curriculum.
+              </p>
             </div>
             <Link to="/learn">
-              View all <ArrowRight />
+              View all modules <ArrowRight />
             </Link>
           </div>
           <div className="category-grid">
-            {categories.slice(0, 6).map((c) => (
-              <Link
-                className="category-card"
-                to={`/learn?category=${c.id}`}
-                key={c.id}
-              >
-                <div className="cat-icon">{c.icon}</div>
-                <h3>{c.name}</h3>
-                <p>{c.description}</p>
-                <span>Explore →</span>
-              </Link>
-            ))}
+            {categories.map((c) => {
+              const modStat = modulesWithStats.find(
+                (m) => m.id === c.id || (c.id === 'cardio' && m.id === 'cardiovascular') || (c.id === 'gi' && m.id === 'gastrointestinal')
+              );
+              const lessonCount = modStat?.lessonsCount || (c.id === 'general' ? 13 : c.id === 'healthcare_psychology' ? 1 : 0);
+              const isAvailable = lessonCount > 0;
+              const isNewMod = c.isNew || modStat?.isNew;
+
+              return (
+                <Link
+                  className={`category-card ${isNewMod ? 'is-new-cat' : ''}`}
+                  to={`/learn?category=${c.id}`}
+                  key={c.id}
+                >
+                  <div className="cat-badge-wrap">
+                    <div className="cat-icon">{c.icon}</div>
+                    {isNewMod && (
+                      <span className="pill-new">
+                        <Sparkles size={10} /> NEW MODULE
+                      </span>
+                    )}
+                    {!isNewMod && isAvailable && (
+                      <span className="status-pill-avail">{lessonCount} {lessonCount === 1 ? 'lesson' : 'lessons'}</span>
+                    )}
+                    {!isAvailable && (
+                      <span className="level-badge">Coming soon</span>
+                    )}
+                  </div>
+                  <h3>{c.name}</h3>
+                  <p>{c.description}</p>
+                  <span>{isAvailable ? 'Explore Lessons →' : 'View Overview →'}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -685,38 +726,79 @@ function Home() {
 /* ───────────────────────── Learn ───────────────────────── */
 
 function Learn() {
-  const [filter, setFilter] = useState('general');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCat = searchParams.get('category') || 'all';
+  const [filter, setFilter] = useState(initialCat);
+
+  useEffect(() => {
+    const cat = searchParams.get('category');
+    if (cat) {
+      setFilter(cat);
+    }
+  }, [searchParams]);
+
+  const handleFilterChange = (newCat) => {
+    setFilter(newCat);
+    if (newCat === 'all') {
+      setSearchParams({});
+    } else {
+      setSearchParams({ category: newCat });
+    }
+  };
+
   const shown =
-    filter === 'all' ? lessons : lessons.filter((l) => l.categoryId === filter);
+    filter === 'all'
+      ? lessons
+      : lessons.filter(
+          (l) =>
+            l.categoryId === filter ||
+            (filter === 'cardio' && l.categoryId === 'cardiovascular') ||
+            (filter === 'gi' && l.categoryId === 'gastrointestinal')
+        );
+
   const topicGroups = shown.reduce((a, l) => {
-    (a[l.topic] ??= []).push(l);
+    const t = l.topic || 'General Topics';
+    (a[t] ??= []).push(l);
     return a;
   }, {});
+
+  const currentCategory = categories.find((c) => c.id === filter);
   const completedCount = shown.filter((l) => isComplete(l.id)).length;
 
   return (
     <main className="container page">
       <div className="page-head">
         <div>
-          <div className="eyebrow">MODULE 1 · GENERAL PHARMACOLOGY</div>
-          <h1>General Pharmacology</h1>
+          <div className="eyebrow">
+            {filter === 'all'
+              ? 'FULL CURRICULUM'
+              : currentCategory?.isNew
+              ? '✨ NEW MODULE ADDED'
+              : 'MODULE OVERVIEW'}
+          </div>
+          <h1>
+            {filter === 'all'
+              ? 'All Pharmacology Lessons'
+              : currentCategory?.name || 'Pharmacology Lessons'}
+          </h1>
           <p>
-            Foundation module with structured lessons covering drug administration,
-            pharmacokinetics, pharmacodynamics, receptors, dose-response, safety,
-            interactions and individual variation.
+            {filter === 'all'
+              ? 'Explore all active lessons, clinical empathy frameworks, and interactive pharmacology mechanisms across subfolders.'
+              : currentCategory?.description ||
+                'Structured lessons covering high-yield pharmacology principles and clinical applications.'}
           </p>
         </div>
       </div>
 
       <div className="module-strip">
         <div>
-          <b>Module 1 progress</b>
+          <b>Progress</b>
           <span>
-            {shown.length} lessons available · {completedCount} completed
+            {shown.length} {shown.length === 1 ? 'lesson' : 'lessons'} available · {completedCount} completed
           </span>
         </div>
-        <Link className="btn secondary" to="/lesson/general-pharmacology-final-review">
-          Final Rapid Review <ArrowRight />
+        <Link className="btn secondary" to="/revision">
+          Rapid Revision <ArrowRight />
         </Link>
       </div>
 
@@ -724,29 +806,56 @@ function Learn() {
         <button
           type="button"
           className={filter === 'all' ? 'selected' : ''}
-          onClick={() => setFilter('all')}
+          onClick={() => handleFilterChange('all')}
         >
-          All
+          All ({lessons.length})
         </button>
-        {categories.map((c) => (
-          <button
-            type="button"
-            className={filter === c.id ? 'selected' : ''}
-            onClick={() => setFilter(c.id)}
-            key={c.id}
-          >
-            {c.name}
-          </button>
-        ))}
+        {categories.map((c) => {
+          const catLessons = lessons.filter(
+            (l) =>
+              l.categoryId === c.id ||
+              (c.id === 'cardio' && l.categoryId === 'cardiovascular') ||
+              (c.id === 'gi' && l.categoryId === 'gastrointestinal')
+          );
+          return (
+            <button
+              type="button"
+              className={filter === c.id ? 'selected' : ''}
+              onClick={() => handleFilterChange(c.id)}
+              key={c.id}
+            >
+              {c.icon} {c.name} {catLessons.length > 0 && `(${catLessons.length})`}
+              {c.isNew && ' ✨'}
+            </button>
+          );
+        })}
       </div>
 
-      {filter === 'general' ? (
+      {shown.length === 0 ? (
+        <div className="empty">
+          <h3>Lessons for this module are coming soon!</h3>
+          <p>
+            This module is part of the Just Pharmacology roadmap. When new lessons are added to
+            its subfolder, they will appear here and on the Home page automatically.
+          </p>
+          <button
+            type="button"
+            className="btn primary"
+            style={{ marginTop: '16px' }}
+            onClick={() => handleFilterChange('all')}
+          >
+            View Available Lessons
+          </button>
+        </div>
+      ) : Object.keys(topicGroups).length > 0 ? (
         <div className="topic-groups">
           {Object.entries(topicGroups).map(([topic, items]) => (
             <section className="topic-group" key={topic}>
               <div className="topic-group-head">
                 <h2>{topic}</h2>
-                <span>{items.length} lessons</span>
+                <span>
+                  {items.length} {items.length === 1 ? 'lesson' : 'lessons'}
+                </span>
               </div>
               <div className="lesson-grid">
                 {items.map((l) => (

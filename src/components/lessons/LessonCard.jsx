@@ -1,1 +1,34 @@
-import {Link} from 'react-router-dom'; import {Clock,ChevronRight} from 'lucide-react'; import {isComplete} from '../../utils/progress'; export default function LessonCard({lesson}){return <Link to={'/lesson/'+lesson.id} className="lesson-card"><div className="card-top"><span className="pill">{lesson.level}</span>{isComplete(lesson.id)&&<span className="done">✓ Complete</span>}</div><h3>{lesson.title}</h3><p>{lesson.description}</p><div className="card-meta"><span><Clock size={15}/> {lesson.time} min</span><span>Start <ChevronRight size={16}/></span></div></Link>}
+import { Link } from 'react-router-dom';
+import { Clock, ChevronRight, Sparkles } from 'lucide-react';
+import { isComplete } from '../../utils/progress';
+
+export default function LessonCard({ lesson }) {
+  const isNew = lesson.isNew || lesson.badge === 'NEW' || lesson.categoryId === 'healthcare_psychology';
+
+  return (
+    <Link to={'/lesson/' + lesson.id} className={`lesson-card ${isNew ? 'lesson-card-new' : ''}`}>
+      <div className="card-top">
+        <div className="card-top-left">
+          <span className="pill">{lesson.level}</span>
+          {isNew && (
+            <span className="pill-new">
+              <Sparkles size={11} /> NEW
+            </span>
+          )}
+        </div>
+        {isComplete(lesson.id) && <span className="done">✓ Complete</span>}
+      </div>
+      {lesson.topic && <div className="card-topic-tag">{lesson.topic}</div>}
+      <h3>{lesson.title}</h3>
+      <p>{lesson.description}</p>
+      <div className="card-meta">
+        <span>
+          <Clock size={15} /> {lesson.time} min
+        </span>
+        <span className="start-link">
+          Start <ChevronRight size={16} />
+        </span>
+      </div>
+    </Link>
+  );
+}
