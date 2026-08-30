@@ -153,21 +153,104 @@ const teachingPillars = [
 
 const studentTributes = [
   {
-    name: 'Aman Sharma',
-    role: 'Pharm.D Clinical Pharmacist',
-    batch: 'Mentored',
-    institution: 'Inspired by classroom teaching',
-    badge: 'Gratitude',
-    message: `Sir's passion for teaching is contagious. He didn't just teach us pharmacology for exams; he taught us the rationale behind saving patient lives at the bedside. This portal is our humble tribute to his legendary classroom pedagogy.`,
-},
-  {
-    name: 'Sneha Rawat',
-    role: 'Senior Research Scientist',
-    batch: 'Online',
-    institution: 'YouTube · @JustPharmacology',
-    badge: 'Respect',
+    name: 'Rahul Sharma',
+    role: 'B.Pharm (Batch 2015–2019) · Senior Regulatory Affairs Associate',
+    batch: '2015–2019',
+    degree: 'B.Pharm',
+    institution: 'Pharmacy Alumnus',
+    badge: 'Soft Nature & Patience',
     message:
-      'Clear lectures, calm teaching, and mechanisms that finally make sense. Thank you, Sir.',
+      'Dr. Goyal Sir is the most soft-spoken and gentle professor I have ever had the privilege to learn from. During our 2015 batch, he would patiently explain complex GPCR signaling pathways repeatedly with a warm smile until the last student understood. His calm demeanor completely removed our fear of pharmacology.',
+  },
+  {
+    name: 'Dr. Priyanka Verma',
+    role: 'Ph.D. Pharmacology (Batch 2016–2021) · Assistant Professor',
+    batch: '2016–2021',
+    degree: 'Ph.D.',
+    institution: 'Doctoral Scholar',
+    badge: 'Encyclopedic Knowledge',
+    message:
+      'Sir\'s knowledge base across neuropharmacology and receptor kinetics is truly staggering. During my doctoral research, whenever we faced experimental roadblocks in animal protocols, Sir would sit with us for hours, offering razor-sharp scientific guidance with immense humility and warmth.',
+  },
+  {
+    name: 'Amit Patel',
+    role: 'M.Pharm Pharmacology (Batch 2017–2019) · Principal Research Scientist',
+    batch: '2017–2019',
+    degree: 'M.Pharm',
+    institution: 'Postgraduate Alumnus',
+    badge: 'Always Ready to Help',
+    message:
+      'Goyal Sir\'s helping nature is legendary in the department. Even after grueling teaching schedules, his door was always open for postgraduate research discussions, thesis doubts, or career counseling. He treats every student like his own family.',
+  },
+  {
+    name: 'Kavita Sundaram',
+    role: 'B.Pharm (Batch 2018–2022) · Clinical Data Specialist, IQVIA',
+    batch: '2018–2022',
+    degree: 'B.Pharm',
+    institution: 'Pharmacy Alumna',
+    badge: 'Empathetic & Connective',
+    message:
+      'What makes Goyal Sir so special is how deeply connected he is with students. He never made anyone feel silly for asking fundamental questions. His conceptual visual charts and encouraging words gave our entire batch the confidence to excel in national GPAT exams.',
+  },
+  {
+    name: 'Mohit Joshi',
+    role: 'M.Pharm Pharmacology (Batch 2019–2021) · Medical Affairs Lead',
+    batch: '2019–2021',
+    degree: 'M.Pharm',
+    institution: 'Postgraduate Alumnus',
+    badge: 'Dedicated Mentor',
+    message:
+      'During the challenging lockdown phase of our M.Pharm batch, Sir took extra virtual sessions, ensured our seminar presentations were world-class, and constantly motivated us. His soft voice and rock-solid pharmacology mastery kept our spirits high.',
+  },
+  {
+    name: 'Ananya Deshmukh',
+    role: 'B.Pharm (Batch 2020–2024) · Pharmacovigilance Associate',
+    batch: '2020–2024',
+    degree: 'B.Pharm',
+    institution: 'Pharmacy Alumna',
+    badge: 'Clarity & Guidance',
+    message:
+      'Autonomic and cardiovascular pharmacology felt like a breeze under Sir\'s teaching. He turns intimidating drug classifications into logical, memorable stories. Beyond academics, his soft-spoken advice on ethical pharmacy practice continues to guide my clinical career.',
+  },
+  {
+    name: 'Sandeep Rawat',
+    role: 'Ph.D. Scholar (Batch 2021–2025) · Senior Research Fellow',
+    batch: '2021–2025',
+    degree: 'Ph.D.',
+    institution: 'Pharmacology Research',
+    badge: 'Vast Knowledge Base',
+    message:
+      'Having Sir as a research guide is a blessing. His mastery of both pharmacology mechanisms and pharmaceutical law (LL.B.) provides a rare holistic perspective. His gentle guidance, constructive feedback, and supportive attitude inspire us to publish high-impact research.',
+  },
+  {
+    name: 'Pooja Bhatt',
+    role: 'M.Pharm Pharmacology (Batch 2023–2025) · Post Graduate Scholar',
+    batch: '2023–2025',
+    degree: 'M.Pharm',
+    institution: 'Postgraduate Scholar',
+    badge: 'Compassionate Educator',
+    message:
+      'Sir\'s kindness and approachability make learning an absolute joy. In our M.Pharm lab, whenever screening experiments get tricky, Sir\'s calm presence and step-by-step guidance dissolve all stress. We are profoundly grateful for his mentorship.',
+  },
+  {
+    name: 'Vikram Singh Rathore',
+    role: 'B.Pharm (Batch 2022–2026) · Final Year Undergraduate Student',
+    batch: '2022–2026',
+    degree: 'B.Pharm',
+    institution: 'Undergraduate Scholar',
+    badge: 'Inspiring Guru',
+    message:
+      'As a current 2026 graduating student, Goyal Sir’s classes are the highlight of our academic journey. His effortless command over drug mechanisms, combined with his humble and soft-spoken personality, makes him the most beloved mentor on campus.',
+  },
+  {
+    name: 'Aman Sharma',
+    role: 'Pharm.D & Clinical Pharmacist · Alumnus Mentee',
+    batch: 'Alumnus',
+    degree: 'B.Pharm',
+    institution: 'Clinical Pharmacist',
+    badge: 'Lifelong Inspiration',
+    message:
+      'Sir\'s passion for teaching is contagious. He didn\'t just teach us pharmacology for university exams; he taught us the clinical rationale behind saving patient lives at the bedside. This entire learning initiative is our humble tribute to his noble pedagogy.',
   },
 ];
 
@@ -680,26 +763,46 @@ function Home() {
       )}
 
       {mentorActiveTab === 'tributes' && (
-        <div className="tribute-wall">
-          {studentTributes.map((st, sIdx) => (
-            <div className="tribute-card-stu" key={sIdx}>
-              <div className="stu-head">
-                <div className="stu-avatar">{st.name.charAt(0)}</div>
-                <div>
-                  <h5>{st.name}</h5>
-                  <p>{st.role}</p>
-                </div>
-                <span className="batch">{st.batch}</span>
+        <div className="tribute-wall-container">
+          <div className="tribute-wall-intro">
+            <div className="tribute-wall-intro-left">
+              <div className="tribute-wall-pill">
+                <Heart size={14} className="rose" />
+                <span>STUDENT REFLECTIONS (BATCHES 2015 – 2026)</span>
               </div>
-              <p className="stu-msg">&ldquo;{st.message}&rdquo;</p>
-              <div className="stu-foot">
-                <span>{st.institution}</span>
-                <span className="badge">
-                  <Star size={12} /> {st.badge}
-                </span>
-              </div>
+              <h3>Voices of Gratitude from Across India</h3>
+              <p>
+                From undergraduate B.Pharm students to postgraduate M.Pharm scholars and Ph.D. researchers,
+                students share their profound respect for Dr. Manoj Goyal Sir&apos;s soft nature, extraordinary
+                knowledge base, and selfless, approachable mentorship.
+              </p>
             </div>
-          ))}
+          </div>
+
+          <div className="tribute-wall">
+            {studentTributes.map((st, sIdx) => (
+              <div className="tribute-card-stu" key={sIdx}>
+                <div className="stu-head">
+                  <div className="stu-avatar">{st.name.charAt(0)}</div>
+                  <div className="stu-info">
+                    <h5>{st.name}</h5>
+                    <p>{st.role}</p>
+                  </div>
+                  <div className="stu-tags">
+                    <span className="stu-degree-tag">{st.degree}</span>
+                    <span className="batch">{st.batch}</span>
+                  </div>
+                </div>
+                <p className="stu-msg">&ldquo;{st.message}&rdquo;</p>
+                <div className="stu-foot">
+                  <span>{st.institution}</span>
+                  <span className="badge">
+                    <Star size={12} fill="#b45309" /> {st.badge}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
