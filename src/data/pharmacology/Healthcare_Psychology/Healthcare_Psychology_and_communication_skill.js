@@ -17,7 +17,7 @@ export const lessons = [
       'Explain each of the six stages of the SPIKES protocol and what it accomplishes',
       'Understand how emotion constrains cognitive bandwidth, and how clinicians manage autonomic panic and information overload'
     ],
-    
+
     // 🎨 Visual Draw Format / Process Flow for the 6 Steps
     spikesSteps: [
       {
@@ -49,6 +49,33 @@ export const lessons = [
         step: 'S',
         title: 'Strategy',
         description: 'Co-author a clear, actionable follow-up plan with written materials to restore a sense of control.'
+      }
+    ],
+
+    // 🩺 Sub-frameworks referenced inside the six stages — rendered by
+    // LessonDetail as side-by-side "readout" panels wherever they're present.
+    frameworks: [
+      {
+        name: 'SOLER',
+        context: 'Physical setup, before a word is spoken',
+        items: [
+          { init: 'S', label: 'Squarely face the patient' },
+          { init: 'O', label: 'Open posture, no crossed arms' },
+          { init: 'L', label: 'Lean in slightly' },
+          { init: 'E', label: 'Eye contact, appropriately held' },
+          { init: 'R', label: 'Relax' }
+        ]
+      },
+      {
+        name: 'NURSE',
+        context: "The emotional response, after news lands",
+        items: [
+          { init: 'N', label: 'Naming the emotion' },
+          { init: 'U', label: 'Understanding, expressed' },
+          { init: 'R', label: "Respecting how they've coped" },
+          { init: 'S', label: 'Supporting them' },
+          { init: 'E', label: 'Exploring what it means to them' }
+        ]
       }
     ],
 
