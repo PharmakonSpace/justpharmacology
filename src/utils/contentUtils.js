@@ -178,6 +178,121 @@ export function getAllCurriculumVideos() {
  * Returns recent videos for the home page.
  * Gathers all automatic lesson videos first, and complements with channel signature lectures if needed.
  */
+
+/**
+ * Returns all interactive visual animations available across all curriculum modules.
+ * Automatically synchronizes with any new animations declared in any lesson file.
+ */
+export function getAllAnimations() {
+  const baseCatalog = [
+    {
+      type: 'drug-receptor',
+      title: 'Drug → Receptor → Response Cascade',
+      subtitle: 'Molecular Target Interaction & Signal Transduction',
+      categoryId: 'general',
+      categoryName: 'General Pharmacology',
+      icon: '💊🎯',
+      badge: 'FUNDAMENTAL',
+      description:
+        'Interactive 3-stage model demonstrating drug approach, stereospecific receptor binding, and subsequent biological response cascade.',
+    },
+    {
+      type: 'adme',
+      title: 'ADME Pharmacokinetic Transit Journey',
+      subtitle: 'Absorption, Distribution, Metabolism & Excretion',
+      categoryId: 'general',
+      categoryName: 'General Pharmacology',
+      icon: '🔄',
+      badge: 'CORE PK',
+      description:
+        'Interactive 4-stage exploration of Absorption, Distribution, Metabolism, and Excretion governing drug disposition in the human body.',
+    },
+    {
+      type: 'absorption',
+      title: 'Drug Absorption & Bioavailability Model',
+      subtitle: 'Membrane Permeation & Systemic Circulation Transit',
+      categoryId: 'general',
+      categoryName: 'General Pharmacology',
+      icon: '🧬🩸',
+      badge: 'HIGH-YIELD',
+      description:
+        'Visual transit model demonstrating how drug formulations cross biological lipid barriers, enter systemic bloodstream, and achieve target bioavailability.',
+    },
+    {
+      type: 'agonist-antagonist',
+      title: 'Agonist vs Antagonist Receptor Dynamics',
+      subtitle: 'Receptor Occupancy, Activation & Blockade',
+      categoryId: 'general',
+      categoryName: 'General Pharmacology',
+      icon: '⚡⛔',
+      badge: 'CORE PD',
+      description:
+        'Dynamic receptor simulator contrasting full receptor activation by agonists with competitive blockade and response inhibition by antagonists.',
+    },
+    {
+      type: 'spikes',
+      title: 'The SPIKES Protocol Interactive Simulation',
+      subtitle: '6-Stage Clinical Empathy & Communication Simulator',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '📋🩺',
+      badge: 'CLINICAL SKILL',
+      isNew: true,
+      description:
+        'Step-by-step clinical communication simulator for delivering difficult diagnostic news (Setting, Perception, Invitation, Knowledge, Empathy, Strategy).',
+    },
+    {
+      type: 'soler',
+      title: "Gerard Egan's SOLER Posture Framework",
+      subtitle: 'Nonverbal Active Listening & Somatic Coregulation',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '🧘👁️',
+      badge: 'NEW MODEL',
+      isNew: true,
+      description:
+        '5-step evidence-based physical blueprint (Square, Open, Lean, Eye Contact, Relax) for nonverbal active listening and soothing patient anxiety.',
+    },
+  ];
+
+  // Dynamically find any additional animation types registered in allLessons
+  const registeredTypes = new Set(baseCatalog.map((a) => a.type));
+  allLessons.forEach((l) => {
+    if (l.animation && !registeredTypes.has(l.animation.toLowerCase().trim())) {
+      const typeKey = l.animation.toLowerCase().trim();
+      const cat = categories.find((c) => c.id === l.categoryId);
+      const mod = modules.find((m) => m.id === l.categoryId);
+      baseCatalog.push({
+        type: typeKey,
+        title: `${l.title} Interactive Model`,
+        subtitle: l.subtitle || l.topic || 'Visual Mechanism',
+        categoryId: l.categoryId || 'general',
+        categoryName: mod?.title || cat?.name || l.categoryId || 'Pharmacology',
+        icon: '🧬',
+        badge: l.badge || 'INTERACTIVE',
+        isNew: l.isNew === true,
+        description: l.description || 'Interactive visual learning model for clinical pharmacology concepts.',
+      });
+      registeredTypes.add(typeKey);
+    }
+  });
+
+  // Attach linked lessons to each animation
+  return baseCatalog.map((anim) => {
+    const linkedLessons = allLessons.filter(
+      (l) => l.animation && l.animation.toLowerCase().trim() === anim.type
+    );
+    return {
+      ...anim,
+      linkedLessons,
+    };
+  });
+}
+
+/**
+ * Returns recent videos for the home page.
+ * Gathers all automatic lesson videos first, and complements with channel signature lectures if needed.
+ */
 export function getRecentCurriculumVideos(limit = 6) {
   const curriculumVideos = getAllCurriculumVideos();
   
@@ -225,3 +340,5 @@ export function getRecentCurriculumVideos(limit = 6) {
 
   return combined.slice(0, limit);
 }
+
+

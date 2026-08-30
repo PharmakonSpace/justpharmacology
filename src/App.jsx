@@ -38,7 +38,7 @@ import Quiz from './components/quiz/Quiz';
 import { completeLesson, isComplete } from './utils/progress';
 import VideoEmbed from './components/video/VideoEmbed';
 import NewArrivalsSection from './components/home/NewArrivalsSection';
-import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals } from './utils/contentUtils';
+import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations } from './utils/contentUtils';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -1297,20 +1297,210 @@ function Revision() {
 /* ───────────────────────── Animations ───────────────────────── */
 
 function Animations() {
+  const [selectedCat, setSelectedCat] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Dynamically gathered all animations from across all modules and lessons
+  const allAnimations = useMemo(() => getAllAnimations(), []);
+
+  // Category counts
+  const categoryCounts = useMemo(() => {
+    const counts = { all: allAnimations.length };
+    allAnimations.forEach((a) => {
+      counts[a.categoryId] = (counts[a.categoryId] || 0) + 1;
+    });
+    return counts;
+  }, [allAnimations]);
+
+  // Categories list
+  const categoryOptions = useMemo(() => {
+    const map = new Map();
+    allAnimations.forEach((a) => {
+      if (!map.has(a.categoryId)) {
+        map.set(a.categoryId, a.categoryName);
+      }
+    });
+    return Array.from(map.entries()).map(([id, name]) => ({ id, name }));
+  }, [allAnimations]);
+
+  // Filtered animations
+  const filteredAnimations = useMemo(() => {
+    return allAnimations.filter((anim) => {
+      if (selectedCat !== 'all' && anim.categoryId !== selectedCat) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchTitle = anim.title.toLowerCase().includes(q);
+        const matchSub = anim.subtitle?.toLowerCase().includes(q);
+        const matchDesc = anim.description?.toLowerCase().includes(q);
+        const matchCat = anim.categoryName?.toLowerCase().includes(q);
+        const matchLesson = anim.linkedLessons?.some((l) =>
+          l.title.toLowerCase().includes(q) || l.topic?.toLowerCase().includes(q)
+        );
+        if (!matchTitle && !matchSub && !matchDesc && !matchCat && !matchLesson) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [allAnimations, selectedCat, searchQuery]);
+
   return (
     <main className="container page">
       <div className="page-head">
         <div>
           <div className="eyebrow">VISUAL LEARNING LAB</div>
-          <h1>Interactive Animations</h1>
-          <p>Reusable animation components can be attached to any future lesson.</p>
+          <h1>Interactive Animations &amp; Models</h1>
+          <p>
+            Explore all {allAnimations.length} visual simulations and clinical mechanisms from across the curriculum,
+            featuring interactive drug disposition, receptor dynamics, and clinical communication frameworks.
+          </p>
         </div>
       </div>
-      <div className="animation-stack">
-        <Animation type="drug-receptor" />
-        <Animation type="adme" />
-        <Animation type="agonist-antagonist" />
+
+      {/* Filter and Search Bar */}
+      <div className="anim-filter-bar">
+        <div className="anim-search-wrap">
+          <SearchIcon size={18} className="anim-search-icon" />
+          <input
+            type="text"
+            placeholder="Search animations by concept, mechanism, or topic..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="anim-search-input"
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              className="anim-search-clear"
+              onClick={() => setSearchQuery('')}
+              title="Clear search"
+            >
+              ×
+            </button>
+          )}
+        </div>
+
+        <div className="anim-cat-pills">
+          <button
+            type="button"
+            className={selectedCat === 'all' ? 'anim-filter-pill active' : 'anim-filter-pill'}
+            onClick={() => setSelectedCat('all')}
+          >
+            <span>🧪</span>
+            <span>All Models</span>
+            <span className="anim-pill-badge">{categoryCounts.all || 0}</span>
+          </button>
+          {categoryOptions.map((cat) => {
+            const icon =
+              cat.id === 'general'
+                ? '💊'
+                : cat.id === 'healthcare_psychology'
+                ? '🧠'
+                : '🧬';
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                className={selectedCat === cat.id ? 'anim-filter-pill active' : 'anim-filter-pill'}
+                onClick={() => setSelectedCat(cat.id)}
+              >
+                <span>{icon}</span>
+                <span>{cat.name}</span>
+                <span className="anim-pill-badge">{categoryCounts[cat.id] || 0}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
+
+      {/* Quick Jump Bar */}
+      {filteredAnimations.length > 1 && (
+        <div className="anim-quick-jump">
+          <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#64748b', display: 'inline-flex', alignItems: 'center', marginRight: '6px' }}>
+            ⚡ QUICK JUMP:
+          </span>
+          {filteredAnimations.map((anim) => (
+            <a
+              key={anim.type}
+              href={`#anim-${anim.type}`}
+              className="anim-quick-btn"
+            >
+              <span>{anim.icon}</span>
+              <span>{anim.title.split(' ')[0]} {anim.title.split(' ')[1] || ''}</span>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Animations Stack */}
+      {filteredAnimations.length === 0 ? (
+        <div className="empty-topic-state" style={{ margin: '30px 0' }}>
+          <HelpCircle size={40} color="#94a3b8" />
+          <h3>No animation models found</h3>
+          <p>Try clearing your search query or switching categories.</p>
+          <button
+            type="button"
+            className="btn outline"
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCat('all');
+            }}
+          >
+            Reset Filters
+          </button>
+        </div>
+      ) : (
+        <div className="animation-stack">
+          {filteredAnimations.map((anim) => (
+            <div className="anim-lab-card" id={`anim-${anim.type}`} key={anim.type}>
+              <div className="anim-lab-header">
+                <div className="anim-lab-top-row">
+                  <span className="anim-lab-category-tag">{anim.categoryName}</span>
+                  {anim.badge && (
+                    <span className={anim.isNew ? 'anim-lab-badge new' : 'anim-lab-badge'}>
+                      {anim.badge}
+                    </span>
+                  )}
+                </div>
+                <div className="anim-lab-title-wrap">
+                  <span className="anim-lab-icon">{anim.icon}</span>
+                  <div>
+                    <h3 className="anim-lab-title">{anim.title}</h3>
+                    {anim.subtitle && <p className="anim-lab-subtitle">{anim.subtitle}</p>}
+                  </div>
+                </div>
+                <p className="anim-lab-desc">{anim.description}</p>
+              </div>
+
+              {/* Render Interactive Animation */}
+              <Animation type={anim.type} />
+
+              {/* Linked Lessons from Curriculum */}
+              {anim.linkedLessons && anim.linkedLessons.length > 0 && (
+                <div className="anim-linked-lessons">
+                  <span className="anim-linked-label">
+                    <BookOpen size={14} color="#0d9488" />
+                    <span>Featured in Curriculum Lessons:</span>
+                  </span>
+                  <div className="anim-linked-pills">
+                    {anim.linkedLessons.map((les) => (
+                      <Link
+                        key={les.id}
+                        to={`/lesson/${les.id}`}
+                        className="anim-lesson-chip"
+                      >
+                        <span>📖</span>
+                        <span>{les.title}</span>
+                        <ArrowRight size={12} color="#0d9488" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </main>
   );
 }
