@@ -93,7 +93,7 @@ const STAGES = [
   }
 ];
 
-export default function Spikes() {
+export default function spikes() {
   const [activeTab, setActiveTab] = useState(0);
   const [playing, setPlaying] = useState(false);
 
