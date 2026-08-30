@@ -2,16 +2,15 @@ import DrugReceptor from './DrugReceptor';
 import ADME from './ADME';
 import AgonistAntagonist from './AgonistAntagonist';
 import AbsorptionAnimation from './AbsorptionAnimation';
-import Spikes from './spikes'; // 1. Import Spikes component
+import Spikes from './Spikes';
 
 export default function Animation({ type }) {
-  // Convert type to lowercase to avoid casing errors (e.g., 'Spikes' vs 'spikes')
-  const normalizedType = type ? type.toLowerCase() : '';
+  const normalizedType = type ? type.toLowerCase().trim() : '';
 
   if (normalizedType === 'absorption') return <AbsorptionAnimation />;
   if (normalizedType === 'adme') return <ADME />;
   if (normalizedType === 'agonist-antagonist') return <AgonistAntagonist />;
-  if (normalizedType === 'spikes') return <spikes />; // 2. Add Spikes route
+  if (normalizedType === 'spikes') return <Spikes />;
 
   return <DrugReceptor />;
 }
