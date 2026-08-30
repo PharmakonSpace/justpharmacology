@@ -3,7 +3,7 @@ import ADME from './ADME';
 import AgonistAntagonist from './AgonistAntagonist';
 import AbsorptionAnimation from './AbsorptionAnimation';
 import Spikes from './spikes';
-
+import soler from './soler.jsx;
 export default function Animation({ type }) {
   const normalizedType = type ? type.toLowerCase().trim() : '';
 
@@ -11,6 +11,7 @@ export default function Animation({ type }) {
   if (normalizedType === 'adme') return <ADME />;
   if (normalizedType === 'agonist-antagonist') return <AgonistAntagonist />;
   if (normalizedType === 'spikes') return <Spikes />;
+  if (normalizedType === 'soler') return <Soler />;
 
   return <DrugReceptor />;
 }
