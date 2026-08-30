@@ -12,7 +12,8 @@ export const modules = [
   { id:'blood', title:'Blood & Hematopoietic Pharmacology', status:'coming-soon', lessons:[] },
   { id:'antiinfective', title:'Anti-infective Pharmacology', status:'coming-soon', lessons:[] },
   { id:'toxicology', title:'Toxicology', status:'coming-soon', lessons:[] },
-  { id:'clinical', title:'Clinical Pharmacology', status:'coming-soon', lessons:[] }
+  { id:'clinical', title:'Clinical Pharmacology', status:'coming-soon', lessons:[] },
+  {id:'healthcare_psychology',name:'Healthcare Psychology',status:'available', lessons:Healthcare Psychology and communication skill }
 ];
 
 export const allLessons = modules.flatMap(m => m.lessons);
