@@ -2,7 +2,7 @@ import DrugReceptor from './DrugReceptor';
 import ADME from './ADME';
 import AgonistAntagonist from './AgonistAntagonist';
 import AbsorptionAnimation from './AbsorptionAnimation';
-import Spikes from './Spikes'; // 1. Import Spikes component
+import Spikes from './spikes'; // 1. Import Spikes component
 
 export default function Animation({ type }) {
   // Convert type to lowercase to avoid casing errors (e.g., 'Spikes' vs 'spikes')
