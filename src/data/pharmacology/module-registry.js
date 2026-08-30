@@ -14,7 +14,7 @@ export const modules = [
   { id:'antiinfective', title:'Anti-infective Pharmacology', status:'coming-soon', lessons:[] },
   { id:'toxicology', title:'Toxicology', status:'coming-soon', lessons:[] },
   { id:'clinical', title:'Clinical Pharmacology', status:'coming-soon', lessons:[] },
-  {id:'healthcare_psychology',name:'Healthcare Psychology',status:'available', lessons:HealthcarePsychologyandcommunicationskillLessons }
+  {id:'healthcare_psychology',name:'Healthcare Psychology & Communication Skills',status:'available', lessons:HealthcarePsychologyandcommunicationskillLessons }
 ];
 
 export const allLessons = modules.flatMap(m => m.lessons);
