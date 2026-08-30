@@ -7,3 +7,4 @@ export const categories=[
 {id:'antiinfective',name:'Anti-infective Pharmacology',description:'Antibacterial, antiviral, antifungal and antiparasitic drugs',icon:'🦠'},
 {id:'gi',name:'Gastrointestinal Pharmacology',description:'Drugs used in common GI disorders',icon:'🫁'},
 {id:'toxicology',name:'Toxicology',description:'Poisoning, antidotes and toxic effects',icon:'🧪'}];
+{id:'healthcare_psychology',name:'Healthcare Psychology',description:'Patient rapport, adherence, empathy, health behaviors, and effective clinical communication strategies',icon:'🧠💬'}];
