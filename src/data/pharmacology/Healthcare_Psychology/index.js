@@ -1,7 +1,9 @@
 import { lessons as TheSPIKESProtocolLessons } from './Healthcare_Psychology_and_communication_skill.js';
 import { lessons as bodyLanguageThatHealsLesson } from './BodyLanguageThatHeals.js';
+import { lessons as biopsychosocialModelLesson } from './Introduction to Healthcare Psychology';
 
 export { lessons as TheSPIKESProtocolLessons } from './Healthcare_Psychology_and_communication_skill.js';
 export { lessons as bodyLanguageThatHealsLesson } from './BodyLanguageThatHeals.js';
+export { lessons as biopsychosocialModelLesson } from './Introduction to Healthcare Psychology';
 
-export const HealthcarePsychologyandcommunicationskillLessons = [  TheSPIKESProtocolLessons,  bodyLanguageThatHealsLesson].flat();
+export const HealthcarePsychologyandcommunicationskillLessons = [  TheSPIKESProtocolLessons,  bodyLanguageThatHealsLesson, biopsychosocialModelLesson].flat();
