@@ -13,7 +13,7 @@ export const biopsychosocialModelLesson = {
   description:
     'An evidence-based overview of the biopsychosocial framework and core subfields of psychology—health, behavioral, clinical, and developmental—illustrating how non-biological factors directly determine medical outcomes and patient adherence.',
   video: {
-    youtubeId: '', // Add YouTube video ID if available
+    youtubeId: 'KRKvPxiVTmw', // Add YouTube video ID if available
     title: 'Introduction to Healthcare Psychology'
   },
   objectives: [
