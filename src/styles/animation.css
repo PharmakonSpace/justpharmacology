@@ -1,5 +1,5 @@
 /* =====================================================
-   DRUG → RECEPTOR → RESPONSE (COMPLETE & FIXED)
+   DRUG → RECEPTOR → RESPONSE (COMPACT & RESPONSIVE)
 ===================================================== */
 
 .drug-animation-card {
@@ -7,9 +7,9 @@
   max-width: 650px;
   background: #ffffff;
   border: 1px solid #d9e3e8;
-  border-radius: 22px;
-  padding: 26px;
-  box-shadow: 0 12px 35px rgba(16, 42, 67, 0.07);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 25px rgba(16, 42, 67, 0.06);
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -19,9 +19,9 @@
 ===================================================== */
 
 .drug-animation-header h3 {
-  margin: 0 0 24px;
+  margin: 0 0 12px;
   color: #102a43;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 750;
 }
 
@@ -37,26 +37,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .progress-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap: 4px;
 }
 
 .progress-icon {
-  width: 58px;
-  height: 58px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: #eef4f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 18px;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease,
@@ -67,8 +67,8 @@
   background: #e5f5f7;
   box-shadow:
     0 0 0 2px #168aad,
-    0 0 0 7px rgba(22, 138, 173, 0.1);
-  transform: scale(1.08);
+    0 0 0 5px rgba(22, 138, 173, 0.1);
+  transform: scale(1.05);
 }
 
 .progress-item.completed .progress-icon {
@@ -76,27 +76,27 @@
 }
 
 .progress-item span {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   color: #243b53;
 }
 
 .dr-progress-arrow {
   color: #627d98;
-  font-size: 20px;
-  margin-bottom: 21px;
+  font-size: 16px;
+  margin-bottom: 14px;
 }
 
 /* =====================================================
-   ANIMATION STAGE
+   ANIMATION STAGE (REDUCED HEIGHT)
 ===================================================== */
 
 .drug-stage {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 200px;
   overflow: hidden;
-  border-radius: 18px;
+  border-radius: 12px;
   border: 1px solid #e3ecef;
   background:
     radial-gradient(
@@ -109,9 +109,9 @@
 
 .stage-label {
   position: absolute;
-  top: 14px;
-  left: 18px;
-  font-size: 10px;
+  top: 10px;
+  left: 12px;
+  font-size: 9px;
   font-weight: 750;
   letter-spacing: 1px;
   color: #8297a5;
@@ -142,7 +142,7 @@
   position: absolute;
   left: 50%;
   top: 0;
-  width: 7px;
+  width: 6px;
   height: 100%;
   transform: translateX(-50%);
   border-radius: 8px;
@@ -150,9 +150,9 @@
     repeating-linear-gradient(
       to bottom,
       #9fc9d2 0px,
-      #9fc9d2 15px,
-      transparent 15px,
-      transparent 26px
+      #9fc9d2 12px,
+      transparent 12px,
+      transparent 20px
     );
 }
 
@@ -162,7 +162,7 @@
   top: 50%;
   transform: translate(-50%, -50%) rotate(-90deg);
   white-space: nowrap;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 700;
   letter-spacing: 1px;
   color: #8aa0ae;
@@ -178,8 +178,8 @@
   position: absolute;
   left: 15%;
   top: 50%;
-  width: 65px;
-  height: 34px;
+  width: 50px;
+  height: 26px;
   transform:
     translate(-50%, -50%)
     rotate(-25deg);
@@ -200,37 +200,37 @@
 .pill-right {
   position: absolute;
   top: 0;
-  width: 33px;
-  height: 34px;
+  width: 25px;
+  height: 26px;
 }
 
 .pill-left {
   left: 0;
   background: #ef6a9b;
-  border-radius: 18px 0 0 18px;
+  border-radius: 13px 0 0 13px;
 }
 
 .pill-right {
   right: 0;
   background: #f5b267;
-  border-radius: 0 18px 18px 0;
+  border-radius: 0 13px 13px 0;
 }
 
 .pill-divider {
   position: absolute;
-  left: 31px;
+  left: 24px;
   top: 0;
-  width: 3px;
-  height: 34px;
+  width: 2px;
+  height: 26px;
   background: rgba(255, 255, 255, 0.7);
 }
 
 .animated-drug span {
   position: absolute;
-  top: 43px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: #102a43;
   white-space: nowrap;
@@ -279,8 +279,8 @@
   position: absolute;
   left: 68%;
   top: 50%;
-  width: 65px;
-  height: 130px;
+  width: 50px;
+  height: 100px;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity .5s ease;
@@ -293,12 +293,12 @@
 
 .receptor-body {
   position: absolute;
-  left: 13px;
-  top: 15px;
-  width: 39px;
-  height: 105px;
-  border: 5px solid #168aad;
-  border-radius: 25px;
+  left: 10px;
+  top: 12px;
+  width: 30px;
+  height: 80px;
+  border: 4px solid #168aad;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.9);
   transition:
     transform .5s ease,
@@ -307,13 +307,13 @@
 
 .receptor-binding-site {
   position: absolute;
-  left: 20px;
+  left: 15px;
   top: 0;
-  width: 28px;
-  height: 29px;
-  border: 4px solid #168aad;
+  width: 22px;
+  height: 22px;
+  border: 3px solid #168aad;
   border-bottom: none;
-  border-radius: 14px 14px 0 0;
+  border-radius: 11px 11px 0 0;
   background: #ffffff;
   transition:
     background .4s ease,
@@ -330,7 +330,7 @@
 
 .animated-receptor.activated .receptor-binding-site {
   background: #d9f3f0;
-  box-shadow: 0 0 0 8px rgba(42, 157, 143, 0.1);
+  box-shadow: 0 0 0 6px rgba(42, 157, 143, 0.1);
 }
 
 @keyframes receptorPulse {
@@ -338,7 +338,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 }
 
@@ -349,13 +349,13 @@
 .binding-label {
   position: absolute;
   left: 67%;
-  top: 28%;
+  top: 22%;
   transform: translate(-50%, -50%);
-  padding: 5px 9px;
+  padding: 3px 7px;
   background: #ffffff;
   border: 1px solid #cddde3;
-  border-radius: 7px;
-  font-size: 10px;
+  border-radius: 5px;
+  font-size: 9px;
   font-weight: 700;
   color: #168aad;
   white-space: nowrap;
@@ -381,9 +381,9 @@
 .signal-particles {
   position: absolute;
   left: 69%;
-  top: 52%;
-  width: 150px;
-  height: 130px;
+  top: 50%;
+  width: 120px;
+  height: 90px;
   opacity: 0;
   transition: opacity .5s ease;
   z-index: 2;
@@ -395,54 +395,29 @@
 
 .signal-particles span {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: #f4a261;
-  box-shadow: 0 0 0 5px rgba(244, 162, 97, 0.1);
+  box-shadow: 0 0 0 4px rgba(244, 162, 97, 0.1);
   animation: signalMove 1.5s ease-out infinite;
 }
 
-.signal-particles span:nth-child(1) {
-  left: 0;
-  top: 35px;
-}
-
-.signal-particles span:nth-child(2) {
-  left: 25px;
-  top: 70px;
-  animation-delay: .2s;
-}
-
-.signal-particles span:nth-child(3) {
-  left: 50px;
-  top: 20px;
-  animation-delay: .4s;
-}
-
-.signal-particles span:nth-child(4) {
-  left: 75px;
-  top: 60px;
-  animation-delay: .6s;
-}
-
-.signal-particles span:nth-child(5) {
-  left: 105px;
-  top: 40px;
-  animation-delay: .8s;
-}
+.signal-particles span:nth-child(1) { left: 0; top: 25px; }
+.signal-particles span:nth-child(2) { left: 20px; top: 50px; animation-delay: .2s; }
+.signal-particles span:nth-child(3) { left: 40px; top: 15px; animation-delay: .4s; }
+.signal-particles span:nth-child(4) { left: 60px; top: 45px; animation-delay: .6s; }
+.signal-particles span:nth-child(5) { left: 80px; top: 30px; animation-delay: .8s; }
 
 @keyframes signalMove {
   0% {
     opacity: 0;
-    transform: translateX(-15px) scale(.5);
+    transform: translateX(-10px) scale(.5);
   }
-  30% {
-    opacity: 1;
-  }
+  30% { opacity: 1; }
   100% {
     opacity: 0;
-    transform: translateX(45px) scale(1.2);
+    transform: translateX(35px) scale(1.1);
   }
 }
 
@@ -469,28 +444,28 @@
 }
 
 .response-icon {
-  width: 70px;
-  height: 70px;
-  margin: 0 auto 10px;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 6px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 24px;
   background: #e6f5f1;
   animation: responsePulse 1.5s ease-in-out infinite;
 }
 
 .biological-response strong {
   display: block;
-  font-size: 12px;
+  font-size: 11px;
   color: #102a43;
 }
 
 .biological-response small {
   display: block;
-  margin-top: 3px;
-  font-size: 10px;
+  margin-top: 2px;
+  font-size: 9px;
   color: #627d98;
 }
 
@@ -499,33 +474,32 @@
     box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.15);
   }
   50% {
-    box-shadow: 0 0 0 12px rgba(42, 157, 143, 0);
+    box-shadow: 0 0 0 8px rgba(42, 157, 143, 0);
   }
 }
 
 /* =====================================================
-   INFORMATION PANEL & STEP BADGE (FIXED OVERLAP ISSUE)
+   INFORMATION PANEL & STEP BADGE
 ===================================================== */
 
 .drug-step-info {
-  margin-top: 18px;
-  min-height: 115px;
-  padding: 20px;
-  border-radius: 15px;
+  margin-top: 12px;
+  min-height: 80px;
+  padding: 12px 14px;
+  border-radius: 12px;
   background: #f3f7f8;
 }
 
-/* Fixed step badge to prevent overlapping circle corruption */
 .step-number {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   width: auto !important;
   height: auto !important;
-  margin-bottom: 8px !important;
-  padding: 4px 10px !important;
+  margin-bottom: 6px !important;
+  padding: 3px 8px !important;
 
-  font-size: 10px !important;
+  font-size: 9px !important;
   font-weight: 800 !important;
   letter-spacing: 0.8px !important;
   line-height: 1 !important;
@@ -534,20 +508,20 @@
 
   color: #ffffff !important;
   background: #102a43 !important;
-  border-radius: 20px !important;
+  border-radius: 14px !important;
   box-shadow: none !important;
 }
 
 .drug-step-info h4 {
-  margin: 0 0 7px;
-  font-size: 17px;
+  margin: 0 0 4px;
+  font-size: 14px;
   color: #102a43;
 }
 
 .drug-step-info p {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 12px;
+  line-height: 1.4;
   color: #243b53;
 }
 
@@ -558,13 +532,13 @@
 .step-dots {
   display: flex;
   justify-content: center;
-  gap: 7px;
-  margin: 16px 0;
+  gap: 6px;
+  margin: 10px 0;
 }
 
 .step-dots span {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #cbd7dd;
   transition:
@@ -573,8 +547,8 @@
 }
 
 .step-dots span.active {
-  width: 22px;
-  border-radius: 8px;
+  width: 18px;
+  border-radius: 6px;
   background: #168aad;
 }
 
@@ -590,18 +564,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .animation-navigation {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
 .animation-btn {
-  padding: 10px 15px;
-  border-radius: 9px;
-  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-size: 11px;
   font-weight: 700;
   cursor: pointer;
   transition:
@@ -637,29 +611,29 @@
 
 @media (max-width: 700px) {
   .drug-animation-card {
-    padding: 18px;
+    padding: 12px;
   }
 
   .drug-progress {
-    gap: 4px;
+    gap: 2px;
   }
 
   .progress-icon {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 
   .progress-item span {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .dr-progress-arrow {
-    font-size: 15px;
+    font-size: 12px;
   }
 
   .drug-stage {
-    height: 300px;
+    height: 180px;
   }
 
   .biological-response {
@@ -667,13 +641,13 @@
   }
 
   .response-icon {
-    width: 55px;
-    height: 55px;
-    font-size: 25px;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
   }
 
   .biological-response strong {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .drug-controls {
