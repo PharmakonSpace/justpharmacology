@@ -1089,6 +1089,99 @@ function Lesson() {
   const l = lessons.find((x) => x.id === id);
   const index = lessons.findIndex((x) => x.id === id);
 
+  // Dynamic table of contents based on present lesson sections
+  const tocItems = useMemo(() => {
+    if (!l) return [];
+    const items = [];
+    if (safeArray(l.objectives).length > 0) {
+      items.push({ id: 'sec-objectives', label: 'Objectives', icon: '🎯' });
+    }
+    safeArray(l.sections).forEach((s, idx) => {
+      items.push({
+        id: s.id ? `sec-${s.id}` : `sec-section-${idx}`,
+        label: s.heading,
+        icon: '📄',
+      });
+    });
+    if (safeArray(l.solerSteps).length > 0) {
+      items.push({ id: 'sec-soler-steps', label: 'SOLER Breakdown', icon: '🧘' });
+    }
+    if (l.animation) {
+      items.push({ id: 'sec-animation', label: 'Interactive explanation', icon: '🧬' });
+    }
+    if (l.video) {
+      items.push({ id: 'sec-video', label: 'Video', icon: '🎥' });
+    }
+    if (safeArray(l.transcript).length > 0) {
+      items.push({ id: 'sec-transcript', label: 'Video Transcript', icon: '📝' });
+    }
+    if (safeArray(l.drugs).length > 0) {
+      items.push({ id: 'sec-drugs', label: 'Drug cards', icon: '💊' });
+    }
+    if (safeArray(l.clinicalPearls).length > 0) {
+      items.push({ id: 'sec-pearls', label: 'Clinical pearls', icon: '🩺' });
+    }
+    if (safeArray(l.mnemonics).length > 0) {
+      items.push({ id: 'sec-mnemonics', label: 'Mnemonics', icon: '🧠' });
+    }
+    if (safeArray(l.keyPoints).length > 0) {
+      items.push({ id: 'sec-key-points', label: 'Key points', icon: '⚡' });
+    }
+    if (safeArray(l.rapid).length > 0) {
+      items.push({ id: 'sec-rapid', label: 'Rapid revision', icon: '⚡' });
+    }
+    if (l.selfAssessmentScorecard) {
+      items.push({ id: 'sec-scorecard', label: 'Self-Assessment Scorecard', icon: '📊' });
+    }
+    if (safeArray(l.quiz).length > 0) {
+      items.push({ id: 'sec-quiz', label: 'Quiz', icon: '📝' });
+    }
+    return items;
+  }, [l]);
+
+  const [activeSectionId, setActiveSectionId] = useState(tocItems[0]?.id || '');
+
+  // Track active section as user scrolls
+  useEffect(() => {
+    if (tocItems.length === 0) return;
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 130;
+      for (let i = tocItems.length - 1; i >= 0; i--) {
+        const el = document.getElementById(tocItems[i].id);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSectionId(tocItems[i].id);
+          return;
+        }
+      }
+      setActiveSectionId(tocItems[0]?.id || '');
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [tocItems]);
+
+  // Smooth scroll with sticky navbar offset
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const el = document.getElementById(sectionId);
+    if (el) {
+      const navHeaderOffset = 85;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeaderOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+      setActiveSectionId(sectionId);
+      try {
+        window.history.replaceState(null, '', `#${sectionId}`);
+      } catch {
+        // ignore
+      }
+    }
+  };
+
   if (!l) {
     return (
       <main className="container page">
@@ -1121,38 +1214,143 @@ function Lesson() {
 
       <div className="lesson-layout">
         <article>
-          <section className="content-card">
-            <h2>🎯 Learning Objectives</h2>
-            <ul>
-              {safeArray(l.objectives).map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-          </section>
+          {safeArray(l.objectives).length > 0 && (
+            <section id="sec-objectives" className="content-card">
+              <h2>🎯 Learning Objectives</h2>
+              <ul>
+                {safeArray(l.objectives).map((x) => (
+                  <li key={x}>{x}</li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-          {safeArray(l.sections).map((s) => (
-            <section className="content-card" key={s.heading}>
+          {safeArray(l.sections).map((s, idx) => (
+            <section
+              id={s.id ? `sec-${s.id}` : `sec-section-${idx}`}
+              className="content-card"
+              key={s.heading || idx}
+            >
               <h2>{s.heading}</h2>
               <p>{s.content}</p>
             </section>
           ))}
 
+          {safeArray(l.solerSteps).length > 0 && (
+            <section id="sec-soler-steps" className="content-card">
+              <h2>🧘 5-Step SOLER Framework Breakdown</h2>
+              <div style={{ display: 'grid', gap: '12px', marginTop: '14px' }}>
+                {l.solerSteps.map((st) => (
+                  <div
+                    key={st.letter || st.step}
+                    style={{
+                      padding: '14px 16px',
+                      background: '#f8fafc',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: '28px',
+                          height: '28px',
+                          borderRadius: '50%',
+                          background: '#0d9488',
+                          color: '#fff',
+                          display: 'grid',
+                          placeItems: 'center',
+                          fontWeight: 'bold',
+                          fontSize: '13px',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {st.letter}
+                      </span>
+                      <strong style={{ fontSize: '15px', color: '#0f172a' }}>
+                        Step {st.step}: {st.title}
+                      </strong>
+                    </div>
+                    <p style={{ margin: '0 0 6px', fontSize: '13.5px', color: '#334155' }}>
+                      {st.action}
+                    </p>
+                    {st.clinicalTip && (
+                      <div style={{ fontSize: '12.5px', color: '#0d9488', fontWeight: '600' }}>
+                        💡 Clinical Tip: {st.clinicalTip}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           {l.animation && (
-            <section className="content-card">
+            <section id="sec-animation" className="content-card">
               <h2>🧬 Interactive Explanation</h2>
               <Animation type={l.animation} />
             </section>
           )}
 
           {l.video && (
-            <section className="content-card">
+            <section id="sec-video" className="content-card">
               <h2>🎥 Short Video</h2>
               <VideoEmbed video={l.video} />
             </section>
           )}
 
+          {safeArray(l.transcript).length > 0 && (
+            <section id="sec-transcript" className="content-card">
+              <h2>📝 Video Transcript &amp; Key Dialogue</h2>
+              <div
+                style={{
+                  maxHeight: '300px',
+                  overflowY: 'auto',
+                  padding: '14px',
+                  background: '#f8fafc',
+                  borderRadius: '12px',
+                  border: '1px solid #e2e8f0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px',
+                }}
+              >
+                {l.transcript.map((t, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: 'flex',
+                      gap: '12px',
+                      fontSize: '13px',
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#0d9488',
+                        flexShrink: 0,
+                        fontVariantNumeric: 'tabular-nums',
+                      }}
+                    >
+                      {t.time}
+                    </span>
+                    <span style={{ color: '#334155' }}>{t.text}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
           {safeArray(l.drugs).length > 0 && (
-            <section className="content-card">
+            <section id="sec-drugs" className="content-card">
               <h2>💊 Drug/Class Cards</h2>
               <div className="clinical-grid">
                 {safeArray(l.drugs).map((d, i) => (
@@ -1167,7 +1365,7 @@ function Lesson() {
           )}
 
           {safeArray(l.clinicalPearls).length > 0 && (
-            <section className="content-card">
+            <section id="sec-pearls" className="content-card">
               <h2>🩺 Clinical Pearls</h2>
               <ul>
                 {safeArray(l.clinicalPearls).map((x) => (
@@ -1178,7 +1376,7 @@ function Lesson() {
           )}
 
           {safeArray(l.mnemonics).length > 0 && (
-            <section className="content-card">
+            <section id="sec-mnemonics" className="content-card">
               <h2>🧠 Mnemonics</h2>
               {safeArray(l.mnemonics).map((x) => (
                 <div className="rapid" key={x}>
@@ -1188,27 +1386,47 @@ function Lesson() {
             </section>
           )}
 
-          <section className="content-card">
-            <h2>⚡ Key Points</h2>
-            <div className="key-grid">
-              {safeArray(l.keyPoints).map((x) => (
-                <div key={x}>
-                  <CheckCircle2 size={18} />
-                  <span>{x}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          {safeArray(l.keyPoints).length > 0 && (
+            <section id="sec-key-points" className="content-card">
+              <h2>⚡ Key Points</h2>
+              <div className="key-grid">
+                {safeArray(l.keyPoints).map((x) => (
+                  <div key={x}>
+                    <CheckCircle2 size={18} />
+                    <span>{x}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
-          <section className="content-card rapid">
-            <h2>⚡ Rapid Revision</h2>
-            {safeArray(l.rapid).map((x) => (
-              <div key={x}>{x}</div>
-            ))}
-          </section>
+          {safeArray(l.rapid).length > 0 && (
+            <section id="sec-rapid" className="content-card rapid">
+              <h2>⚡ Rapid Revision</h2>
+              {safeArray(l.rapid).map((x) => (
+                <div key={x}>{x}</div>
+              ))}
+            </section>
+          )}
+
+          {l.selfAssessmentScorecard && (
+            <section id="sec-scorecard" className="content-card">
+              <h2>📊 Self-Assessment Clinical Scorecard</h2>
+              <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '12px' }}>
+                <strong>Scoring Scale:</strong> {l.selfAssessmentScorecard.scale}
+              </p>
+              <ul style={{ paddingLeft: '20px', color: '#334155', lineHeight: '1.7' }}>
+                {safeArray(l.selfAssessmentScorecard.criteria).map((crit, idx) => (
+                  <li key={idx}>
+                    <strong>Criterion {idx + 1}:</strong> {crit}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {safeArray(l.quiz).length > 0 && (
-            <section className="content-card">
+            <section id="sec-quiz" className="content-card">
               <h2>📝 Test Yourself</h2>
               <Quiz questions={safeArray(l.quiz)} />
             </section>
@@ -1236,20 +1454,26 @@ function Lesson() {
         </article>
 
         <aside className="toc">
-          <b>Lesson contents</b>
-          <a href="#">Objectives</a>
-          {safeArray(l.sections).map((s) => (
-            <a href="#" key={s.heading}>
-              {s.heading}
-            </a>
-          ))}
-          {l.animation && <a href="#">Interactive explanation</a>}
-          {l.video && <a href="#">Video</a>}
-          {safeArray(l.drugs).length > 0 && <a href="#">Drug cards</a>}
-          {safeArray(l.clinicalPearls).length > 0 && <a href="#">Clinical pearls</a>}
-          <a href="#">Key points</a>
-          <a href="#">Rapid revision</a>
-          {safeArray(l.quiz).length > 0 && <a href="#">Quiz</a>}
+          <div className="toc-head">
+            <BookOpen size={15} className="toc-head-icon" />
+            <span>Lesson contents</span>
+          </div>
+          <nav className="toc-list" aria-label="Lesson Contents">
+            {tocItems.map((item) => {
+              const isActive = activeSectionId === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={isActive ? 'toc-link active' : 'toc-link'}
+                  onClick={(e) => scrollToSection(e, item.id)}
+                >
+                  <span className="toc-link-text">{item.label}</span>
+                  {isActive && <span className="toc-active-dot" />}
+                </button>
+              );
+            })}
+          </nav>
         </aside>
       </div>
     </main>
