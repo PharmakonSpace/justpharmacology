@@ -1106,6 +1106,12 @@ function Lesson() {
     if (safeArray(l.solerSteps).length > 0) {
       items.push({ id: 'sec-soler-steps', label: 'SOLER Breakdown', icon: '🧘' });
     }
+    if (safeArray(l.biopsychosocialSteps).length > 0) {
+      items.push({ id: 'sec-biopsychosocial-steps', label: 'Core Subfields', icon: '🧠' });
+    }
+    if (safeArray(l.frameworks).length > 0) {
+      items.push({ id: 'sec-frameworks', label: 'Clinical Frameworks', icon: '🩺' });
+    }
     if (l.animation) {
       items.push({ id: 'sec-animation', label: 'Interactive explanation', icon: '🧬' });
     }
@@ -1286,6 +1292,119 @@ function Lesson() {
                         💡 Clinical Tip: {st.clinicalTip}
                       </div>
                     )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {safeArray(l.biopsychosocialSteps).length > 0 && (
+            <section id="sec-biopsychosocial-steps" className="content-card">
+              <h2>🧠 Core Subfields of Healthcare Psychology</h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginTop: '14px' }}>
+                {l.biopsychosocialSteps.map((st) => (
+                  <div
+                    key={st.step || st.title}
+                    style={{
+                      padding: '14px 16px',
+                      background: '#f8fafc',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        marginBottom: '8px',
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: '26px',
+                          height: '26px',
+                          borderRadius: '50%',
+                          background: '#0d9488',
+                          color: '#fff',
+                          display: 'grid',
+                          placeItems: 'center',
+                          fontWeight: 'bold',
+                          fontSize: '12px',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {st.step}
+                      </span>
+                      <strong style={{ fontSize: '14px', color: '#0f172a' }}>
+                        {st.title}
+                      </strong>
+                    </div>
+                    <p style={{ margin: 0, fontSize: '13px', color: '#334155', lineHeight: '1.5' }}>
+                      {st.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {safeArray(l.frameworks).length > 0 && (
+            <section id="sec-frameworks" className="content-card">
+              <h2>🩺 Clinical Sub-Framework Readout Panels</h2>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px', marginTop: '14px' }}>
+                {l.frameworks.map((fw, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      padding: '16px',
+                      background: '#f8fafc',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '14px',
+                    }}
+                  >
+                    <div style={{ fontWeight: '800', fontSize: '14px', color: '#0f172a', marginBottom: '2px' }}>
+                      {fw.name}
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
+                      {fw.context}
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {safeArray(fw.items).map((item, itemIdx) => (
+                        <div
+                          key={itemIdx}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            padding: '8px 12px',
+                            background: '#ffffff',
+                            border: '1px solid #e2e8f0',
+                            borderRadius: '8px',
+                            fontSize: '13px',
+                          }}
+                        >
+                          <span
+                            style={{
+                              width: '22px',
+                              height: '22px',
+                              borderRadius: '6px',
+                              background: '#f0fdfa',
+                              color: '#0d9488',
+                              border: '1px solid #ccfbf1',
+                              display: 'grid',
+                              placeItems: 'center',
+                              fontWeight: 'bold',
+                              fontSize: '11px',
+                              flexShrink: 0,
+                            }}
+                          >
+                            {item.init}
+                          </span>
+                          <span style={{ color: '#334155', fontWeight: '500' }}>{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>

@@ -253,6 +253,18 @@ export function getAllAnimations() {
       description:
         '5-step evidence-based physical blueprint (Square, Open, Lean, Eye Contact, Relax) for nonverbal active listening and soothing patient anxiety.',
     },
+    {
+      type: 'biopsychosocial',
+      title: 'Neuroendocrine Cascade & Behavioral Intervention',
+      subtitle: 'Stress Trigger → Cortisol Surge → Hypertension & Behavioral Reset',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '🧠⚡',
+      badge: 'NEW MODEL',
+      isNew: true,
+      description:
+        '4-stage dynamic model illustrating cognitive stress triggers, HPA axis cortisol release, sustained hypertension, and Skinnerian behavioral modification loops.',
+    },
   ];
 
   // Dynamically find any additional animation types registered in allLessons
