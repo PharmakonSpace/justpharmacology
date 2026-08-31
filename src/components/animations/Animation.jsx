@@ -4,7 +4,7 @@ import AgonistAntagonist from './AgonistAntagonist';
 import AbsorptionAnimation from './AbsorptionAnimation';
 import Spikes from './spikes';
 import Soler from './soler';
-import Soler from './biopsychosocial';
+import biopsychosocial from './biopsychosocial';
 
 
 export default function Animation({ type }) {
