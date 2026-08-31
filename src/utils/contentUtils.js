@@ -54,32 +54,143 @@ export function getCurriculumStats() {
 
 /**
  * Returns all newly added or highlighted lessons across all subfolders.
- * Developers can mark any lesson with `isNew: true` or `badge: 'NEW'` or `dateAdded`,
- * or any lesson from newly added modules (e.g. Healthcare Psychology) is automatically included.
+ * Sorted in strict reverse-chronological order (most recent at the top).
+ * If a categoryId is passed, returns new arrivals for that module in recency order.
  */
-export function getNewArrivals() {
+export function getNewArrivals(categoryId = null) {
   const newLessons = [];
   const seenIds = new Set();
 
   // 1. Explicitly marked new lessons or from new modules (e.g. healthcare_psychology)
   allLessons.forEach((l) => {
-    const isExplicitlyNew = l.isNew === true || l.badge === 'NEW' || l.categoryId === 'healthcare_psychology';
+    const isExplicitlyNew = l.isNew === true || l.isLatest === true || l.badge === 'NEW' || l.badge === 'LATEST ADDITION' || l.categoryId === 'healthcare_psychology';
     if (isExplicitlyNew && !seenIds.has(l.id)) {
-      newLessons.push({ ...l, isNew: true, badge: l.badge || 'NEW' });
+      newLessons.push({
+        ...l,
+        isNew: true,
+        badge: l.badge || (l.isLatest ? 'LATEST ADDITION' : 'NEW'),
+        dateAdded: l.dateAdded || (l.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' : l.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' : l.id === 'spikes-protocol' ? '2026-08-29T00:00:00' : '2026-08-20T00:00:00'),
+        addedOrder: l.addedOrder ?? (l.id === 'introduction-to-healthcare-psychology' ? 3 : l.id === 'body-language-that-heals' ? 2 : l.id === 'spikes-protocol' ? 1 : 0),
+      });
       seenIds.add(l.id);
     }
   });
 
   // 2. Also include recent advanced concepts or latest added topics if available
-  const recentAdvancedIds = ['potency-vs-efficacy', 'spare-receptors', 'bioequivalence', 'prodrugs', 'volume-of-distribution'];
-  allLessons.forEach((l) => {
-    if (recentAdvancedIds.includes(l.id) && !seenIds.has(l.id)) {
-      newLessons.push({ ...l, isNew: true, badge: 'RECENT' });
+  const recentAdvancedIds = [
+    { id: 'potency-vs-efficacy', order: 5, date: '2026-08-25T00:00:00' },
+    { id: 'spare-receptors', order: 4, date: '2026-08-24T00:00:00' },
+    { id: 'bioequivalence', order: 3, date: '2026-08-23T00:00:00' },
+    { id: 'prodrugs', order: 2, date: '2026-08-22T00:00:00' },
+    { id: 'volume-of-distribution', order: 1, date: '2026-08-21T00:00:00' },
+  ];
+
+  recentAdvancedIds.forEach(({ id, order, date }) => {
+    const l = allLessons.find((item) => item.id === id);
+    if (l && !seenIds.has(l.id)) {
+      newLessons.push({
+        ...l,
+        isNew: true,
+        badge: 'RECENT',
+        dateAdded: l.dateAdded || date,
+        addedOrder: l.addedOrder ?? order,
+      });
       seenIds.add(l.id);
     }
   });
 
-  return newLessons;
+  // Sort by strict recency: Most recent at the top!
+  const sorted = newLessons.sort((a, b) => {
+    // 1. isLatest flag always goes first
+    if (a.isLatest && !b.isLatest) return -1;
+    if (!a.isLatest && b.isLatest) return 1;
+
+    // 2. Date added descending (newest timestamp first)
+    const timeA = a.dateAdded ? new Date(a.dateAdded).getTime() : 0;
+    const timeB = b.dateAdded ? new Date(b.dateAdded).getTime() : 0;
+    if (timeB !== timeA) {
+      return timeB - timeA;
+    }
+
+    // 3. Explicit addedOrder descending (higher order number first)
+    const orderA = Number(a.addedOrder ?? 0);
+    const orderB = Number(b.addedOrder ?? 0);
+    if (orderB !== orderA) {
+      return orderB - orderA;
+    }
+
+    return 0;
+  });
+
+  if (categoryId && categoryId !== 'all') {
+    return sorted.filter((l) => l.categoryId === categoryId);
+  }
+
+  return sorted;
+}
+
+/**
+ * Returns the single latest lesson added to the curriculum.
+ * (e.g. "Introduction to Healthcare Psychology")
+ */
+export function getLatestLesson() {
+  const arrivals = getNewArrivals();
+  return arrivals.find((l) => l.isLatest) || arrivals[0] || null;
+}
+
+/**
+ * Groups new arrivals by module/category, with lessons in each module
+ * sorted in order where the most recent shows at the top.
+ */
+export function getGroupedNewArrivalsByModule() {
+  const arrivals = getNewArrivals();
+  const map = new Map();
+
+  arrivals.forEach((lesson) => {
+    const catId = lesson.categoryId || 'general';
+    const cat = categories.find((c) => c.id === catId);
+    const mod = modules.find((m) => m.id === catId);
+    const moduleName = mod?.title || mod?.name || cat?.name || catId;
+    const icon = mod?.icon || cat?.icon || '📚';
+    const isNewModule = mod?.isNew || catId === 'healthcare_psychology';
+
+    if (!map.has(catId)) {
+      map.set(catId, {
+        categoryId: catId,
+        moduleName,
+        icon,
+        isNewModule,
+        lessons: [],
+      });
+    }
+
+    map.get(catId).lessons.push(lesson);
+  });
+
+  // Ensure lessons in each module are sorted newest first
+  const grouped = Array.from(map.values()).map((group) => {
+    const sortedLessons = [...group.lessons].sort((a, b) => {
+      if (a.isLatest && !b.isLatest) return -1;
+      if (!a.isLatest && b.isLatest) return 1;
+      const timeA = a.dateAdded ? new Date(a.dateAdded).getTime() : 0;
+      const timeB = b.dateAdded ? new Date(b.dateAdded).getTime() : 0;
+      if (timeB !== timeA) return timeB - timeA;
+      return (b.addedOrder || 0) - (a.addedOrder || 0);
+    });
+
+    return {
+      ...group,
+      lessons: sortedLessons,
+      latestLesson: sortedLessons[0],
+    };
+  });
+
+  // Modules with newest additions or isNewModule appear first
+  return grouped.sort((a, b) => {
+    if (a.isNewModule && !b.isNewModule) return -1;
+    if (!a.isNewModule && b.isNewModule) return 1;
+    return b.lessons.length - a.lessons.length;
+  });
 }
 
 /**

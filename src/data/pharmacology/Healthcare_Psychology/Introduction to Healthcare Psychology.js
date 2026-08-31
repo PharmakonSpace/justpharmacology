@@ -3,7 +3,10 @@
 export const biopsychosocialModelLesson = {
   id: 'introduction-to-healthcare-psychology',
   isNew: true,
-  badge: 'NEW',
+  isLatest: true,
+  badge: 'LATEST ADDITION',
+  dateAdded: '2026-08-31T00:00:00',
+  addedOrder: 3,
   categoryId: 'healthcare_psychology',
   topic: 'Introduction to Healthcare Psychology',
   title: 'Introduction to Healthcare Psychology',

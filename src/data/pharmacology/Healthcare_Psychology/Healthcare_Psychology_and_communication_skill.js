@@ -3,6 +3,8 @@ export const lessons = [
     id: 'spikes-protocol',
     isNew: true,
     badge: 'NEW',
+    dateAdded: '2026-08-29T00:00:00',
+    addedOrder: 1,
     categoryId: 'healthcare_psychology',
     topic: 'Breaking Bad News',
     title: 'The SPIKES Protocol: Structured Clinical Empathy',

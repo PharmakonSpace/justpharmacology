@@ -6,4 +6,8 @@ export { lessons as TheSPIKESProtocolLessons } from './Healthcare_Psychology_and
 export { lessons as bodyLanguageThatHealsLesson } from './BodyLanguageThatHeals.js';
 export { lessons as biopsychosocialModelLesson } from './Introduction to Healthcare Psychology.js';
 
-export const HealthcarePsychologyandcommunicationskillLessons = [  TheSPIKESProtocolLessons,  bodyLanguageThatHealsLesson, biopsychosocialModelLesson].flat();
+export const HealthcarePsychologyandcommunicationskillLessons = [
+  biopsychosocialModelLesson,
+  bodyLanguageThatHealsLesson,
+  TheSPIKESProtocolLessons
+].flat();

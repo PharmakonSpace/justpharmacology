@@ -4,6 +4,8 @@ export const bodyLanguageThatHealsLesson = {
   id: 'body-language-that-heals',
   isNew: true,
   badge: 'NEW',
+  dateAdded: '2026-08-30T00:00:00',
+  addedOrder: 2,
   categoryId: 'healthcare_psychology',
   topic: 'Clinical Communication & Rapport',
   title: 'Body Language That Heals',

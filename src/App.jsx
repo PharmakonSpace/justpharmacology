@@ -287,9 +287,11 @@ function Home() {
             <div className="hero-update-pill">
               <span className="pulse-dot" />
               <span>
-                <strong>Curriculum Update:</strong> New module &ldquo;Healthcare Psychology&rdquo; &amp; clinical topics added!
+                <strong>Just Added:</strong> &ldquo;Introduction to Healthcare Psychology&rdquo; in Healthcare Psychology &amp; Communication Skills!
               </span>
-              <a href="#new-arrivals">Explore what&apos;s new ↓</a>
+              <Link to="/lesson/introduction-to-healthcare-psychology" className="hero-pill-link">
+                Start lesson →
+              </Link>
             </div>
             <div className="eyebrow">INTERACTIVE PHARMACOLOGY LEARNING</div>
             <h1>
@@ -1049,7 +1051,15 @@ function Learn() {
       ) : sortedTopicEntries.length > 0 ? (
         <div className="topic-groups">
           {sortedTopicEntries.map(([topic, items]) => {
-            const hasNew = items.some((i) => i.isNew || i.badge === 'NEW' || i.categoryId === 'healthcare_psychology');
+            const hasNew = items.some((i) => i.isNew || i.isLatest || i.badge === 'NEW' || i.badge === 'LATEST ADDITION' || i.categoryId === 'healthcare_psychology');
+            const sortedItems = [...items].sort((a, b) => {
+              if (a.isLatest && !b.isLatest) return -1;
+              if (!a.isLatest && b.isLatest) return 1;
+              const timeA = a.dateAdded ? new Date(a.dateAdded).getTime() : 0;
+              const timeB = b.dateAdded ? new Date(b.dateAdded).getTime() : 0;
+              if (timeB !== timeA) return timeB - timeA;
+              return (b.addedOrder || 0) - (a.addedOrder || 0);
+            });
             return (
               <section className="topic-group" key={topic}>
                 <div className="topic-group-head">
@@ -1058,11 +1068,11 @@ function Learn() {
                     {hasNew && <span className="badge-new-tiny">RECENT</span>}
                   </div>
                   <span>
-                    {items.length} {items.length === 1 ? 'lesson' : 'lessons'}
+                    {sortedItems.length} {sortedItems.length === 1 ? 'lesson' : 'lessons'}
                   </span>
                 </div>
                 <div className="lesson-grid">
-                  {items.map((l) => (
+                  {sortedItems.map((l) => (
                     <LessonCard lesson={l} key={l.id} />
                   ))}
                 </div>
