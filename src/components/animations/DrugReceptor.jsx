@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles/animations.css";
+import "../../styles/animation.css";
 
 const steps = [
   {
