@@ -2,6 +2,74 @@ import { modules, allLessons } from '../data/pharmacology/module-registry.js';
 import { categories } from '../data/categories.js';
 
 /**
+ * 1-Month duration threshold in milliseconds (30 days).
+ * Any item with a date older than 30 days automatically expires and is removed from 'recently added' & 'new'.
+ */
+export const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000;
+
+/**
+ * Determines whether a given date is within the last 30 days (1 month).
+ * Older than 30 days automatically returns false.
+ *
+ * @param {string|number|Date} dateInput - ISO string, date object, or timestamp
+ * @param {number} [customNow=Date.now()] - Current timestamp for evaluation
+ * @returns {boolean}
+ */
+export function isWithinOneMonth(dateInput, customNow = Date.now()) {
+  if (!dateInput) return false;
+  const timestamp = typeof dateInput === 'number' ? dateInput : new Date(dateInput).getTime();
+  if (isNaN(timestamp)) return false;
+
+  const diffMs = customNow - timestamp;
+  // Valid if added within the last 30 days (allows up to 1-day buffer for timezone variations)
+  return diffMs >= -86400000 && diffMs <= ONE_MONTH_MS;
+}
+
+/**
+ * Checks if a lesson is currently considered "NEW" or "RECENT".
+ * Automatically returns false if dateAdded is older than 30 days (1 month).
+ *
+ * @param {Object} lesson
+ * @param {number} [customNow=Date.now()]
+ * @returns {boolean}
+ */
+export function isLessonNew(lesson, customNow = Date.now()) {
+  if (!lesson) return false;
+
+  // Resolve explicit or implicit dateAdded
+  const dateAdded = lesson.dateAdded || (
+    lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
+    lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
+    lesson.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
+    null
+  );
+
+  if (dateAdded) {
+    return isWithinOneMonth(dateAdded, customNow);
+  }
+
+  // If no dateAdded exists on the lesson object, it is considered a permanent standard lesson (not new)
+  return false;
+}
+
+/**
+ * Checks if a module is currently considered "NEW".
+ * Automatically returns false if module release date is older than 30 days.
+ *
+ * @param {Object} moduleOrCategory
+ * @param {number} [customNow=Date.now()]
+ * @returns {boolean}
+ */
+export function isModuleNew(mod, customNow = Date.now()) {
+  if (!mod) return false;
+  const date = mod.dateAdded || (mod.id === 'healthcare_psychology' ? '2026-08-31T00:00:00' : null);
+  if (date) {
+    return isWithinOneMonth(date, customNow);
+  }
+  return false;
+}
+
+/**
  * Returns metadata and active counts for all modules in the curriculum.
  * Automatically synchronizes with any new lessons added in any subfolder.
  */
@@ -14,8 +82,8 @@ export function getModulesWithStats() {
       (c) => c.id === m.id || (m.id === 'cardiovascular' && c.id === 'cardio') || (m.id === 'gastrointestinal' && c.id === 'gi')
     );
 
-    // A module is flagged as "NEW" if it has the isNew property or is the newly introduced healthcare_psychology module
-    const isNew = m.isNew === true || m.id === 'healthcare_psychology';
+    // Dynamic recency check: only marked as "NEW" if within 1 month (30 days)
+    const isNew = isModuleNew(m);
 
     return {
       id: m.id,
@@ -53,49 +121,58 @@ export function getCurriculumStats() {
 }
 
 /**
- * Returns all newly added or highlighted lessons across all subfolders.
+ * Returns all newly added or highlighted lessons across all subfolders that were added within the last 30 days (1 month).
+ * Lessons older than 1 month are AUTOMATICALLY excluded.
  * Sorted in strict reverse-chronological order (most recent at the top).
  * If a categoryId is passed, returns new arrivals for that module in recency order.
  */
 export function getNewArrivals(categoryId = null) {
   const newLessons = [];
   const seenIds = new Set();
+  const now = Date.now();
 
-  // 1. Explicitly marked new lessons or from new modules (e.g. healthcare_psychology)
+  // 1. Scan all lessons and include ONLY those added within 1 month (30 days)
   allLessons.forEach((l) => {
-    const isExplicitlyNew = l.isNew === true || l.isLatest === true || l.badge === 'NEW' || l.badge === 'LATEST ADDITION' || l.categoryId === 'healthcare_psychology';
-    if (isExplicitlyNew && !seenIds.has(l.id)) {
+    const dateAdded = l.dateAdded || (
+      l.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
+      l.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
+      l.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
+      null
+    );
+
+    // Automatic expiration: only include if dateAdded is within 1 month (<= 30 days old)
+    if (dateAdded && isWithinOneMonth(dateAdded, now) && !seenIds.has(l.id)) {
+      const isLatest = l.isLatest === true;
       newLessons.push({
         ...l,
         isNew: true,
-        badge: l.badge || (l.isLatest ? 'LATEST ADDITION' : 'NEW'),
-        dateAdded: l.dateAdded || (l.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' : l.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' : l.id === 'spikes-protocol' ? '2026-08-29T00:00:00' : '2026-08-20T00:00:00'),
-        addedOrder: l.addedOrder ?? (l.id === 'introduction-to-healthcare-psychology' ? 3 : l.id === 'body-language-that-heals' ? 2 : l.id === 'spikes-protocol' ? 1 : 0),
+        isLatest,
+        badge: l.badge || (isLatest ? 'LATEST ADDITION' : 'NEW'),
+        dateAdded,
+        addedOrder: l.addedOrder ?? 0,
       });
       seenIds.add(l.id);
     }
   });
 
-  // 2. Also include recent advanced concepts or latest added topics if available (add items here when desired)
+  // 2. Custom designated recent additions (must also have a valid date within 30 days to appear)
   const recentAdvancedIds = [
-    // { id: 'potency-vs-efficacy', order: 5, date: '2026-08-25T00:00:00' },
-    // { id: 'spare-receptors', order: 4, date: '2026-08-24T00:00:00' },
-    // { id: 'bioequivalence', order: 3, date: '2026-08-23T00:00:00' },
-    // { id: 'prodrugs', order: 2, date: '2026-08-22T00:00:00' },
-    // { id: 'volume-of-distribution', order: 1, date: '2026-08-21T00:00:00' },
+    // Example format: { id: 'potency-vs-efficacy', order: 5, date: '2026-08-25T00:00:00' },
   ];
 
   recentAdvancedIds.forEach(({ id, order, date }) => {
-    const l = allLessons.find((item) => item.id === id);
-    if (l && !seenIds.has(l.id)) {
-      newLessons.push({
-        ...l,
-        isNew: true,
-        badge: 'RECENT',
-        dateAdded: l.dateAdded || date,
-        addedOrder: l.addedOrder ?? order,
-      });
-      seenIds.add(l.id);
+    if (date && isWithinOneMonth(date, now)) {
+      const l = allLessons.find((item) => item.id === id);
+      if (l && !seenIds.has(l.id)) {
+        newLessons.push({
+          ...l,
+          isNew: true,
+          badge: 'RECENT',
+          dateAdded: l.dateAdded || date,
+          addedOrder: l.addedOrder ?? order,
+        });
+        seenIds.add(l.id);
+      }
     }
   });
 
@@ -130,8 +207,7 @@ export function getNewArrivals(categoryId = null) {
 }
 
 /**
- * Returns the single latest lesson added to the curriculum.
- * (e.g. "Introduction to Healthcare Psychology")
+ * Returns the single latest lesson added to the curriculum within the last 1 month, or null if all are older.
  */
 export function getLatestLesson() {
   const arrivals = getNewArrivals();
@@ -152,14 +228,14 @@ export function getGroupedNewArrivalsByModule() {
     const mod = modules.find((m) => m.id === catId);
     const moduleName = mod?.title || mod?.name || cat?.name || catId;
     const icon = mod?.icon || cat?.icon || '📚';
-    const isNewModule = mod?.isNew || catId === 'healthcare_psychology';
+    const isNewMod = isModuleNew(mod || cat);
 
     if (!map.has(catId)) {
       map.set(catId, {
         categoryId: catId,
         moduleName,
         icon,
-        isNewModule,
+        isNewModule: isNewMod,
         lessons: [],
       });
     }
@@ -213,18 +289,22 @@ export function getAvailableTopics() {
         moduleName,
         icon,
         lessons: [],
-        isNew: l.isNew === true || l.categoryId === 'healthcare_psychology' || ['Pharmacodynamics', 'Receptors', 'Breaking Bad News'].includes(l.topic),
+        isNew: false,
       });
     }
 
-    topicsMap.get(l.topic).lessons.push(l);
+    const entry = topicsMap.get(l.topic);
+    entry.lessons.push(l);
+    if (isLessonNew(l)) {
+      entry.isNew = true;
+    }
   });
 
   return Array.from(topicsMap.values());
 }
 
 /**
- * Checks if a specific lesson ID is considered a new arrival.
+ * Checks if a specific lesson ID is considered a new arrival within the last 1 month.
  */
 export function isNewArrival(lessonId) {
   const newArrivals = getNewArrivals();
@@ -234,7 +314,7 @@ export function isNewArrival(lessonId) {
 /**
  * Automatically gathers all video lectures from across all lessons/modules.
  * Automatically synchronizes with any new lessons added in any subfolder.
- * Prioritizes newly added lessons (isNew / badge: 'NEW' / healthcare_psychology) at the top,
+ * Prioritizes newly added lessons (added within last month) at the top,
  * followed by all other lessons with videos.
  */
 export function getAllCurriculumVideos() {
@@ -257,7 +337,7 @@ export function getAllCurriculumVideos() {
     if (youtubeId && !seenVideoIds.has(youtubeId)) {
       seenVideoIds.add(youtubeId);
       const cat = categories.find((c) => c.id === lesson.categoryId);
-      const isNew = Boolean(lesson.isNew || lesson.badge === 'NEW' || lesson.categoryId === 'healthcare_psychology');
+      const isNew = isLessonNew(lesson);
 
       videoList.push({
         id: `${lesson.id}-vid`,
@@ -271,7 +351,7 @@ export function getAllCurriculumVideos() {
         duration: `${lesson.time || 10}m`,
         level: lesson.level || 'Intermediate',
         isNew,
-        badge: lesson.badge || (isNew ? 'NEW' : null),
+        badge: isNew ? (lesson.badge || 'NEW') : null,
         description: lesson.description || '',
       });
     }
@@ -348,7 +428,8 @@ export function getAllAnimations() {
       categoryName: 'Healthcare Psychology & Communication Skills',
       icon: '📋🩺',
       badge: 'CLINICAL SKILL',
-      isNew: true,
+      dateAdded: '2026-08-29T00:00:00',
+      isNew: isWithinOneMonth('2026-08-29T00:00:00'),
       description:
         'Step-by-step clinical communication simulator for delivering difficult diagnostic news (Setting, Perception, Invitation, Knowledge, Empathy, Strategy).',
     },
@@ -360,7 +441,8 @@ export function getAllAnimations() {
       categoryName: 'Healthcare Psychology & Communication Skills',
       icon: '🧘👁️',
       badge: 'NEW MODEL',
-      isNew: true,
+      dateAdded: '2026-08-30T00:00:00',
+      isNew: isWithinOneMonth('2026-08-30T00:00:00'),
       description:
         '5-step evidence-based physical blueprint (Square, Open, Lean, Eye Contact, Relax) for nonverbal active listening and soothing patient anxiety.',
     },
@@ -372,7 +454,8 @@ export function getAllAnimations() {
       categoryName: 'Healthcare Psychology & Communication Skills',
       icon: '🧠⚡',
       badge: 'NEW MODEL',
-      isNew: true,
+      dateAdded: '2026-08-31T00:00:00',
+      isNew: isWithinOneMonth('2026-08-31T00:00:00'),
       description:
         '4-stage dynamic model illustrating cognitive stress triggers, HPA axis cortisol release, sustained hypertension, and Skinnerian behavioral modification loops.',
     },
@@ -393,7 +476,8 @@ export function getAllAnimations() {
         categoryName: mod?.title || cat?.name || l.categoryId || 'Pharmacology',
         icon: '🧬',
         badge: l.badge || 'INTERACTIVE',
-        isNew: l.isNew === true,
+        dateAdded: l.dateAdded,
+        isNew: isLessonNew(l),
         description: l.description || 'Interactive visual learning model for clinical pharmacology concepts.',
       });
       registeredTypes.add(typeKey);

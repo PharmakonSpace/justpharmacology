@@ -2,6 +2,7 @@ import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { Home, ChevronRight, Sparkles, BookOpen, Layers } from 'lucide-react';
 import { categories } from '../../data/categories';
 import { lessons } from '../../data/lessons';
+import { isLessonNew, isModuleNew } from '../../utils/contentUtils';
 
 /**
  * Dynamic Breadcrumb component that automatically derives the navigation hierarchy
@@ -131,7 +132,7 @@ function getDynamicBreadcrumbItems(pathname, params, searchParams) {
       items.push({
         label: lesson.title,
         isCurrent: true,
-        badge: lesson.isLatest ? 'Latest' : lesson.isNew ? 'New' : undefined,
+        badge: (lesson.isLatest && isLessonNew(lesson)) ? 'Latest' : isLessonNew(lesson) ? 'New' : undefined,
       });
     } else {
       items.push({
@@ -163,7 +164,7 @@ function getDynamicBreadcrumbItems(pathname, params, searchParams) {
           label: category.name,
           icon: category.icon,
           isCurrent: true,
-          badge: category.isNew ? 'New Module' : undefined,
+          badge: isModuleNew(category) ? 'New Module' : undefined,
         });
       }
     }

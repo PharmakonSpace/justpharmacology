@@ -39,7 +39,7 @@ import { completeLesson, isComplete } from './utils/progress';
 import VideoEmbed from './components/video/VideoEmbed';
 import NewArrivalsSection from './components/home/NewArrivalsSection';
 import Breadcrumbs from './components/navigation/Breadcrumbs';
-import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations } from './utils/contentUtils';
+import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations, isLessonNew, isModuleNew } from './utils/contentUtils';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -915,8 +915,8 @@ function Learn() {
 
   // Sort topic groups: topics with new/recent lessons appear first!
   const sortedTopicEntries = Object.entries(topicGroups).sort(([topicA, itemsA], [topicB, itemsB]) => {
-    const aHasNew = itemsA.some((item) => item.isNew || item.badge === 'NEW' || item.categoryId === 'healthcare_psychology');
-    const bHasNew = itemsB.some((item) => item.isNew || item.badge === 'NEW' || item.categoryId === 'healthcare_psychology');
+    const aHasNew = itemsA.some((item) => isLessonNew(item));
+    const bHasNew = itemsB.some((item) => isLessonNew(item));
     if (aHasNew && !bHasNew) return -1;
     if (!aHasNew && bHasNew) return 1;
     return 0;
@@ -933,7 +933,7 @@ function Learn() {
           <div className="eyebrow">
             {filter === 'all'
               ? 'FULL CURRICULUM'
-              : currentCategory?.isNew
+              : isModuleNew(currentCategory)
               ? '✨ NEW MODULE ADDED'
               : 'MODULE OVERVIEW'}
           </div>
@@ -1021,6 +1021,7 @@ function Learn() {
               (c.id === 'cardio' && l.categoryId === 'cardiovascular') ||
               (c.id === 'gi' && l.categoryId === 'gastrointestinal')
           );
+          const isNewCat = isModuleNew(c);
           return (
             <button
               type="button"
@@ -1029,7 +1030,7 @@ function Learn() {
               key={c.id}
             >
               {c.icon} {c.name} {catLessons.length > 0 && `(${catLessons.length})`}
-              {c.isNew && ' ✨'}
+              {isNewCat && ' ✨'}
             </button>
           );
         })}
@@ -1053,7 +1054,7 @@ function Learn() {
       ) : sortedTopicEntries.length > 0 ? (
         <div className="topic-groups">
           {sortedTopicEntries.map(([topic, items]) => {
-            const hasNew = items.some((i) => i.isNew || i.isLatest || i.badge === 'NEW' || i.badge === 'LATEST ADDITION' || i.categoryId === 'healthcare_psychology');
+            const hasNew = items.some((i) => isLessonNew(i));
             const sortedItems = [...items].sort((a, b) => {
               if (a.isLatest && !b.isLatest) return -1;
               if (!a.isLatest && b.isLatest) return 1;

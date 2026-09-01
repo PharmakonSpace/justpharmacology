@@ -42,6 +42,11 @@ export default function NewArrivalsSection() {
       ? []
       : getNewArrivals(activeFilter);
 
+  // If no lessons were added within the last month (30 days), do not render the recently added section
+  if (newArrivals.length === 0) {
+    return null;
+  }
+
   return (
     <section className="section new-arrivals-section" id="new-arrivals">
       <div className="container">

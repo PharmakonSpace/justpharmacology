@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Clock, ChevronRight, Sparkles } from 'lucide-react';
 import { isComplete } from '../../utils/progress';
+import { isLessonNew } from '../../utils/contentUtils';
 
 export default function LessonCard({ lesson }) {
-  const isNew = lesson.isNew || lesson.badge === 'NEW' || lesson.categoryId === 'healthcare_psychology';
+  const isNew = isLessonNew(lesson);
 
   return (
     <Link to={'/lesson/' + lesson.id} className={`lesson-card ${isNew ? 'lesson-card-new' : ''}`}>
