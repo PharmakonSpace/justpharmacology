@@ -76,13 +76,13 @@ export function getNewArrivals(categoryId = null) {
     }
   });
 
-  // 2. Also include recent advanced concepts or latest added topics if available
+  // 2. Also include recent advanced concepts or latest added topics if available (add items here when desired)
   const recentAdvancedIds = [
-    { id: 'potency-vs-efficacy', order: 5, date: '2026-08-25T00:00:00' },
-    { id: 'spare-receptors', order: 4, date: '2026-08-24T00:00:00' },
-    { id: 'bioequivalence', order: 3, date: '2026-08-23T00:00:00' },
-    { id: 'prodrugs', order: 2, date: '2026-08-22T00:00:00' },
-    { id: 'volume-of-distribution', order: 1, date: '2026-08-21T00:00:00' },
+    // { id: 'potency-vs-efficacy', order: 5, date: '2026-08-25T00:00:00' },
+    // { id: 'spare-receptors', order: 4, date: '2026-08-24T00:00:00' },
+    // { id: 'bioequivalence', order: 3, date: '2026-08-23T00:00:00' },
+    // { id: 'prodrugs', order: 2, date: '2026-08-22T00:00:00' },
+    // { id: 'volume-of-distribution', order: 1, date: '2026-08-21T00:00:00' },
   ];
 
   recentAdvancedIds.forEach(({ id, order, date }) => {

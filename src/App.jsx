@@ -38,6 +38,7 @@ import Quiz from './components/quiz/Quiz';
 import { completeLesson, isComplete } from './utils/progress';
 import VideoEmbed from './components/video/VideoEmbed';
 import NewArrivalsSection from './components/home/NewArrivalsSection';
+import Breadcrumbs from './components/navigation/Breadcrumbs';
 import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations } from './utils/contentUtils';
 
 /* ───────────────────────── helpers ───────────────────────── */
@@ -926,6 +927,7 @@ function Learn() {
 
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="page-head">
         <div>
           <div className="eyebrow">
@@ -1214,10 +1216,7 @@ function Lesson() {
 
   return (
     <main className="container lesson-page">
-      <div className="breadcrumbs">
-        <Link to="/learn">Learn</Link> /{' '}
-        {categories.find((c) => c.id === l.categoryId)?.name} / {l.topic}
-      </div>
+      <Breadcrumbs />
 
       <div className="lesson-hero">
         <span className="pill">{l.level}</span>
@@ -1623,6 +1622,7 @@ function Revision() {
 
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="page-head">
         <div>
           <div className="eyebrow">FAST REVIEW</div>
@@ -1699,6 +1699,7 @@ function Animations() {
 
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="page-head">
         <div>
           <div className="eyebrow">VISUAL LEARNING LAB</div>
@@ -1898,6 +1899,7 @@ function Videos() {
 
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="video-hub-header">
         <div className="page-head" style={{ marginBottom: 0 }}>
           <div className="eyebrow">CURRICULUM VIDEO LIBRARY</div>
@@ -2116,6 +2118,7 @@ function QuizPage() {
 
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="video-hub-header">
         <div className="page-head" style={{ marginBottom: 0 }}>
           <div className="eyebrow">CENTRALIZED ASSESSMENT</div>
@@ -2234,6 +2237,7 @@ function Search() {
 
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="page-head">
         <div>
           <div className="eyebrow">FIND ANYTHING</div>
@@ -2264,6 +2268,7 @@ function Search() {
 function About() {
   return (
     <main className="container page">
+      <Breadcrumbs />
       <div className="profile profile--tribute">
         <div className="profile-badge">MG</div>
         <div>
