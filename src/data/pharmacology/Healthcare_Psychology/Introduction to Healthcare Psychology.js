@@ -8,7 +8,7 @@ export const biopsychosocialModelLesson = {
   dateAdded: '2026-08-31T00:00:00',
   addedOrder: 3,
   categoryId: 'healthcare_psychology',
-  topic: 'Introduction to Healthcare Psychology',
+  topic: 'Healthcare Psychology',
   title: 'Introduction to Healthcare Psychology',
   subtitle: 'The Biopsychosocial Model & Behavioral Science in Clinical Care',
   level: 'Beginner',
