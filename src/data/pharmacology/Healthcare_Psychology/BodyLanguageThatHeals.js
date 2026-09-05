@@ -161,3 +161,5 @@ export const bodyLanguageThatHealsLesson = {
 
 export const lessons = [bodyLanguageThatHealsLesson];
 export default bodyLanguageThatHealsLesson;
+export const topic = 'Healthcare Psychology';
+
