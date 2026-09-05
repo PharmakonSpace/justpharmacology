@@ -183,4 +183,4 @@ export const biopsychosocialModelLesson = {
 
 export const lessons = [biopsychosocialModelLesson];
 
-export const topic = 'Introduction to Healthcare Psychology';
+export const topic = 'Healthcare Psychology';
