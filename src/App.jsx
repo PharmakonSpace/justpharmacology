@@ -45,6 +45,72 @@ import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos,
 
 const safeArray = (v) => (Array.isArray(v) ? v : []);
 
+/**
+ * Dynamically extract and normalize any step-by-step clinical protocol or framework
+ * from any lesson without requiring manual modifications to App.jsx.
+ */
+function getLessonStepSections(lesson) {
+  if (!lesson) return [];
+  const sections = [];
+
+  // Match standard 'steps', 'protocolSteps', 'processSteps', or any key ending in 'Steps'
+  const stepKeys = Object.keys(lesson).filter((k) => {
+    if (k === 'steps' || k === 'processSteps' || k === 'protocolSteps') return true;
+    if (k.endsWith('Steps') && Array.isArray(lesson[k]) && lesson[k].length > 0) return true;
+    return false;
+  });
+
+  stepKeys.forEach((key) => {
+    const rawItems = safeArray(lesson[key]);
+    if (rawItems.length === 0) return;
+
+    let title = lesson.stepsTitle;
+    let icon = lesson.stepsIcon || '📋';
+    const id = `sec-${key.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)}`;
+
+    if (!title) {
+      if (key === 'spikesSteps') {
+        title = 'Six-Stage SPIKES Protocol';
+        icon = '🛡️';
+      } else if (key === 'solerSteps') {
+        title = '5-Step SOLER Framework Breakdown';
+        icon = '🧘';
+      } else if (key === 'psychologicalFirstAidSteps') {
+        title = 'Four-Step Psychological First Aid Sequence';
+        icon = '🛡️';
+      } else if (key === 'biopsychosocialSteps') {
+        title =
+          lesson.id === 'carl-rogers-client-centered-therapy'
+            ? 'Rogerian Client-Centered Process & Key Principles'
+            : 'Core Subfields & Process Stages';
+        icon = '🧠';
+      } else {
+        const words = key.replace(/([A-Z])/g, ' $1').trim();
+        title = words.charAt(0).toUpperCase() + words.slice(1);
+      }
+    }
+
+    const items = rawItems.map((st, idx) => ({
+      step: st.step || st.letter || st.stage || String(idx + 1),
+      title: st.title || st.name || `Step ${idx + 1}`,
+      description: st.action || st.description || st.content || '',
+      clinicalTip: st.clinicalTip || st.tip || null,
+      color: st.color || (key === 'solerSteps' ? '#0d9488' : key === 'psychologicalFirstAidSteps' ? '#0284c7' : '#0d9488'),
+      bg: st.bg || '#f8fafc',
+    }));
+
+    sections.push({
+      id,
+      key,
+      title,
+      icon,
+      items,
+    });
+  });
+
+  return sections;
+}
+
 /* ───────────────────────── YouTube icon helper ───────────────────────── */
 function YoutubeIcon({ className, size, ...props }) {
   return (
@@ -352,7 +418,10 @@ function Home() {
               const modStat = modulesWithStats.find(
                 (m) => m.id === c.id || (c.id === 'cardio' && m.id === 'cardiovascular') || (c.id === 'gi' && m.id === 'gastrointestinal')
               );
-              const lessonCount = modStat?.lessonsCount || (c.id === 'general' ? 13 : c.id === 'healthcare_psychology' ? 1 : 0);
+              const dynamicCount = lessons.filter(
+                (l) => l.categoryId === c.id || (c.id === 'cardio' && l.categoryId === 'cardiovascular') || (c.id === 'gi' && l.categoryId === 'gastrointestinal')
+              ).length;
+              const lessonCount = modStat?.lessonsCount ?? dynamicCount;
               const isAvailable = lessonCount > 0;
               const isNewMod = c.isNew || modStat?.isNew;
 
@@ -1116,14 +1185,26 @@ function Lesson() {
         icon: '📄',
       });
     });
-    if (safeArray(l.solerSteps).length > 0) {
-      items.push({ id: 'sec-soler-steps', label: 'SOLER Breakdown', icon: '🧘' });
-    }
-    if (safeArray(l.biopsychosocialSteps).length > 0) {
-      items.push({ id: 'sec-biopsychosocial-steps', label: 'Core Subfields', icon: '🧠' });
-    }
+    // Automatically register ANY steps / clinical protocols without manual App.jsx changes
+    const stepSections = getLessonStepSections(l);
+    stepSections.forEach((sec) => {
+      items.push({ id: sec.id, label: sec.title, icon: sec.icon });
+    });
+
     if (safeArray(l.frameworks).length > 0) {
       items.push({ id: 'sec-frameworks', label: 'Clinical Frameworks', icon: '🩺' });
+    }
+    if (safeArray(l.tables).length > 0 || l.comparisonTable) {
+      items.push({ id: 'sec-tables', label: 'Comparison & Data Tables', icon: '📊' });
+    }
+    if (safeArray(l.customSections).length > 0) {
+      safeArray(l.customSections).forEach((cs, idx) => {
+        items.push({
+          id: cs.id ? `sec-${cs.id}` : `sec-custom-${idx}`,
+          label: cs.title || cs.heading || 'Additional Section',
+          icon: cs.icon || '📌',
+        });
+      });
     }
     if (l.animation) {
       items.push({ id: 'sec-animation', label: 'Interactive explanation', icon: '🧬' });
@@ -1252,69 +1333,24 @@ function Lesson() {
             </section>
           ))}
 
-          {safeArray(l.solerSteps).length > 0 && (
-            <section id="sec-soler-steps" className="content-card">
-              <h2>🧘 5-Step SOLER Framework Breakdown</h2>
-              <div style={{ display: 'grid', gap: '12px', marginTop: '14px' }}>
-                {l.solerSteps.map((st) => (
+          {/* Dynamic Step-by-Step Protocols & Frameworks (renders any steps array automatically) */}
+          {getLessonStepSections(l).map((sec) => (
+            <section id={sec.id} className="content-card" key={sec.id}>
+              <h2>{sec.icon} {sec.title}</h2>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns:
+                    sec.items.length > 3
+                      ? 'repeat(auto-fit, minmax(240px, 1fr))'
+                      : '1fr',
+                  gap: '12px',
+                  marginTop: '14px',
+                }}
+              >
+                {sec.items.map((st, i) => (
                   <div
-                    key={st.letter || st.step}
-                    style={{
-                      padding: '14px 16px',
-                      background: '#f8fafc',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '12px',
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        marginBottom: '6px',
-                      }}
-                    >
-                      <span
-                        style={{
-                          width: '28px',
-                          height: '28px',
-                          borderRadius: '50%',
-                          background: '#0d9488',
-                          color: '#fff',
-                          display: 'grid',
-                          placeItems: 'center',
-                          fontWeight: 'bold',
-                          fontSize: '13px',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {st.letter}
-                      </span>
-                      <strong style={{ fontSize: '15px', color: '#0f172a' }}>
-                        Step {st.step}: {st.title}
-                      </strong>
-                    </div>
-                    <p style={{ margin: '0 0 6px', fontSize: '13.5px', color: '#334155' }}>
-                      {st.action}
-                    </p>
-                    {st.clinicalTip && (
-                      <div style={{ fontSize: '12.5px', color: '#0d9488', fontWeight: '600' }}>
-                        💡 Clinical Tip: {st.clinicalTip}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {safeArray(l.biopsychosocialSteps).length > 0 && (
-            <section id="sec-biopsychosocial-steps" className="content-card">
-              <h2>🧠 Core Subfields of Healthcare Psychology</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginTop: '14px' }}>
-                {l.biopsychosocialSteps.map((st) => (
-                  <div
-                    key={st.step || st.title}
+                    key={st.step + '-' + i}
                     style={{
                       padding: '14px 16px',
                       background: '#f8fafc',
@@ -1332,32 +1368,88 @@ function Lesson() {
                     >
                       <span
                         style={{
-                          width: '26px',
-                          height: '26px',
+                          width: '28px',
+                          height: '28px',
                           borderRadius: '50%',
-                          background: '#0d9488',
+                          background: st.color || '#0d9488',
                           color: '#fff',
                           display: 'grid',
                           placeItems: 'center',
                           fontWeight: 'bold',
-                          fontSize: '12px',
+                          fontSize: '12.5px',
                           flexShrink: 0,
                         }}
                       >
                         {st.step}
                       </span>
-                      <strong style={{ fontSize: '14px', color: '#0f172a' }}>
+                      <strong style={{ fontSize: '14.5px', color: '#0f172a' }}>
                         {st.title}
                       </strong>
                     </div>
-                    <p style={{ margin: 0, fontSize: '13px', color: '#334155', lineHeight: '1.5' }}>
+                    <p style={{ margin: '0 0 6px', fontSize: '13px', color: '#334155', lineHeight: '1.5' }}>
                       {st.description}
                     </p>
+                    {st.clinicalTip && (
+                      <div style={{ fontSize: '12.5px', color: '#0d9488', fontWeight: '600', marginTop: '6px' }}>
+                        💡 Clinical Tip: {st.clinicalTip}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
             </section>
+          ))}
+
+          {/* Optional Comparison & Data Tables */}
+          {(safeArray(l.tables).length > 0 || l.comparisonTable) && (
+            <section id="sec-tables" className="content-card">
+              <h2>📊 Clinical Comparison &amp; Reference Data</h2>
+              {safeArray(l.tables || [l.comparisonTable]).map((tbl, idx) => (
+                <div key={idx} style={{ marginTop: '12px', overflowX: 'auto' }}>
+                  {tbl.title && <h3 style={{ fontSize: '14px', marginBottom: '8px', color: '#0f172a' }}>{tbl.title}</h3>}
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                    {tbl.headers && (
+                      <thead>
+                        <tr style={{ background: '#f1f5f9', textAlign: 'left' }}>
+                          {tbl.headers.map((h, hi) => (
+                            <th key={hi} style={{ padding: '8px 12px', border: '1px solid #e2e8f0', fontWeight: 'bold' }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                    )}
+                    <tbody>
+                      {safeArray(tbl.rows).map((row, ri) => (
+                        <tr key={ri} style={{ background: ri % 2 === 0 ? '#ffffff' : '#f8fafc' }}>
+                          {row.map((cell, ci) => (
+                            <td key={ci} style={{ padding: '8px 12px', border: '1px solid #e2e8f0', color: '#334155' }}>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </section>
           )}
+
+          {/* Optional Generic Custom Sections */}
+          {safeArray(l.customSections).map((cs, idx) => (
+            <section
+              id={cs.id ? `sec-${cs.id}` : `sec-custom-${idx}`}
+              className="content-card"
+              key={cs.id || idx}
+            >
+              <h2>{cs.icon || '📌'} {cs.title || cs.heading}</h2>
+              {cs.content && <p>{cs.content}</p>}
+              {safeArray(cs.items).length > 0 && (
+                <ul style={{ paddingLeft: '20px', marginTop: '8px', color: '#334155' }}>
+                  {cs.items.map((it, iti) => (
+                    <li key={iti}>{typeof it === 'string' ? it : it.label || it.text}</li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
 
           {safeArray(l.frameworks).length > 0 && (
             <section id="sec-frameworks" className="content-card">
@@ -1747,11 +1839,12 @@ function Animations() {
           </button>
           {categoryOptions.map((cat) => {
             const icon =
-              cat.id === 'general'
+              cat.icon ||
+              (cat.id === 'general'
                 ? '💊'
                 : cat.id === 'healthcare_psychology'
                 ? '🧠'
-                : '🧬';
+                : '🧬');
             return (
               <button
                 key={cat.id}

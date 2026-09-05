@@ -37,12 +37,15 @@ export function isLessonNew(lesson, customNow = Date.now()) {
   if (!lesson) return false;
 
   // Resolve explicit or implicit dateAdded
-  const dateAdded = lesson.dateAdded || (
-    lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
-    lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
-    lesson.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
-    null
-  );
+  const dateAdded =
+    lesson.dateAdded ||
+    (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null) ||
+    (lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
+     lesson.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
+     lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
+     lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
+     lesson.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
+     null);
 
   if (dateAdded) {
     return isWithinOneMonth(dateAdded, customNow);
@@ -133,12 +136,15 @@ export function getNewArrivals(categoryId = null) {
 
   // 1. Scan all lessons and include ONLY those added within 1 month (30 days)
   allLessons.forEach((l) => {
-    const dateAdded = l.dateAdded || (
-      l.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
-      l.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
-      l.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
-      null
-    );
+    const dateAdded =
+      l.dateAdded ||
+      (l.isNew || l.isLatest ? new Date(now).toISOString() : null) ||
+      (l.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
+       l.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
+       l.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
+       l.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
+       l.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
+       null);
 
     // Automatic expiration: only include if dateAdded is within 1 month (<= 30 days old)
     if (dateAdded && isWithinOneMonth(dateAdded, now) && !seenIds.has(l.id)) {
@@ -458,6 +464,32 @@ export function getAllAnimations() {
       isNew: isWithinOneMonth('2026-08-31T00:00:00'),
       description:
         '4-stage dynamic model illustrating cognitive stress triggers, HPA axis cortisol release, sustained hypertension, and Skinnerian behavioral modification loops.',
+    },
+    {
+      type: 'carl-rogers-client-centered',
+      title: 'Carl Rogers & Client-Centered Humanistic Model',
+      subtitle: 'Self-Actualization, The Incongruence Gap & The 3 Core Conditions',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '🌱🤝',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-05T00:00:00',
+      isNew: isWithinOneMonth('2026-09-05T00:00:00'),
+      description:
+        'Interactive dynamic model demonstrating real vs. ideal self incongruence gaps, the 3 core therapeutic conditions, and non-directive reflective listening.',
+    },
+    {
+      type: 'psychological-first-aid',
+      title: 'Psychological First Aid (PFA) Protocol Simulator',
+      subtitle: 'Clear Noise → Physical Safety → Listen & Validate → Comfort & Empower',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '🛡️🕊️',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-05T00:00:00',
+      isNew: isWithinOneMonth('2026-09-05T00:00:00'),
+      description:
+        'Dynamic clinical stabilization simulator for acute distress: cognitive channel noise modeling, eye-level safety positioning, and empathetic validation.',
     },
   ];
 
