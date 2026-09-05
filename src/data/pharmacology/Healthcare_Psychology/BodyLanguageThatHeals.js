@@ -7,7 +7,7 @@ export const bodyLanguageThatHealsLesson = {
   dateAdded: '2026-08-30T00:00:00',
   addedOrder: 2,
   categoryId: 'healthcare_psychology',
-  topic: 'Clinical Communication & Rapport',
+  topic: 'Healthcare Psychology',
   title: 'Body Language That Heals',
   subtitle: "Gerard Egan's SOLER Framework for Active Listening",
   level: 'Beginner',
