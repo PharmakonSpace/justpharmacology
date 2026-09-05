@@ -8,6 +8,12 @@ import { categories } from '../data/categories.js';
 export const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000;
 
 /**
+ * 1-Week duration threshold in milliseconds (7 days).
+ * Used to automatically feature only the last lesson added within the past week.
+ */
+export const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+
+/**
  * Determines whether a given date is within the last 30 days (1 month).
  * Older than 30 days automatically returns false.
  *
@@ -26,6 +32,91 @@ export function isWithinOneMonth(dateInput, customNow = Date.now()) {
 }
 
 /**
+ * Determines whether a given date is within the last 7 days (1 week).
+ * Older than 7 days automatically returns false.
+ *
+ * @param {string|number|Date} dateInput - ISO string, date object, or timestamp
+ * @param {number} [customNow=Date.now()] - Current timestamp for evaluation
+ * @returns {boolean}
+ */
+export function isWithinOneWeek(dateInput, customNow = Date.now()) {
+  if (!dateInput) return false;
+  const timestamp = typeof dateInput === 'number' ? dateInput : new Date(dateInput).getTime();
+  if (isNaN(timestamp)) return false;
+
+  const diffMs = customNow - timestamp;
+  // Valid if added within the last 7 days (allows up to 1-day buffer for timezone variations)
+  return diffMs >= -86400000 && diffMs <= ONE_WEEK_MS;
+}
+
+/**
+ * Resolves the explicit or implicit date added for any lesson.
+ *
+ * @param {Object} lesson
+ * @param {number} [customNow=Date.now()]
+ * @returns {string|null}
+ */
+export function getLessonDateAdded(lesson, customNow = Date.now()) {
+  if (!lesson) return null;
+  return (
+    lesson.dateAdded ||
+    (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null) ||
+    (lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
+     lesson.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
+     lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
+     lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
+     lesson.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
+     null)
+  );
+}
+
+/**
+ * Returns the single latest lesson added to the curriculum within the last 1 week (7 days).
+ * Automatically returns null if no lesson was added within the last 7 days.
+ * If multiple lessons exist within the week, it picks the latest one (by isLatest, dateAdded, addedOrder).
+ *
+ * @param {number} [customNow=Date.now()]
+ * @returns {Object|null}
+ */
+export function getLatestLessonWithinWeek(customNow = Date.now()) {
+  const eligible = [];
+
+  allLessons.forEach((l) => {
+    const dateStr = getLessonDateAdded(l, customNow);
+    if (!dateStr) return;
+
+    if (isWithinOneWeek(dateStr, customNow)) {
+      eligible.push({
+        ...l,
+        dateAdded: dateStr,
+        _time: new Date(dateStr).getTime(),
+        _order: typeof l.addedOrder === 'number' ? l.addedOrder : 0,
+        _isLatest: Boolean(l.isLatest),
+      });
+    }
+  });
+
+  if (eligible.length === 0) return null;
+
+  // Sort: most recent at the top
+  eligible.sort((a, b) => {
+    // 1. Explicitly marked isLatest comes first
+    if (a._isLatest && !b._isLatest) return -1;
+    if (!a._isLatest && b._isLatest) return 1;
+
+    // 2. Highest timestamp
+    if (b._time !== a._time) return b._time - a._time;
+
+    // 3. Highest addedOrder
+    if (b._order !== a._order) return b._order - a._order;
+
+    return 0;
+  });
+
+  return eligible[0];
+}
+
+/**
  * Checks if a lesson is currently considered "NEW" or "RECENT".
  * Automatically returns false if dateAdded is older than 30 days (1 month).
  *
@@ -35,23 +126,12 @@ export function isWithinOneMonth(dateInput, customNow = Date.now()) {
  */
 export function isLessonNew(lesson, customNow = Date.now()) {
   if (!lesson) return false;
-
-  // Resolve explicit or implicit dateAdded
-  const dateAdded =
-    lesson.dateAdded ||
-    (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null) ||
-    (lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
-     lesson.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
-     lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
-     lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
-     lesson.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
-     null);
+  const dateAdded = getLessonDateAdded(lesson, customNow);
 
   if (dateAdded) {
     return isWithinOneMonth(dateAdded, customNow);
   }
 
-  // If no dateAdded exists on the lesson object, it is considered a permanent standard lesson (not new)
   return false;
 }
 
@@ -136,15 +216,7 @@ export function getNewArrivals(categoryId = null) {
 
   // 1. Scan all lessons and include ONLY those added within 1 month (30 days)
   allLessons.forEach((l) => {
-    const dateAdded =
-      l.dateAdded ||
-      (l.isNew || l.isLatest ? new Date(now).toISOString() : null) ||
-      (l.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
-       l.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
-       l.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
-       l.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
-       l.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
-       null);
+    const dateAdded = getLessonDateAdded(l, now);
 
     // Automatic expiration: only include if dateAdded is within 1 month (<= 30 days old)
     if (dateAdded && isWithinOneMonth(dateAdded, now) && !seenIds.has(l.id)) {

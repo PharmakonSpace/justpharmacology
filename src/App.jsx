@@ -39,7 +39,7 @@ import { completeLesson, isComplete } from './utils/progress';
 import VideoEmbed from './components/video/VideoEmbed';
 import NewArrivalsSection from './components/home/NewArrivalsSection';
 import Breadcrumbs from './components/navigation/Breadcrumbs';
-import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations, isLessonNew, isModuleNew } from './utils/contentUtils';
+import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations, isLessonNew, isModuleNew, getLatestLessonWithinWeek } from './utils/contentUtils';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -345,21 +345,36 @@ function Home() {
   const recentVideos = useMemo(() => getRecentCurriculumVideos(6), []);
   const allCurriculumVideos = useMemo(() => getAllCurriculumVideos(), []);
 
+  // Only shows the last lesson added within the past 1 week (7 days) automatically
+  const latestLessonThisWeek = useMemo(() => getLatestLessonWithinWeek(), []);
+  const latestLessonCatName = useMemo(() => {
+    if (!latestLessonThisWeek) return '';
+    const cat = categories.find(
+      (c) =>
+        c.id === latestLessonThisWeek.categoryId ||
+        (latestLessonThisWeek.categoryId === 'cardiovascular' && c.id === 'cardio') ||
+        (latestLessonThisWeek.categoryId === 'gastrointestinal' && c.id === 'gi')
+    );
+    return cat?.name || latestLessonThisWeek.topic || 'Curriculum';
+  }, [latestLessonThisWeek]);
+
   return (
     <>
       {/* Hero */}
       <section className="hero">
         <div className="container hero-grid">
           <div>
-            <div className="hero-update-pill">
-              <span className="pulse-dot" />
-              <span>
-                <strong>Just Added:</strong> &ldquo;Introduction to Healthcare Psychology&rdquo; in Healthcare Psychology &amp; Communication Skills!
-              </span>
-              <Link to="/lesson/introduction-to-healthcare-psychology" className="hero-pill-link">
-                Start lesson →
-              </Link>
-            </div>
+            {latestLessonThisWeek && (
+              <div className="hero-update-pill">
+                <span className="pulse-dot" />
+                <span>
+                  <strong>Just Added:</strong> &ldquo;{latestLessonThisWeek.title}&rdquo; in {latestLessonCatName}!
+                </span>
+                <Link to={`/lesson/${latestLessonThisWeek.id}`} className="hero-pill-link">
+                  Start lesson →
+                </Link>
+              </div>
+            )}
             <div className="eyebrow">INTERACTIVE PHARMACOLOGY LEARNING</div>
             <h1>
               Understand Pharmacology.
