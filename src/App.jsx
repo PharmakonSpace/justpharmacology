@@ -40,6 +40,7 @@ import VideoEmbed from './components/video/VideoEmbed';
 import NewArrivalsSection from './components/home/NewArrivalsSection';
 import Breadcrumbs from './components/navigation/Breadcrumbs';
 import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations, isLessonNew, isModuleNew, getLatestLessonWithinWeek } from './utils/contentUtils';
+import { usePageSEO, buildLessonSchema } from './utils/seo';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -344,6 +345,15 @@ function Home() {
   const modulesWithStats = useMemo(() => getModulesWithStats(), []);
   const recentVideos = useMemo(() => getRecentCurriculumVideos(6), []);
   const allCurriculumVideos = useMemo(() => getAllCurriculumVideos(), []);
+
+  // SEO configuration for Home
+  usePageSEO({
+    title: 'Just Pharmacology — Interactive Pharmacology Learning & Mechanism Animations',
+    description:
+      'Master pharmacology with conceptual explanations, interactive mechanism animations, 55+ clinical lessons, and self-assessment quizzes inspired by Dr. Manoj Goyal.',
+    canonicalPath: '/',
+    ogType: 'website',
+  });
 
   // Only shows the last lesson added within the past 1 week (7 days) automatically
   const latestLessonThisWeek = useMemo(() => getLatestLessonWithinWeek(), []);
@@ -965,6 +975,20 @@ function Learn() {
   const [filter, setFilter] = useState(initialCat);
   const newArrivals = useMemo(() => getNewArrivals(), []);
 
+  const activeCategoryObj = useMemo(() => {
+    return categories.find((c) => c.id === filter);
+  }, [filter]);
+
+  usePageSEO({
+    title: filter === 'all' 
+      ? 'Pharmacology Curriculum & Modules' 
+      : `${activeCategoryObj ? activeCategoryObj.name : filter} — Pharmacology Lessons`,
+    description:
+      'Explore structured pharmacology modules including General Pharmacology, Pharmacokinetics, Receptors, and Healthcare Psychology with clinical pearls and quizzes.',
+    canonicalPath: '/learn',
+    keywords: 'pharmacology curriculum, pharmacology lessons, pharmacokinetics modules, pharmacodynamics, Dr. Manoj Goyal, pharmacy syllabus, GPAT pharmacology',
+  });
+
   useEffect(() => {
     const cat = searchParams.get('category');
     if (cat) {
@@ -1185,6 +1209,25 @@ function Lesson() {
   const nav = useNavigate();
   const l = lessons.find((x) => x.id === id);
   const index = lessons.findIndex((x) => x.id === id);
+
+  // Build Schema.org LearningResource & MedicalWebPage JSON-LD
+  const lessonSchema = useMemo(() => {
+    if (!l) return null;
+    return buildLessonSchema(l, `https://justpharmacology.com/lesson/${l.id}`);
+  }, [l]);
+
+  usePageSEO({
+    title: l ? `${l.title} — Pharmacology Lesson` : 'Lesson Not Found',
+    description:
+      l?.description ||
+      (l ? `${l.title}: comprehensive pharmacology lesson with clinical applications, diagrams, and quiz.` : ''),
+    keywords: l
+      ? `${l.title}, ${l.topic || 'pharmacology'}, pharmacology lesson, mechanism of action, clinical pearls, Dr. Manoj Goyal, pharmacy study`
+      : '',
+    canonicalPath: l ? `/lesson/${l.id}` : undefined,
+    ogType: 'article',
+    jsonLd: lessonSchema,
+  });
 
   // Dynamic table of contents based on present lesson sections
   const tocItems = useMemo(() => {
@@ -1719,6 +1762,14 @@ function Lesson() {
 /* ───────────────────────── Revision ───────────────────────── */
 
 function Revision() {
+  usePageSEO({
+    title: 'Rapid Pharmacology Revision Cards',
+    description:
+      'High-yield pharmacology revision cards and quick-review memory anchors for rapid exam recall (GPAT, USMLE, NCLEX, MBBS).',
+    canonicalPath: '/revision',
+    keywords: 'rapid pharmacology revision, pharmacology memory cards, high-yield drug facts, GPAT revision, pharmacology cheat sheet',
+  });
+
   const cards = lessons.flatMap((l) =>
     safeArray(l.rapid).map((r, i) => ({
       key: l.id + '-' + i,
@@ -1758,6 +1809,14 @@ function Revision() {
 /* ───────────────────────── Animations ───────────────────────── */
 
 function Animations() {
+  usePageSEO({
+    title: 'Interactive Pharmacology Animations & Mechanism Simulators',
+    description:
+      'Explore dynamic, step-by-step interactive animations explaining drug receptor binding, GPCR second messengers, pharmacokinetics, and clinical protocols.',
+    canonicalPath: '/animations',
+    keywords: 'pharmacology animations, drug mechanism animation, GPCR signaling simulation, drug receptor binding interactive',
+  });
+
   const [selectedCat, setSelectedCat] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -1971,6 +2030,14 @@ function Animations() {
 /* ───────────────────────── Videos ───────────────────────── */
 
 function Videos() {
+  usePageSEO({
+    title: 'Video Lectures & Clinical Demonstrations',
+    description:
+      'Visual pharmacology video tutorials, drug mechanism breakdowns, and healthcare communication demonstrations inspired by Dr. Manoj Goyal.',
+    canonicalPath: '/videos',
+    keywords: 'pharmacology videos, pharmacology video lectures, drug action video tutorial, Dr. Manoj Goyal YouTube',
+  });
+
   const [selectedCat, setSelectedCat] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [onlyNew, setOnlyNew] = useState(false);
@@ -2153,6 +2220,14 @@ function Videos() {
 /* ───────────────────────── Quiz Center ───────────────────────── */
 
 function QuizPage() {
+  usePageSEO({
+    title: 'Pharmacology Practice Quizzes & MCQs',
+    description:
+      'Self-assessment multiple-choice quizzes across General Pharmacology and Healthcare Psychology with instant rationale explanations.',
+    canonicalPath: '/quiz',
+    keywords: 'pharmacology quiz, pharmacology MCQs, GPAT practice questions, pharmacology self-assessment, clinical pharmacology test',
+  });
+
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [randomMode, setRandomMode] = useState(false);
   const [quizSessionKey, setQuizSessionKey] = useState(0);
@@ -2331,7 +2406,34 @@ function QuizPage() {
 /* ───────────────────────── Search ───────────────────────── */
 
 function Search() {
-  const [q, setQ] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlQuery = searchParams.get('q') || '';
+  const [q, setQ] = useState(urlQuery);
+
+  useEffect(() => {
+    const query = searchParams.get('q');
+    if (query !== null && query !== q) {
+      setQ(query);
+    }
+  }, [searchParams]);
+
+  usePageSEO({
+    title: q.trim() ? `Search: "${q.trim()}"` : 'Search Pharmacology Lessons & Topics',
+    description:
+      'Search through 55+ interactive pharmacology lessons, mechanism animations, clinical pearls, and self-assessment quizzes.',
+    canonicalPath: '/search',
+    noindex: Boolean(q.trim()), // Avoid duplicate thin search permalink indexing in Google
+  });
+
+  const handleQueryChange = (e) => {
+    const val = e.target.value;
+    setQ(val);
+    if (val.trim()) {
+      setSearchParams({ q: val }, { replace: true });
+    } else {
+      setSearchParams({}, { replace: true });
+    }
+  };
 
   const results = useMemo(() => {
     const s = q.toLowerCase().trim();
@@ -2357,7 +2459,7 @@ function Search() {
       <input
         className="searchbox"
         value={q}
-        onChange={(e) => setQ(e.target.value)}
+        onChange={handleQueryChange}
         placeholder="Try: receptors, absorption, pharmacokinetics..."
       />
       {q.trim() && (
@@ -2375,6 +2477,31 @@ function Search() {
 /* ───────────────────────── About ───────────────────────── */
 
 function About() {
+  usePageSEO({
+    title: 'About Dr. Manoj Goyal & Just Pharmacology Educational Initiative',
+    description:
+      'Learn about Dr. Manoj Goyal, Associate Professor in Pharmaceutical Sciences at HNB Garhwal University, and the student tribute behind Just Pharmacology.',
+    canonicalPath: '/about',
+    keywords: 'Dr. Manoj Goyal, HNB Garhwal University, BIT Mesra, pharmacology professor, Just Pharmacology educator',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'About Dr. Manoj Goyal & Just Pharmacology',
+      description:
+        'Educational initiative inspired by Dr. Manoj Goyal, Associate Professor in Pharmaceutical Sciences at HNB Garhwal University.',
+      mainEntity: {
+        '@type': 'Person',
+        name: 'Dr. Manoj Goyal',
+        jobTitle: 'Associate Professor of Pharmaceutical Sciences',
+        worksFor: {
+          '@type': 'CollegeOrUniversity',
+          name: 'Hemvati Nandan Bahuguna Garhwal University (HNBGU)',
+        },
+        alumniOf: 'Birla Institute of Technology (BIT Mesra)',
+      },
+    },
+  });
+
   return (
     <main className="container page">
       <Breadcrumbs />

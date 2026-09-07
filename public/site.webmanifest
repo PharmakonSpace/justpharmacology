@@ -1,0 +1,17 @@
+{
+  "name": "Just Pharmacology",
+  "short_name": "JustPharmacology",
+  "description": "Interactive pharmacology learning platform featuring structured lessons, mechanism animations, quizzes, and rapid revision.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0d9488",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

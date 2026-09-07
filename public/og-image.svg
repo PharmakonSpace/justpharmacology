@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091e2b" />
+      <stop offset="50%" stop-color="#0f2b3c" />
+      <stop offset="100%" stop-color="#0a1924" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="badge-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-grad)" />
+
+  <!-- Subtle grid pattern overlay -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="105" x2="1200" y2="105" />
+    <line x1="0" y1="210" x2="1200" y2="210" />
+    <line x1="0" y1="315" x2="1200" y2="315" />
+    <line x1="0" y1="420" x2="1200" y2="420" />
+    <line x1="0" y1="525" x2="1200" y2="525" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+  </g>
+
+  <!-- Glowing background blobs -->
+  <circle cx="1020" cy="180" r="260" fill="#14b8a6" opacity="0.12" filter="blur(60px)" />
+  <circle cx="150" cy="500" r="220" fill="#0284c7" opacity="0.10" filter="blur(60px)" />
+
+  <!-- Main Card Container -->
+  <rect x="70" y="70" width="1060" height="490" rx="28" fill="#102534" stroke="#1e3a4e" stroke-width="2" />
+
+  <!-- Brand Badge Top Left -->
+  <g transform="translate(130, 125)">
+    <!-- Logo Icon -->
+    <rect x="0" y="0" width="68" height="68" rx="18" fill="url(#badge-grad)" />
+    <text x="34" y="47" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#ffffff" text-anchor="middle">JP</text>
+    
+    <!-- Brand Title & Tagline -->
+    <text x="86" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="800" fill="#ffffff">Just Pharmacology</text>
+    <text x="86" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#14b8a6" letter-spacing="0.5px">EDUCATIONAL INITIATIVE</text>
+  </g>
+
+  <!-- Headline -->
+  <text x="130" y="275" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="#ffffff" letter-spacing="-1px">
+    Understand Pharmacology.
+  </text>
+  <text x="130" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="url(#accent-grad)" letter-spacing="-1px">
+    Don't Just Memorize It.
+  </text>
+
+  <!-- Subtitle description -->
+  <text x="130" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="400" fill="#94a3b8">
+    Interactive Mechanism Animations • 55+ Clinical Lessons • Rapid Revision • Self-Assessment Quizzes
+  </text>
+
+  <!-- Footer Pills -->
+  <g transform="translate(130, 460)">
+    <!-- Pill 1: Dr. Manoj Goyal -->
+    <rect x="0" y="0" width="310" height="42" rx="21" fill="#1e3a4e" stroke="#2a4e69" stroke-width="1.5" />
+    <text x="155" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#f1f5f9" text-anchor="middle">
+      Tribute to Dr. Manoj Goyal, Ph.D.
+    </text>
+
+    <!-- Pill 2: Medical & Pharmacy -->
+    <rect x="325" y="0" width="280" height="42" rx="21" fill="#1e3a4e" stroke="#2a4e69" stroke-width="1.5" />
+    <text x="465" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#94a3b8" text-anchor="middle">
+      GPAT • USMLE • NCLEX • MBBS
+    </text>
+
+    <!-- Pill 3: YouTube Channel -->
+    <rect x="620" y="0" width="220" height="42" rx="21" fill="#ff0000" fill-opacity="0.2" stroke="#ff0000" stroke-opacity="0.5" stroke-width="1.5" />
+    <text x="730" y="27" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#ff6b6b" text-anchor="middle">
+      ▶ @JustPharmacology
+    </text>
+  </g>
+</svg>
