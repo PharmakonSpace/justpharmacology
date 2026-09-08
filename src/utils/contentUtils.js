@@ -61,7 +61,8 @@ export function getLessonDateAdded(lesson, customNow = Date.now()) {
   return (
     lesson.dateAdded ||
     (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null) ||
-    (lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
+    (lesson.id === 'clinical-communication-frameworks' ? '2026-09-08T00:00:00' :
+     lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
      lesson.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
      lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
      lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
@@ -562,6 +563,19 @@ export function getAllAnimations() {
       isNew: isWithinOneMonth('2026-09-05T00:00:00'),
       description:
         'Dynamic clinical stabilization simulator for acute distress: cognitive channel noise modeling, eye-level safety positioning, and empathetic validation.',
+    },
+    {
+      type: 'clinical-communication-frameworks',
+      title: 'Clinical Communication & Transactional Simulator',
+      subtitle: 'Linear vs Circular Bateson Models, Noise Filters, Teach-Back & Proxemics',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '💬🔄',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-08T00:00:00',
+      isNew: isWithinOneMonth('2026-09-08T00:00:00'),
+      description:
+        'Interactive systems-based simulator covering linear vs circular models, clinical noise & message degradation, teach-back feedback loops, proxemics, and telehealth bandwidth.',
     },
   ];
 

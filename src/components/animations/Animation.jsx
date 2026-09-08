@@ -7,6 +7,7 @@ import Soler from './soler';
 import Biopsychosocial from './biopsychosocial';
 import CarlRogers from './CarlRogers';
 import PsychologicalFirstAid from './PsychologicalFirstAid';
+import ClinicalCommunicationAnimation from './ClinicalCommunicationAnimation';
 
 
 export default function Animation({ type }) {
@@ -23,6 +24,13 @@ export default function Animation({ type }) {
   }
   if (normalizedType === 'psychological-first-aid' || normalizedType === 'pfa') {
     return <PsychologicalFirstAid />;
+  }
+  if (
+    normalizedType === 'clinical-communication-frameworks' ||
+    normalizedType === 'clinical-communication' ||
+    normalizedType === 'communication-frameworks'
+  ) {
+    return <ClinicalCommunicationAnimation />;
   }
 
   return <DrugReceptor />;

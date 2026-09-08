@@ -3,7 +3,7 @@
 export const psychologicalFirstAidLesson = {
   id: 'psychological-first-aid',
   isNew: true,
-  isLatest: true,
+  isLatest: false,
   badge: 'NEW CHAPTER',
   dateAdded: '2026-09-05T00:00:00',
   addedOrder: 5,
