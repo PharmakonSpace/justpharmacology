@@ -79,6 +79,12 @@ function getLessonStepSections(lesson) {
       } else if (key === 'psychologicalFirstAidSteps') {
         title = 'Four-Step Psychological First Aid Sequence';
         icon = '🛡️';
+      } else if (key === 'clinicalReflectiveLogSteps') {
+        title = 'Seven-Stage Clinical Reflective Protocol';
+        icon = '📝';
+      } else if (key === 'humanVisionSteps') {
+        title = 'Eight-Stage Human Vision Physiological Sequence';
+        icon = '👁️';
       } else if (key === 'biopsychosocialSteps') {
         title =
           lesson.id === 'carl-rogers-client-centered-therapy'
@@ -1387,7 +1393,15 @@ function Lesson() {
               key={s.heading || idx}
             >
               <h2>{s.heading}</h2>
-              <p>{s.content}</p>
+              {Array.isArray(s.content) ? (
+                s.content.map((p, pIdx) => (
+                  <p key={pIdx} style={{ marginBottom: pIdx === s.content.length - 1 ? 0 : '0.75rem' }}>
+                    {p}
+                  </p>
+                ))
+              ) : (
+                <p>{s.content}</p>
+              )}
             </section>
           ))}
 
@@ -1916,6 +1930,8 @@ function Animations() {
               cat.icon ||
               (cat.id === 'general'
                 ? '💊'
+                : cat.id === 'anatomy_physiology'
+                ? '👁️'
                 : cat.id === 'healthcare_psychology'
                 ? '🧠'
                 : '🧬');

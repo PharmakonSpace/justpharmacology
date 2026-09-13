@@ -8,6 +8,8 @@ import Biopsychosocial from './biopsychosocial';
 import CarlRogers from './CarlRogers';
 import PsychologicalFirstAid from './PsychologicalFirstAid';
 import ClinicalCommunicationAnimation from './ClinicalCommunicationAnimation';
+import ClinicalReflectiveLogAnimation from './ClinicalReflectiveLogAnimation';
+import HumanVisionAnimation from './HumanVisionAnimation';
 
 
 export default function Animation({ type }) {
@@ -31,6 +33,21 @@ export default function Animation({ type }) {
     normalizedType === 'communication-frameworks'
   ) {
     return <ClinicalCommunicationAnimation />;
+  }
+  if (
+    normalizedType === 'clinical-reflective-log' ||
+    normalizedType === 'reflective-log' ||
+    normalizedType === 'clinical-reflection'
+  ) {
+    return <ClinicalReflectiveLogAnimation />;
+  }
+  if (
+    normalizedType === 'human-vision' ||
+    normalizedType === 'vision' ||
+    normalizedType === 'eye' ||
+    normalizedType === 'visual-pathway'
+  ) {
+    return <HumanVisionAnimation />;
   }
 
   return <DrugReceptor />;

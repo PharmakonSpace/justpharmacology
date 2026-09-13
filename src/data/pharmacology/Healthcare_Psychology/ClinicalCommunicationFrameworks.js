@@ -3,7 +3,7 @@
 export const clinicalCommunicationFrameworksLesson = {
   id: 'clinical-communication-frameworks',
   isNew: true,
-  isLatest: true,
+  isLatest: false,
   badge: 'NEW CHAPTER',
   dateAdded: '2026-09-08T00:00:00',
   addedOrder: 6,

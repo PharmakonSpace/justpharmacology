@@ -1,8 +1,10 @@
 import { generalPharmacologyLessons } from './general/index.js';
 import { HealthcarePsychologyandcommunicationskillLessons } from './Healthcare_Psychology/index.js'; // Adjust path if needed
+import { anatomyPhysiologyLessons } from './Anatomy_Physiology/index.js';
 
 export const modules = [
   { id:'general', title:'General Pharmacology', status:'available', lessons:generalPharmacologyLessons },
+  { id:'anatomy_physiology', title:'Anatomy & Physiology', name:'Anatomy & Physiology', icon:'👁️🫀', isNew: true, status:'available', dateAdded: '2026-09-13T00:00:00', lessons:anatomyPhysiologyLessons },
   { id:'autonomic', title:'Autonomic Pharmacology', status:'coming-soon', lessons:[] },
   { id:'cardiovascular', title:'Cardiovascular Pharmacology', status:'coming-soon', lessons:[] },
   { id:'cns', title:'CNS Pharmacology', status:'coming-soon', lessons:[] },

@@ -61,7 +61,8 @@ export function getLessonDateAdded(lesson, customNow = Date.now()) {
   return (
     lesson.dateAdded ||
     (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null) ||
-    (lesson.id === 'clinical-communication-frameworks' ? '2026-09-08T00:00:00' :
+    (lesson.id === 'clinical-reflective-log' ? '2026-09-13T00:00:00' :
+     lesson.id === 'clinical-communication-frameworks' ? '2026-09-08T00:00:00' :
      lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
      lesson.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
      lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
@@ -146,7 +147,13 @@ export function isLessonNew(lesson, customNow = Date.now()) {
  */
 export function isModuleNew(mod, customNow = Date.now()) {
   if (!mod) return false;
-  const date = mod.dateAdded || (mod.id === 'healthcare_psychology' ? '2026-08-31T00:00:00' : null);
+  const date =
+    mod.dateAdded ||
+    (mod.id === 'anatomy_physiology'
+      ? '2026-09-13T00:00:00'
+      : mod.id === 'healthcare_psychology'
+      ? '2026-08-31T00:00:00'
+      : null);
   if (date) {
     return isWithinOneMonth(date, customNow);
   }
@@ -576,6 +583,32 @@ export function getAllAnimations() {
       isNew: isWithinOneMonth('2026-09-08T00:00:00'),
       description:
         'Interactive systems-based simulator covering linear vs circular models, clinical noise & message degradation, teach-back feedback loops, proxemics, and telehealth bandwidth.',
+    },
+    {
+      type: 'clinical-reflective-log',
+      title: 'Clinical Reflective Log & 5-Part Analysis Simulator',
+      subtitle: 'Description, Emotional Self-Awareness, Theoretical Integration, Evaluation & Action Plan',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '📝🧠',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-13T00:00:00',
+      isNew: isWithinOneMonth('2026-09-13T00:00:00'),
+      description:
+        'Interactive structured reflection workbench demonstrating the five-part anatomy of clinical logs, objective vs subjective filtering, theoretical models, counterfactual evaluation, and SMART action planning.',
+    },
+    {
+      type: 'human-vision',
+      title: 'Human Vision: Optomechanics, Phototransduction & Neural Pathway',
+      subtitle: 'Corneal Refraction, Ciliary Accommodation, Photoreceptor Transduction & Chiasma Mapping',
+      categoryId: 'anatomy_physiology',
+      categoryName: 'Anatomy & Physiology',
+      icon: '👁️🧠',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-13T00:00:00',
+      isNew: isWithinOneMonth('2026-09-13T00:00:00'),
+      description:
+        'Interactive physiological pipeline simulator covering optomechanical refraction, ciliary muscle accommodation, rod vs cone phototransduction, retinal cellular relays, optic chiasma decussation, and 3D binocular stereopsis.',
     },
   ];
 

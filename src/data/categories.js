@@ -7,6 +7,14 @@ export const categories = [
     status: 'available',
   },
   {
+    id: 'anatomy_physiology',
+    name: 'Anatomy & Physiology',
+    description: 'Structural systems, sensory optics, neurophysiology, photoreceptor transduction, and human physiological pipelines',
+    icon: '👁️🫀',
+    status: 'available',
+    isNew: true,
+  },
+  {
     id: 'healthcare_psychology',
     name: 'Healthcare Psychology & Communication Skills',
     description: 'Patient rapport, adherence, empathy, health behaviors, SPIKES protocol, and effective clinical communication strategies',
