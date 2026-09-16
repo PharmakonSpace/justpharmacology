@@ -85,6 +85,12 @@ function getLessonStepSections(lesson) {
       } else if (key === 'humanVisionSteps') {
         title = 'Eight-Stage Human Vision Physiological Sequence';
         icon = '👁️';
+      } else if (key === 'clinicalCommunicationSteps') {
+        title = 'Five-Step Clinical Communication Loop';
+        icon = '📡';
+      } else if (key === 'clinicalQuestioningSteps') {
+        title = 'Eight-Stage Clinical Questioning & History-Taking Protocol';
+        icon = '💬';
       } else if (key === 'biopsychosocialSteps') {
         title =
           lesson.id === 'carl-rogers-client-centered-therapy'

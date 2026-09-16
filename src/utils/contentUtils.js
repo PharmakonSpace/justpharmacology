@@ -610,6 +610,32 @@ export function getAllAnimations() {
       description:
         'Interactive physiological pipeline simulator covering optomechanical refraction, ciliary muscle accommodation, rod vs cone phototransduction, retinal cellular relays, optic chiasma decussation, and 3D binocular stereopsis.',
     },
+    {
+      type: 'clinical-communication-noise',
+      title: 'Clinical Communication Noise & Systems Safety Simulator',
+      subtitle: 'Diagnosing 6 Noise Vectors, Signal-to-Noise Ratio & Teach-Back Remediation',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '📡⚠️',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-15T00:00:00',
+      isNew: isWithinOneMonth('2026-09-15T00:00:00'),
+      description:
+        'Interactive systems-engineering simulator exploring how language encryption, environmental distraction, patient overload, clinician bias, and organizational stress degrade the clinical signal, with real-time SNR meter and teach-back repair.',
+    },
+    {
+      type: 'clinical-questioning-traps',
+      title: 'Clinical Questioning Traps & Collaborative Intake Simulator',
+      subtitle: 'Interrogation, Leading Questions & Why Traps vs. Ask–Tell–Ask Architecture',
+      categoryId: 'healthcare_psychology',
+      categoryName: 'Healthcare Psychology & Communication Skills',
+      icon: '💬🛡️',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-16T00:00:00',
+      isNew: isWithinOneMonth('2026-09-16T00:00:00'),
+      description:
+        'Interactive intake dialogue simulator comparing the 3 clinical questioning traps against collaborative inquiry, displaying real-time psychological safety and accurate data disclosure metrics.',
+    },
   ];
 
   // Dynamically find any additional animation types registered in allLessons

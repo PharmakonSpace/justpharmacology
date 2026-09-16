@@ -3,7 +3,7 @@
 export const humanVisionLesson = {
   id: 'human-vision',
   isNew: true,
-  isLatest: true,
+  isLatest: false,
   badge: 'NEW CHAPTER',
   dateAdded: '2026-09-13T00:00:00',
   addedOrder: 8,

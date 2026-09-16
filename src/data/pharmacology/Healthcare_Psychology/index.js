@@ -1,3 +1,5 @@
+import { lessons as clinicalQuestioningTrapsLessons } from './ClinicalQuestioningTraps.js';
+import { lessons as clinicalCommunicationNoiseLessons } from './ClinicalCommunicationNoise.js';
 import { lessons as TheSPIKESProtocolLessons } from './Healthcare_Psychology_and_communication_skill.js';
 import { lessons as bodyLanguageThatHealsLesson } from './BodyLanguageThatHeals.js';
 import { lessons as biopsychosocialModelLesson } from './Introduction to Healthcare Psychology.js';
@@ -6,6 +8,8 @@ import { lessons as psychologicalFirstAidLessons } from './PsychologicalFirstAid
 import { lessons as clinicalCommunicationFrameworksLessons } from './ClinicalCommunicationFrameworks.js';
 import { lessons as clinicalReflectiveLogLessons } from './ClinicalReflectiveLog.js';
 
+export { lessons as clinicalQuestioningTrapsLessons } from './ClinicalQuestioningTraps.js';
+export { lessons as clinicalCommunicationNoiseLessons } from './ClinicalCommunicationNoise.js';
 export { lessons as TheSPIKESProtocolLessons } from './Healthcare_Psychology_and_communication_skill.js';
 export { lessons as bodyLanguageThatHealsLesson } from './BodyLanguageThatHeals.js';
 export { lessons as biopsychosocialModelLesson } from './Introduction to Healthcare Psychology.js';
@@ -15,6 +19,8 @@ export { lessons as clinicalCommunicationFrameworksLessons } from './ClinicalCom
 export { lessons as clinicalReflectiveLogLessons } from './ClinicalReflectiveLog.js';
 
 export const HealthcarePsychologyandcommunicationskillLessons = [
+  clinicalQuestioningTrapsLessons,
+  clinicalCommunicationNoiseLessons,
   clinicalReflectiveLogLessons,
   clinicalCommunicationFrameworksLessons,
   psychologicalFirstAidLessons,

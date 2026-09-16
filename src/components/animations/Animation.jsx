@@ -10,6 +10,8 @@ import PsychologicalFirstAid from './PsychologicalFirstAid';
 import ClinicalCommunicationAnimation from './ClinicalCommunicationAnimation';
 import ClinicalReflectiveLogAnimation from './ClinicalReflectiveLogAnimation';
 import HumanVisionAnimation from './HumanVisionAnimation';
+import ClinicalCommunicationNoiseAnimation from './ClinicalCommunicationNoiseAnimation';
+import ClinicalQuestioningTrapsAnimation from './ClinicalQuestioningTrapsAnimation';
 
 
 export default function Animation({ type }) {
@@ -40,6 +42,20 @@ export default function Animation({ type }) {
     normalizedType === 'clinical-reflection'
   ) {
     return <ClinicalReflectiveLogAnimation />;
+  }
+  if (
+    normalizedType === 'clinical-communication-noise' ||
+    normalizedType === 'communication-noise' ||
+    normalizedType === 'noise'
+  ) {
+    return <ClinicalCommunicationNoiseAnimation />;
+  }
+  if (
+    normalizedType === 'clinical-questioning-traps' ||
+    normalizedType === 'questioning-traps' ||
+    normalizedType === 'questioning'
+  ) {
+    return <ClinicalQuestioningTrapsAnimation />;
   }
   if (
     normalizedType === 'human-vision' ||
