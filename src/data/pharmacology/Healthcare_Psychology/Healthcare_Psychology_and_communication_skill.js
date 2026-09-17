@@ -6,7 +6,7 @@ export const lessons = [
     dateAdded: '2026-08-29T00:00:00',
     addedOrder: 1,
     categoryId: 'healthcare_psychology',
-    topic: 'Breaking Bad News',
+    topic: 'Healthcare Psychology',
     title: 'The SPIKES Protocol: Structured Clinical Empathy',
     level: 'Beginner',
     time: 8,

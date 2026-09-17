@@ -3,7 +3,7 @@
 export const clinicalQuestioningTrapsLesson = {
   id: 'clinical-questioning-traps',
   isNew: true,
-  isLatest: true,
+  isLatest: false,
   badge: 'NEW CHAPTER',
   dateAdded: '2026-09-16',
   addedOrder: 10,

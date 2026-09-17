@@ -12,6 +12,7 @@ import ClinicalReflectiveLogAnimation from './ClinicalReflectiveLogAnimation';
 import HumanVisionAnimation from './HumanVisionAnimation';
 import ClinicalCommunicationNoiseAnimation from './ClinicalCommunicationNoiseAnimation';
 import ClinicalQuestioningTrapsAnimation from './ClinicalQuestioningTrapsAnimation';
+import AnatomicalPositionPlanesAnimation from './AnatomicalPositionPlanesAnimation';
 
 
 export default function Animation({ type }) {
@@ -56,6 +57,14 @@ export default function Animation({ type }) {
     normalizedType === 'questioning'
   ) {
     return <ClinicalQuestioningTrapsAnimation />;
+  }
+  if (
+    normalizedType === 'anatomical-position-planes' ||
+    normalizedType === 'anatomical-position' ||
+    normalizedType === 'body-planes' ||
+    normalizedType === 'directional-terms'
+  ) {
+    return <AnatomicalPositionPlanesAnimation />;
   }
   if (
     normalizedType === 'human-vision' ||

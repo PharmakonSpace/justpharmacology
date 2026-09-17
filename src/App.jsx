@@ -91,6 +91,9 @@ function getLessonStepSections(lesson) {
       } else if (key === 'clinicalQuestioningSteps') {
         title = 'Eight-Stage Clinical Questioning & History-Taking Protocol';
         icon = '💬';
+      } else if (key === 'anatomicalSteps') {
+        title = 'Eight-Stage Anatomical Orientation & Localization Protocol';
+        icon = '🧭';
       } else if (key === 'biopsychosocialSteps') {
         title =
           lesson.id === 'carl-rogers-client-centered-therapy'

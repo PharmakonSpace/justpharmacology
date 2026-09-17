@@ -636,6 +636,19 @@ export function getAllAnimations() {
       description:
         'Interactive intake dialogue simulator comparing the 3 clinical questioning traps against collaborative inquiry, displaying real-time psychological safety and accurate data disclosure metrics.',
     },
+    {
+      type: 'anatomical-position-planes',
+      title: 'Anatomical Position, Body Planes & Directional Coordinates',
+      subtitle: 'Sagittal, Coronal & Transverse Slicing, Limb Axes & Abdominal Quadrants',
+      categoryId: 'anatomy_physiology',
+      categoryName: 'Anatomy & Physiology',
+      icon: '🧭📐',
+      badge: 'NEW CHAPTER',
+      dateAdded: '2026-09-17T00:00:00',
+      isNew: isWithinOneMonth('2026-09-17T00:00:00'),
+      description:
+        'Interactive anatomical coordinate simulator exploring the standard anatomical position, sagittal, coronal, and axial CT slicing, proximal/distal limb axes, and clinical abdominal quadrant pathology mapping.',
+    },
   ];
 
   // Dynamically find any additional animation types registered in allLessons
