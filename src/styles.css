@@ -713,7 +713,28 @@ a {
 }
 .content-card h2 {
   margin-top: 0;
-  font-size: 23px;
+  margin-bottom: 14px;
+  font-size: 21px;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.01em;
+}
+.section-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #f0fdfa;
+  color: #0d9488;
+  border: 1px solid #ccfbf1;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
 }
 .content-card p {
   color: #53636d;

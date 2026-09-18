@@ -649,6 +649,19 @@ export function getAllAnimations() {
       description:
         'Interactive anatomical coordinate simulator exploring the standard anatomical position, sagittal, coronal, and axial CT slicing, proximal/distal limb axes, and clinical abdominal quadrant pathology mapping.',
     },
+    {
+      type: 'hearing-structure-and-physiology',
+      title: 'Anatomy of Ear & Physiology of Hearing',
+      subtitle: 'Middle-Ear 20x Amplification, Cochlear Tonotopy, Hair Cell Transduction & Weber/Rinne',
+      categoryId: 'anatomy_physiology',
+      categoryName: 'Anatomy & Physiology',
+      icon: '👂⚡',
+      badge: 'NEW LESSON',
+      dateAdded: '2026-09-18T00:00:00',
+      isNew: isWithinOneMonth('2026-09-18T00:00:00'),
+      description:
+        'Interactive auditory physiology simulator tracing sound from airborne vibration through middle-ear impedance matching, tonotopic basilar membrane frequency gradients, hair cell tip-link mechanotransduction, and bedside tuning fork diagnostics.',
+    },
   ];
 
   // Dynamically find any additional animation types registered in allLessons

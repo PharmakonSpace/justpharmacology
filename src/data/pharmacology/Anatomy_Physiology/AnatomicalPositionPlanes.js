@@ -3,7 +3,7 @@
 export const anatomicalPositionPlanesLesson = {
   id: 'anatomical-position-planes-directional-terms',
   isNew: true,
-  isLatest: true,
+  isLatest: false,
   badge: 'NEW CHAPTER',
   dateAdded: '2026-09-17',
   addedOrder: 12,

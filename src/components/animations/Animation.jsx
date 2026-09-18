@@ -13,6 +13,7 @@ import HumanVisionAnimation from './HumanVisionAnimation';
 import ClinicalCommunicationNoiseAnimation from './ClinicalCommunicationNoiseAnimation';
 import ClinicalQuestioningTrapsAnimation from './ClinicalQuestioningTrapsAnimation';
 import AnatomicalPositionPlanesAnimation from './AnatomicalPositionPlanesAnimation';
+import HearingStructureAndPhysiologyAnimation from './HearingStructureAndPhysiologyAnimation';
 
 
 export default function Animation({ type }) {
@@ -65,6 +66,15 @@ export default function Animation({ type }) {
     normalizedType === 'directional-terms'
   ) {
     return <AnatomicalPositionPlanesAnimation />;
+  }
+  if (
+    normalizedType === 'hearing-structure-and-physiology' ||
+    normalizedType === 'hearing-structure' ||
+    normalizedType === 'hearing-physiology' ||
+    normalizedType === 'hearing' ||
+    normalizedType === 'ear'
+  ) {
+    return <HearingStructureAndPhysiologyAnimation />;
   }
   if (
     normalizedType === 'human-vision' ||

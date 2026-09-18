@@ -41,6 +41,7 @@ import NewArrivalsSection from './components/home/NewArrivalsSection';
 import Breadcrumbs from './components/navigation/Breadcrumbs';
 import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations, isLessonNew, isModuleNew, getLatestLessonWithinWeek } from './utils/contentUtils';
 import { usePageSEO, buildLessonSchema } from './utils/seo';
+import SectionContentFormatter from './components/SectionContentFormatter';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -94,6 +95,13 @@ function getLessonStepSections(lesson) {
       } else if (key === 'anatomicalSteps') {
         title = 'Eight-Stage Anatomical Orientation & Localization Protocol';
         icon = '🧭';
+      } else if (
+        key === 'physiologySteps' ||
+        key === 'hearingSteps' ||
+        key === 'hearingPhysiologySteps'
+      ) {
+        title = 'Eight-Stage Auditory Transmission & Mechanotransduction Sequence';
+        icon = '👂';
       } else if (key === 'biopsychosocialSteps') {
         title =
           lesson.id === 'carl-rogers-client-centered-therapy'
@@ -1374,12 +1382,171 @@ function Lesson() {
       <Breadcrumbs />
 
       <div className="lesson-hero">
-        <span className="pill">{l.level}</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '8px' }}>
+          <span className="pill">{l.level}</span>
+          {l.topic && (
+            <span
+              style={{
+                fontSize: '12px',
+                fontWeight: '700',
+                color: '#0d9488',
+                background: '#f0fdfa',
+                padding: '3px 10px',
+                borderRadius: '999px',
+                border: '1px solid #ccfbf1',
+              }}
+            >
+              {l.topic}
+            </span>
+          )}
+        </div>
         <h1>{l.title}</h1>
         <p>{l.description}</p>
-        <span className="meta">
-          ⏱ {l.time} min · Lesson {index + 1} of {lessons.length}
-        </span>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '12px',
+            marginTop: '14px',
+            paddingTop: '12px',
+            borderTop: '1px solid #e2e8f0',
+          }}
+        >
+          <span className="meta">
+            ⏱ {l.time} min read · Lesson {index + 1} of {lessons.length}
+          </span>
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {safeArray(l.sections).length > 0 && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, l.sections[0].id ? `sec-${l.sections[0].id}` : 'sec-section-0')}
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  color: '#334155',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
+                }}
+              >
+                📖 Start Guide
+              </button>
+            )}
+            {l.animation && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, 'sec-animation')}
+                style={{
+                  background: '#f0fdfa',
+                  border: '1px solid #99f6e4',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#0f766e',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                🧬 Simulator
+              </button>
+            )}
+            {safeArray(l.frameworks).length > 0 && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, 'sec-frameworks')}
+                style={{
+                  background: '#eff6ff',
+                  border: '1px solid #bfdbfe',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#1d4ed8',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                🩺 Frameworks
+              </button>
+            )}
+            {(safeArray(l.tables).length > 0 || l.comparisonTable) && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, 'sec-tables')}
+                style={{
+                  background: '#f5f3ff',
+                  border: '1px solid #ddd6fe',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#6d28d9',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                📊 Clinical Tables
+              </button>
+            )}
+            {safeArray(l.keyPoints).length > 0 && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, 'sec-key-points')}
+                style={{
+                  background: '#fefce8',
+                  border: '1px solid #fef08a',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#a16207',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                ⚡ Key Points
+              </button>
+            )}
+            {safeArray(l.quiz).length > 0 && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, 'sec-quiz')}
+                style={{
+                  background: '#fdf2f8',
+                  border: '1px solid #fbcfe8',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#be185d',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                📝 Quiz
+              </button>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="lesson-layout">
@@ -1388,8 +1555,8 @@ function Lesson() {
             <section id="sec-objectives" className="content-card">
               <h2>🎯 Learning Objectives</h2>
               <ul>
-                {safeArray(l.objectives).map((x) => (
-                  <li key={x}>{x}</li>
+                {safeArray(l.objectives).map((x, idx) => (
+                  <li key={typeof x === 'string' ? `${idx}-${x}` : idx}>{typeof x === 'string' ? x : JSON.stringify(x)}</li>
                 ))}
               </ul>
             </section>
@@ -1401,16 +1568,11 @@ function Lesson() {
               className="content-card"
               key={s.heading || idx}
             >
-              <h2>{s.heading}</h2>
-              {Array.isArray(s.content) ? (
-                s.content.map((p, pIdx) => (
-                  <p key={pIdx} style={{ marginBottom: pIdx === s.content.length - 1 ? 0 : '0.75rem' }}>
-                    {p}
-                  </p>
-                ))
-              ) : (
-                <p>{s.content}</p>
-              )}
+              <h2>
+                <span className="section-num-badge">{String(idx + 1).padStart(2, '0')}</span>
+                <span>{s.heading}</span>
+              </h2>
+              <SectionContentFormatter content={s.content} />
             </section>
           ))}
 
@@ -1534,62 +1696,115 @@ function Lesson() {
 
           {safeArray(l.frameworks).length > 0 && (
             <section id="sec-frameworks" className="content-card">
-              <h2>🩺 Clinical Sub-Framework Readout Panels</h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '14px', marginTop: '14px' }}>
-                {l.frameworks.map((fw, idx) => (
-                  <div
-                    key={idx}
-                    style={{
-                      padding: '16px',
-                      background: '#f8fafc',
-                      border: '1px solid #e2e8f0',
-                      borderRadius: '14px',
-                    }}
-                  >
-                    <div style={{ fontWeight: '800', fontSize: '14px', color: '#0f172a', marginBottom: '2px' }}>
-                      {fw.name}
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '12px' }}>
-                      {fw.context}
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                      {safeArray(fw.items).map((item, itemIdx) => (
-                        <div
-                          key={itemIdx}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '10px',
-                            padding: '8px 12px',
-                            background: '#ffffff',
-                            border: '1px solid #e2e8f0',
-                            borderRadius: '8px',
-                            fontSize: '13px',
-                          }}
-                        >
-                          <span
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', flexWrap: 'wrap', gap: '8px' }}>
+                <div>
+                  <h2 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    🩺 Clinical &amp; Physiological Sub-Frameworks
+                  </h2>
+                  <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#64748b' }}>
+                    Structured diagnostic models and functional sequential cascades
+                  </p>
+                </div>
+                <span style={{ fontSize: '11.5px', fontWeight: '700', color: '#0d9488', background: '#f0fdfa', border: '1px solid #ccfbf1', padding: '4px 10px', borderRadius: '20px' }}>
+                  {l.frameworks.length} Framework Panels
+                </span>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '16px', marginTop: '12px' }}>
+                {l.frameworks.map((fw, idx) => {
+                  const themePalette = [
+                    { border: '#bae6fd', headerBg: '#f0f9ff', accent: '#0284c7', badgeBg: '#e0f2fe', badgeText: '#0369a1', icon: '🎧' },
+                    { border: '#fde68a', headerBg: '#fffbeb', accent: '#d97706', badgeBg: '#fef3c7', badgeText: '#b45309', icon: '⚡' },
+                    { border: '#bbf7d0', headerBg: '#f0fdf4', accent: '#16a34a', badgeBg: '#dcfce7', badgeText: '#15803d', icon: '👂' },
+                    { border: '#ddd6fe', headerBg: '#f5f3ff', accent: '#7c3aed', badgeBg: '#ede9fe', badgeText: '#6d28d9', icon: '📊' },
+                    { border: '#fbcfe8', headerBg: '#fdf2f8', accent: '#db2777', badgeBg: '#fce7f3', badgeText: '#be185d', icon: '🩺' },
+                    { border: '#fed7aa', headerBg: '#fff7ed', accent: '#ea580c', badgeBg: '#ffedd5', badgeText: '#c2410c', icon: '🔬' },
+                  ];
+                  const theme = themePalette[idx % themePalette.length];
+
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        background: '#ffffff',
+                        border: `1px solid ${theme.border}`,
+                        borderRadius: '14px',
+                        overflow: 'hidden',
+                        boxShadow: '0 2px 8px rgba(15, 23, 42, 0.03)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: '12px 14px',
+                          background: theme.headerBg,
+                          borderBottom: `1px solid ${theme.border}`,
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '10px',
+                        }}
+                      >
+                        <span style={{ fontSize: '18px', flexShrink: 0, marginTop: '1px' }}>
+                          {fw.icon || theme.icon}
+                        </span>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontWeight: '800', fontSize: '13.5px', color: '#0f172a', lineHeight: 1.3 }}>
+                            {fw.name}
+                          </div>
+                          {fw.context && (
+                            <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '3px', lineHeight: 1.4 }}>
+                              {fw.context}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <div style={{ padding: '12px 14px', display: 'flex', flexDirection: 'column', gap: '8px', flex: 1, background: '#fafafa' }}>
+                        {safeArray(fw.items).map((item, itemIdx) => (
+                          <div
+                            key={itemIdx}
                             style={{
-                              width: '22px',
-                              height: '22px',
-                              borderRadius: '6px',
-                              background: '#f0fdfa',
-                              color: '#0d9488',
-                              border: '1px solid #ccfbf1',
-                              display: 'grid',
-                              placeItems: 'center',
-                              fontWeight: 'bold',
-                              fontSize: '11px',
-                              flexShrink: 0,
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              padding: '8px 12px',
+                              background: '#ffffff',
+                              border: '1px solid #e2e8f0',
+                              borderRadius: '8px',
+                              fontSize: '12.5px',
+                              boxShadow: '0 1px 2px rgba(0,0,0,0.02)',
                             }}
                           >
-                            {item.init}
-                          </span>
-                          <span style={{ color: '#334155', fontWeight: '500' }}>{item.label}</span>
-                        </div>
-                      ))}
+                            <span
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                padding: '3px 9px',
+                                borderRadius: '6px',
+                                background: theme.badgeBg,
+                                color: theme.badgeText,
+                                border: `1px solid ${theme.border}`,
+                                fontWeight: '800',
+                                fontSize: '11px',
+                                letterSpacing: '0.03em',
+                                whiteSpace: 'nowrap',
+                                minWidth: '32px',
+                                flexShrink: 0,
+                              }}
+                            >
+                              {item.init}
+                            </span>
+                            <span style={{ color: '#334155', fontWeight: '500', lineHeight: 1.4 }}>
+                              {item.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
           )}
@@ -1670,8 +1885,8 @@ function Lesson() {
             <section id="sec-pearls" className="content-card">
               <h2>🩺 Clinical Pearls</h2>
               <ul>
-                {safeArray(l.clinicalPearls).map((x) => (
-                  <li key={x}>{x}</li>
+                {safeArray(l.clinicalPearls).map((x, idx) => (
+                  <li key={typeof x === 'string' ? `${idx}-${x}` : idx}>{typeof x === 'string' ? x : JSON.stringify(x)}</li>
                 ))}
               </ul>
             </section>
@@ -1680,11 +1895,14 @@ function Lesson() {
           {safeArray(l.mnemonics).length > 0 && (
             <section id="sec-mnemonics" className="content-card">
               <h2>🧠 Mnemonics</h2>
-              {safeArray(l.mnemonics).map((x) => (
-                <div className="rapid" key={x}>
-                  <div>{x}</div>
-                </div>
-              ))}
+              {safeArray(l.mnemonics).map((x, idx) => {
+                const key = typeof x === 'string' ? `${idx}-${x}` : `mnemonic-${idx}`;
+                return (
+                  <div className="rapid" key={key}>
+                    <div>{typeof x === 'string' ? x : JSON.stringify(x)}</div>
+                  </div>
+                );
+              })}
             </section>
           )}
 
@@ -1692,12 +1910,15 @@ function Lesson() {
             <section id="sec-key-points" className="content-card">
               <h2>⚡ Key Points</h2>
               <div className="key-grid">
-                {safeArray(l.keyPoints).map((x) => (
-                  <div key={x}>
-                    <CheckCircle2 size={18} />
-                    <span>{x}</span>
-                  </div>
-                ))}
+                {safeArray(l.keyPoints).map((x, idx) => {
+                  const key = typeof x === 'string' ? `${idx}-${x}` : `kp-${idx}`;
+                  return (
+                    <div key={key}>
+                      <CheckCircle2 size={18} />
+                      <span>{typeof x === 'string' ? x : JSON.stringify(x)}</span>
+                    </div>
+                  );
+                })}
               </div>
             </section>
           )}
@@ -1705,9 +1926,23 @@ function Lesson() {
           {safeArray(l.rapid).length > 0 && (
             <section id="sec-rapid" className="content-card rapid">
               <h2>⚡ Rapid Revision</h2>
-              {safeArray(l.rapid).map((x) => (
-                <div key={x}>{x}</div>
-              ))}
+              {safeArray(l.rapid).map((x, idx) => {
+                const key =
+                  typeof x === 'string'
+                    ? `${idx}-${x}`
+                    : x && x.term
+                    ? `${idx}-${x.term}`
+                    : `rapid-${idx}`;
+                if (typeof x === 'object' && x !== null) {
+                  return (
+                    <div key={key}>
+                      {x.term && <strong>{x.term}: </strong>}
+                      {x.definition || JSON.stringify(x)}
+                    </div>
+                  );
+                }
+                return <div key={key}>{x}</div>;
+              })}
             </section>
           )}
 
@@ -1794,12 +2029,20 @@ function Revision() {
   });
 
   const cards = lessons.flatMap((l) =>
-    safeArray(l.rapid).map((r, i) => ({
-      key: l.id + '-' + i,
-      topic: l.topic,
-      title: l.title,
-      text: r,
-    }))
+    safeArray(l.rapid).map((r, i) => {
+      let text = '';
+      if (typeof r === 'string') {
+        text = r;
+      } else if (r && typeof r === 'object') {
+        text = r.term ? `${r.term} = ${r.definition}` : JSON.stringify(r);
+      }
+      return {
+        key: l.id + '-' + i,
+        topic: l.topic,
+        title: l.title,
+        text,
+      };
+    })
   );
 
   return (
