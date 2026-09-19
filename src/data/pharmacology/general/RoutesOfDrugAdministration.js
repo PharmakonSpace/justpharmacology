@@ -26,9 +26,11 @@ export const routesOfDrugAdministrationLesson = {
   `,
 
   infographic: {
-    src: '/routes-of-drug-administration.png',
+    src: '/routes-of-drug-administration.jpg',
     fallbackSrcs: [
+      '/routes-of-drug-administration.png',
       '/image.png',
+      '/images/routes-of-drug-administration.jpg',
       '/images/routes-of-drug-administration.png',
       '/routes_of_drug_administration.png'
     ],

@@ -16,13 +16,17 @@ import {
 export default function LessonInfographic({ infographic, lessonTitle }) {
   if (!infographic) return null;
 
-  const candidateSrcs = [
-    infographic.src,
-    ...(infographic.fallbackSrcs || []),
-    '/routes-of-drug-administration.jpg',
-    '/image.png',
-    '/images/routes-of-drug-administration.png',
-  ].filter(Boolean);
+  const candidateSrcs = Array.from(
+    new Set([
+      infographic.src,
+      ...(infographic.fallbackSrcs || []),
+      '/routes-of-drug-administration.jpg',
+      '/routes-of-drug-administration.png',
+      '/image.png',
+      '/images/routes-of-drug-administration.jpg',
+      '/images/routes-of-drug-administration.png',
+    ])
+  ).filter(Boolean);
 
   const [currentSrcIndex, setCurrentSrcIndex] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
