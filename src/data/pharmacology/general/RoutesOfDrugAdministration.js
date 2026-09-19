@@ -5,7 +5,7 @@ export const routesOfDrugAdministrationLesson = {
   isNew: true,
   isLatest: true,
   badge: 'NEW CHAPTER',
-  dateAdded: '2026-09-18',
+  dateAdded: '2026-08-17',
   addedOrder: 14,
   categoryId: 'general_pharmacology',
   topic: 'General Pharmacology',
