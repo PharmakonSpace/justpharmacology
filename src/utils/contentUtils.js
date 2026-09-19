@@ -60,15 +60,7 @@ export function getLessonDateAdded(lesson, customNow = Date.now()) {
   if (!lesson) return null;
   return (
     lesson.dateAdded ||
-    (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null) ||
-    (lesson.id === 'clinical-reflective-log' ? '2026-09-13T00:00:00' :
-     lesson.id === 'clinical-communication-frameworks' ? '2026-09-08T00:00:00' :
-     lesson.id === 'psychological-first-aid' ? '2026-09-05T00:00:00' :
-     lesson.id === 'carl-rogers-client-centered-therapy' ? '2026-09-05T00:00:00' :
-     lesson.id === 'introduction-to-healthcare-psychology' ? '2026-08-31T00:00:00' :
-     lesson.id === 'body-language-that-heals' ? '2026-08-30T00:00:00' :
-     lesson.id === 'spikes-protocol' ? '2026-08-29T00:00:00' :
-     null)
+    (lesson.isNew || lesson.isLatest ? new Date(customNow).toISOString() : null)
   );
 }
 
@@ -286,7 +278,14 @@ export function getNewArrivals(categoryId = null) {
   });
 
   if (categoryId && categoryId !== 'all') {
-    return sorted.filter((l) => l.categoryId === categoryId);
+    return sorted.filter(
+      (l) =>
+        l.categoryId === categoryId ||
+        (categoryId === 'general' && l.categoryId === 'general_pharmacology') ||
+        (categoryId === 'general_pharmacology' && l.categoryId === 'general') ||
+        (categoryId === 'cardio' && l.categoryId === 'cardiovascular') ||
+        (categoryId === 'gi' && l.categoryId === 'gastrointestinal')
+    );
   }
 
   return sorted;
@@ -309,9 +308,10 @@ export function getGroupedNewArrivalsByModule() {
   const map = new Map();
 
   arrivals.forEach((lesson) => {
-    const catId = lesson.categoryId || 'general';
-    const cat = categories.find((c) => c.id === catId);
-    const mod = modules.find((m) => m.id === catId);
+    const rawCatId = lesson.categoryId || 'general';
+    const catId = rawCatId === 'general_pharmacology' ? 'general' : rawCatId;
+    const cat = categories.find((c) => c.id === catId || (c.id === 'general' && catId === 'general_pharmacology'));
+    const mod = modules.find((m) => m.id === catId || (m.id === 'general' && catId === 'general_pharmacology'));
     const moduleName = mod?.title || mod?.name || cat?.name || catId;
     const icon = mod?.icon || cat?.icon || '📚';
     const isNewMod = isModuleNew(mod || cat);
@@ -363,8 +363,8 @@ export function getAvailableTopics() {
 
   allLessons.forEach((l) => {
     if (!l.topic) return;
-    const cat = categories.find((c) => c.id === l.categoryId);
-    const mod = modules.find((m) => m.id === l.categoryId);
+    const cat = categories.find((c) => c.id === l.categoryId || (c.id === 'general' && l.categoryId === 'general_pharmacology'));
+    const mod = modules.find((m) => m.id === l.categoryId || (m.id === 'general' && l.categoryId === 'general_pharmacology'));
     const moduleName = mod?.title || mod?.name || cat?.name || l.categoryId;
     const icon = cat?.icon || '🧬';
 
@@ -669,8 +669,8 @@ export function getAllAnimations() {
   allLessons.forEach((l) => {
     if (l.animation && !registeredTypes.has(l.animation.toLowerCase().trim())) {
       const typeKey = l.animation.toLowerCase().trim();
-      const cat = categories.find((c) => c.id === l.categoryId);
-      const mod = modules.find((m) => m.id === l.categoryId);
+      const cat = categories.find((c) => c.id === l.categoryId || (c.id === 'general' && l.categoryId === 'general_pharmacology'));
+      const mod = modules.find((m) => m.id === l.categoryId || (m.id === 'general' && l.categoryId === 'general_pharmacology'));
       baseCatalog.push({
         type: typeKey,
         title: `${l.title} Interactive Model`,

@@ -84,6 +84,19 @@ export default function Animation({ type }) {
   ) {
     return <HumanVisionAnimation />;
   }
+  if (
+    normalizedType === 'routes-of-drug-administration' ||
+    normalizedType === 'routes' ||
+    normalizedType === 'drug-administration'
+  ) {
+    return <AbsorptionAnimation />;
+  }
+  if (
+    normalizedType === 'introduction-to-pharmacology' ||
+    normalizedType === 'intro-pharmacology'
+  ) {
+    return <DrugReceptor />;
+  }
 
   return <DrugReceptor />;
 }

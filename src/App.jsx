@@ -42,6 +42,7 @@ import Breadcrumbs from './components/navigation/Breadcrumbs';
 import { getModulesWithStats, getRecentCurriculumVideos, getAllCurriculumVideos, getNewArrivals, getAllAnimations, isLessonNew, isModuleNew, getLatestLessonWithinWeek } from './utils/contentUtils';
 import { usePageSEO, buildLessonSchema } from './utils/seo';
 import SectionContentFormatter from './components/SectionContentFormatter';
+import LessonInfographic from './components/lessons/LessonInfographic';
 
 /* ───────────────────────── helpers ───────────────────────── */
 
@@ -385,6 +386,7 @@ function Home() {
     const cat = categories.find(
       (c) =>
         c.id === latestLessonThisWeek.categoryId ||
+        (c.id === 'general' && latestLessonThisWeek.categoryId === 'general_pharmacology') ||
         (latestLessonThisWeek.categoryId === 'cardiovascular' && c.id === 'cardio') ||
         (latestLessonThisWeek.categoryId === 'gastrointestinal' && c.id === 'gi')
     );
@@ -464,10 +466,18 @@ function Home() {
           <div className="category-grid">
             {categories.map((c) => {
               const modStat = modulesWithStats.find(
-                (m) => m.id === c.id || (c.id === 'cardio' && m.id === 'cardiovascular') || (c.id === 'gi' && m.id === 'gastrointestinal')
+                (m) =>
+                  m.id === c.id ||
+                  (c.id === 'general' && m.id === 'general_pharmacology') ||
+                  (c.id === 'cardio' && m.id === 'cardiovascular') ||
+                  (c.id === 'gi' && m.id === 'gastrointestinal')
               );
               const dynamicCount = lessons.filter(
-                (l) => l.categoryId === c.id || (c.id === 'cardio' && l.categoryId === 'cardiovascular') || (c.id === 'gi' && l.categoryId === 'gastrointestinal')
+                (l) =>
+                  l.categoryId === c.id ||
+                  (c.id === 'general' && l.categoryId === 'general_pharmacology') ||
+                  (c.id === 'cardio' && l.categoryId === 'cardiovascular') ||
+                  (c.id === 'gi' && l.categoryId === 'gastrointestinal')
               ).length;
               const lessonCount = modStat?.lessonsCount ?? dynamicCount;
               const isAvailable = lessonCount > 0;
@@ -1034,6 +1044,8 @@ function Learn() {
       : lessons.filter(
           (l) =>
             l.categoryId === filter ||
+            (filter === 'general' && (l.categoryId === 'general_pharmacology' || l.categoryId === 'general')) ||
+            (filter === 'general_pharmacology' && (l.categoryId === 'general_pharmacology' || l.categoryId === 'general')) ||
             (filter === 'cardio' && l.categoryId === 'cardiovascular') ||
             (filter === 'gi' && l.categoryId === 'gastrointestinal')
         );
@@ -1149,6 +1161,7 @@ function Learn() {
           const catLessons = lessons.filter(
             (l) =>
               l.categoryId === c.id ||
+              (c.id === 'general' && l.categoryId === 'general_pharmacology') ||
               (c.id === 'cardio' && l.categoryId === 'cardiovascular') ||
               (c.id === 'gi' && l.categoryId === 'gastrointestinal')
           );
@@ -1258,6 +1271,9 @@ function Lesson() {
     const items = [];
     if (safeArray(l.objectives).length > 0) {
       items.push({ id: 'sec-objectives', label: 'Objectives', icon: '🎯' });
+    }
+    if (l.infographic) {
+      items.push({ id: 'sec-infographic', label: 'Master Infographic', icon: '🖼️' });
     }
     safeArray(l.sections).forEach((s, idx) => {
       items.push({
@@ -1418,6 +1434,27 @@ function Lesson() {
             ⏱ {l.time} min read · Lesson {index + 1} of {lessons.length}
           </span>
           <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {l.infographic && (
+              <button
+                type="button"
+                onClick={(e) => scrollToSection(e, 'sec-infographic')}
+                style={{
+                  background: '#eff6ff',
+                  border: '1px solid #bfdbfe',
+                  padding: '5px 11px',
+                  borderRadius: '8px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  color: '#1d4ed8',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                }}
+              >
+                🖼️ Infographic
+              </button>
+            )}
             {safeArray(l.sections).length > 0 && (
               <button
                 type="button"
@@ -1560,6 +1597,10 @@ function Lesson() {
                 ))}
               </ul>
             </section>
+          )}
+
+          {l.infographic && (
+            <LessonInfographic infographic={l.infographic} lessonTitle={l.title} />
           )}
 
           {safeArray(l.sections).map((s, idx) => (
@@ -1937,7 +1978,7 @@ function Lesson() {
                   return (
                     <div key={key}>
                       {x.term && <strong>{x.term}: </strong>}
-                      {x.definition || JSON.stringify(x)}
+                      {x.definition || x.meaning || (typeof x === 'string' ? x : JSON.stringify(x))}
                     </div>
                   );
                 }
@@ -2034,7 +2075,7 @@ function Revision() {
       if (typeof r === 'string') {
         text = r;
       } else if (r && typeof r === 'object') {
-        text = r.term ? `${r.term} = ${r.definition}` : JSON.stringify(r);
+        text = r.term ? `${r.term} = ${r.definition || r.meaning || ''}` : (typeof r === 'string' ? r : JSON.stringify(r));
       }
       return {
         key: l.id + '-' + i,
@@ -2505,7 +2546,7 @@ function QuizPage() {
     const items = [];
     lessons.forEach((lesson) => {
       const qArray = safeArray(lesson.quiz);
-      const catObj = categories.find((c) => c.id === lesson.categoryId);
+      const catObj = categories.find((c) => c.id === lesson.categoryId || (c.id === 'general' && lesson.categoryId === 'general_pharmacology'));
       qArray.forEach((q, idx) => {
         items.push({
           ...q,
@@ -2552,7 +2593,13 @@ function QuizPage() {
     if (selectedFilter === 'new') {
       list = list.filter((q) => q.isNew);
     } else if (selectedFilter !== 'all') {
-      list = list.filter((q) => q.topic === selectedFilter || q.categoryId === selectedFilter);
+      list = list.filter(
+        (q) =>
+          q.topic === selectedFilter ||
+          q.categoryId === selectedFilter ||
+          (selectedFilter === 'general' && q.categoryId === 'general_pharmacology') ||
+          (selectedFilter === 'general_pharmacology' && q.categoryId === 'general')
+      );
     }
 
     if (randomMode) {

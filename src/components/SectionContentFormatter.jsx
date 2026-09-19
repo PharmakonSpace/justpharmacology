@@ -389,6 +389,103 @@ function CalloutBox({ text, type = 'info' }) {
 }
 
 /**
+ * Renders hierarchical classification tree diagrams (e.g. ├──, └──, │)
+ */
+function ClassificationTreeCard({ content }) {
+  const lines = content.split('\n');
+  return (
+    <div
+      style={{
+        margin: '16px 0',
+        borderRadius: '12px',
+        border: '1px solid #334155',
+        background: '#090d16',
+        color: '#f8fafc',
+        overflow: 'hidden',
+        boxShadow: '0 4px 20px rgba(15, 23, 42, 0.12)',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '12px 18px',
+          background: '#111827',
+          borderBottom: '1px solid #1f2937',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+          <Layers size={16} color="#38bdf8" />
+          <span style={{ fontSize: '13px', fontWeight: '700', color: '#e2e8f0', letterSpacing: '0.02em' }}>
+            Hierarchical Route Classification Architecture
+          </span>
+        </div>
+        <span
+          style={{
+            fontSize: '10.5px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            padding: '3px 9px',
+            borderRadius: '20px',
+            background: '#0369a1',
+            color: '#e0f2fe',
+            fontWeight: '700',
+          }}
+        >
+          TAXONOMY MAP
+        </span>
+      </div>
+      <div
+        style={{
+          padding: '16px 20px',
+          overflowX: 'auto',
+          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+          fontSize: '13px',
+          lineHeight: '1.7',
+          whiteSpace: 'pre',
+        }}
+      >
+        {lines.map((line, idx) => {
+          const trimmed = line.trim();
+          if (!trimmed) {
+            return <div key={idx} style={{ height: '8px' }} />;
+          }
+
+          const isHeader = trimmed.startsWith('ROUTES OF DRUG ADMINISTRATION');
+          const isMajorBranch = trimmed.includes('1. LOCAL ROUTES') || trimmed.includes('2. SYSTEMIC ROUTES');
+          const isCategoryBranch = /├──\s+([A-Z]\.\s+|Topical|Local injection|Local arterial|Parenteral)/i.test(line);
+
+          let color = '#94a3b8';
+          let fontWeight = '400';
+
+          if (isHeader) {
+            color = '#38bdf8';
+            fontWeight = '800';
+          } else if (isMajorBranch) {
+            color = trimmed.includes('LOCAL') ? '#34d399' : '#60a5fa';
+            fontWeight = '700';
+          } else if (isCategoryBranch) {
+            color = '#fbbf24';
+            fontWeight = '600';
+          } else if (trimmed.includes('│')) {
+            color = '#64748b';
+          } else {
+            color = '#e2e8f0';
+          }
+
+          return (
+            <div key={idx} style={{ color, fontWeight }}>
+              {line}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/**
  * Main parser component for any section content string or array
  */
 export default function SectionContentFormatter({ content }) {
@@ -505,6 +602,11 @@ export default function SectionContentFormatter({ content }) {
               {bulletLines.length > 0 && <BulletList items={bulletLines} />}
             </div>
           );
+        }
+
+        // Tree diagram check
+        if (para.includes('├──') || para.includes('└──')) {
+          return <ClassificationTreeCard key={pIdx} content={para} />;
         }
 
         // Callout check

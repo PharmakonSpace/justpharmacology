@@ -34,6 +34,187 @@ export default function NewArrivalsSection() {
   const stats = getCurriculumStats();
   const groupedModules = getGroupedNewArrivalsByModule();
 
+  // Helper to format read time without duplicate 'min'
+  const formatReadTime = (timeStr) => {
+    if (!timeStr) return '15 min read';
+    const clean = String(timeStr).replace(/\s*min(utes)?\s*$/i, '').trim();
+    return `${clean} min read`;
+  };
+
+  // Resolve module and category metadata dynamically for the latest lesson
+  const rawCatId = latestLesson?.categoryId || 'general';
+  const resolvedCatId =
+    rawCatId === 'general_pharmacology' ? 'general' :
+    rawCatId === 'cardiovascular' ? 'cardio' :
+    rawCatId === 'gastrointestinal' ? 'gi' :
+    rawCatId;
+
+  const latestModule = modulesWithStats.find(
+    (m) =>
+      m.id === resolvedCatId ||
+      (m.id === 'general' && (rawCatId === 'general_pharmacology' || rawCatId === 'general'))
+  );
+
+  const latestModuleName =
+    latestModule?.title || latestModule?.name || latestLesson?.topic || 'Curriculum Lesson';
+  const latestModuleIcon = latestModule?.icon || '📚';
+  const latestModuleLessonsCount = latestModule?.lessonsCount || latestModule?.lessons?.length || 0;
+  const latestModuleLink = latestModule ? `/learn?category=${latestModule.id}` : '/learn';
+
+  // Format reading time safely (avoiding double 'min min')
+  const cleanTime = latestLesson?.time
+    ? String(latestLesson.time).replace(/\s*min(utes)?\s*$/i, '').trim()
+    : '15';
+  const formattedTime = `${cleanTime} min`;
+
+  // Dynamic lesson steps / stages
+  const lessonSteps =
+    latestLesson?.pharmacologySteps ||
+    latestLesson?.physiologySteps ||
+    latestLesson?.steps ||
+    latestLesson?.hearingSteps ||
+    [];
+
+  // Dynamic frameworks, tables, quiz
+  const frameworks = Array.isArray(latestLesson?.frameworks) ? latestLesson.frameworks : [];
+  const tablesCount = Array.isArray(latestLesson?.tables) ? latestLesson.tables.length : 0;
+  const quizCount = Array.isArray(latestLesson?.quiz) ? latestLesson.quiz.length : 0;
+
+  // Build 4 dynamic highlights based on actual content
+  const dynamicHighlights = [];
+
+  // 1. Simulation / Animation or Clinical Taxonomy
+  if (latestLesson?.animation) {
+    dynamicHighlights.push({
+      title: 'Interactive Simulation:',
+      desc: latestLesson.stepsTitle
+        ? latestLesson.stepsTitle
+        : `Dynamic interactive mechanics and visual model engine (${latestLesson.title})`,
+    });
+  } else if (latestLesson?.stepsTitle) {
+    dynamicHighlights.push({
+      title: 'Structured Sequence:',
+      desc: latestLesson.stepsTitle,
+    });
+  } else {
+    dynamicHighlights.push({
+      title: 'Clinical Architecture:',
+      desc: `Visual framework and structured conceptual pathways for ${latestLesson?.title || 'clinical practice'}.`,
+    });
+  }
+
+  // 2. Pathway Steps or Objectives
+  if (lessonSteps.length > 0) {
+    const firstStepTitle = lessonSteps[0]?.title || 'Introduction';
+    const lastStepTitle = lessonSteps[lessonSteps.length - 1]?.title || 'Clinical Review';
+    dynamicHighlights.push({
+      title: `${lessonSteps.length}-Stage Step Sequence:`,
+      desc: `Progressive stages from "${firstStepTitle}" through "${lastStepTitle}".`,
+    });
+  } else if (latestLesson?.objectives?.length > 0) {
+    dynamicHighlights.push({
+      title: 'Core Learning Objectives:',
+      desc: `${latestLesson.objectives.length} structured clinical competencies and learning outcomes.`,
+    });
+  } else {
+    dynamicHighlights.push({
+      title: 'High-Yield Principles:',
+      desc: `Core ${latestLesson?.level || 'essential'} concepts, clinical implications, and board-yield facts.`,
+    });
+  }
+
+  // 3. Frameworks or High-Yield Tables
+  if (frameworks.length > 0) {
+    const fwNames = frameworks.map((f) => f.name || f.id).slice(0, 2).join(' • ');
+    dynamicHighlights.push({
+      title: `${frameworks.length} Clinical Framework${frameworks.length > 1 ? 's' : ''}:`,
+      desc: `${fwNames}${tablesCount > 0 ? ` with ${tablesCount} comparative summary table${tablesCount > 1 ? 's' : ''}` : ''}.`,
+    });
+  } else if (tablesCount > 0) {
+    dynamicHighlights.push({
+      title: 'Comparative Reference Tables:',
+      desc: `${tablesCount} high-yield reference tables contrasting clinical profiles and mechanisms.`,
+    });
+  } else if (latestLesson?.level) {
+    dynamicHighlights.push({
+      title: 'Level & Comprehensiveness:',
+      desc: `${latestLesson.level} level with rigorous clinical evidence and practical pearls.`,
+    });
+  } else {
+    dynamicHighlights.push({
+      title: 'Clinical Practice Pearls:',
+      desc: 'High-yield evidence-based guidelines and practical diagnostic/therapeutic insights.',
+    });
+  }
+
+  // 4. Quiz / Self-assessment or Video
+  if (quizCount > 0) {
+    dynamicHighlights.push({
+      title: 'Self-Assessment Challenge:',
+      desc: `${quizCount}-question clinical vignette quiz with instant rationales and score tracking.`,
+    });
+  } else if (latestLesson?.video?.youtubeId) {
+    dynamicHighlights.push({
+      title: 'Video Lecture Included:',
+      desc: `Integrated multimedia clinical lecture: "${latestLesson.video.title || latestLesson.title}".`,
+    });
+  } else {
+    dynamicHighlights.push({
+      title: 'Active Learning Mode:',
+      desc: 'Interactive step-through review designed for long-term clinical retention.',
+    });
+  }
+
+  // Visual Preview Box dynamic chips on the right
+  const dynamicChips = [];
+  if (frameworks.length > 0) {
+    frameworks.slice(0, 3).forEach((f) => {
+      dynamicChips.push({
+        label: f.name || f.id,
+        icon: Activity,
+      });
+    });
+  }
+  if (dynamicChips.length < 3 && latestLesson?.animation) {
+    dynamicChips.push({ label: 'Interactive Model', icon: Brain });
+  }
+  if (dynamicChips.length < 3 && lessonSteps.length > 0) {
+    dynamicChips.push({ label: `${lessonSteps.length} Stages`, icon: Award });
+  }
+  if (dynamicChips.length < 3 && quizCount > 0) {
+    dynamicChips.push({ label: `${quizCount} Quiz Qs`, icon: CheckCircle2 });
+  }
+  while (dynamicChips.length < 3) {
+    dynamicChips.push({ label: 'Clinical Review', icon: BookOpen });
+  }
+
+  // Dynamic diagram nodes
+  let diagramNodes = [];
+  if (lessonSteps.length >= 3) {
+    const midIdx = Math.floor(lessonSteps.length / 2);
+    const n1 = lessonSteps[0];
+    const n2 = lessonSteps[midIdx];
+    const n3 = lessonSteps[lessonSteps.length - 1];
+    diagramNodes = [
+      { badge: `STAGE 1`, title: n1.title, desc: n1.description?.slice(0, 48) + '...' },
+      { badge: `STAGE ${midIdx + 1}`, title: n2.title, desc: n2.description?.slice(0, 48) + '...', active: true },
+      { badge: `STAGE ${lessonSteps.length}`, title: n3.title, desc: n3.description?.slice(0, 48) + '...' },
+    ];
+  } else if (frameworks[0]?.items?.length >= 3) {
+    const itms = frameworks[0].items;
+    diagramNodes = [
+      { badge: itms[0].init || 'PART 1', title: itms[0].label?.split(':')[0] || itms[0].init || 'Initiation', desc: itms[0].label?.slice(0, 48) + '...' },
+      { badge: itms[1].init || 'PART 2', title: itms[1].label?.split(':')[0] || itms[1].init || 'Mechanism', desc: itms[1].label?.slice(0, 48) + '...', active: true },
+      { badge: itms[2].init || 'PART 3', title: itms[2].label?.split(':')[0] || itms[2].init || 'Outcome', desc: itms[2].label?.slice(0, 48) + '...' },
+    ];
+  } else {
+    diagramNodes = [
+      { badge: 'INPUT', title: 'Route & Dose', desc: 'Physicochemical factors & delivery site' },
+      { badge: 'MECHANISM', title: 'Target Action', desc: 'Receptor binding & physiological response', active: true },
+      { badge: 'OUTCOME', title: 'Clinical Effect', desc: 'Therapeutic outcome & system response' },
+    ];
+  }
+
   // When filtered by a specific category, newArrivals is automatically sorted newest-first for that module!
   const filteredLessons =
     activeFilter === 'all'
@@ -60,7 +241,7 @@ export default function NewArrivalsSection() {
             </div>
             <h2>Recently Added Lessons &amp; Modules</h2>
             <p className="new-arrivals-sub">
-              Explore freshly published clinical empathy protocols, biopsychosocial models, and high-yield pharmacology principles — organized in order with the newest additions highlighted at the top.
+              Explore freshly published clinical lessons, physiological pathways, and high-yield pharmacology principles — organized with the latest addition highlighted at the top.
             </p>
           </div>
 
@@ -81,16 +262,18 @@ export default function NewArrivalsSection() {
                     <span>JUST ADDED · #1 LATEST ADDITION</span>
                   </span>
                   <span className="spotlight-mod-tag">
-                    🧠💬 Healthcare Psychology &amp; Communication Skills
+                    {latestModuleIcon} {latestModuleName}
                   </span>
                 </div>
 
                 <h3 className="spotlight-title">
                   {latestLesson.title}
                 </h3>
-                <p className="spotlight-subtitle">
-                  {latestLesson.subtitle || 'The Biopsychosocial Model & Behavioral Science in Clinical Care'}
-                </p>
+                {latestLesson.subtitle && (
+                  <p className="spotlight-subtitle">
+                    {latestLesson.subtitle}
+                  </p>
+                )}
 
                 <p className="spotlight-desc">
                   {latestLesson.description}
@@ -98,30 +281,14 @@ export default function NewArrivalsSection() {
 
                 {/* Key feature highlights */}
                 <div className="spotlight-highlights-grid">
-                  <div className="spotlight-highlight-item">
-                    <span className="sh-dot" />
-                    <div>
-                      <strong>Interactive Simulation:</strong> 4-phase neuroendocrine stress cascade (Trigger → Cortisol → Arterial Constriction)
+                  {dynamicHighlights.map((hl, idx) => (
+                    <div key={idx} className="spotlight-highlight-item">
+                      <span className="sh-dot" />
+                      <div>
+                        <strong>{hl.title}</strong> {hl.desc}
+                      </div>
                     </div>
-                  </div>
-                  <div className="spotlight-highlight-item">
-                    <span className="sh-dot" />
-                    <div>
-                      <strong>4 Psychological Subfields:</strong> Health, Behavioral (Skinnerian), Clinical &amp; Developmental Psychology
-                    </div>
-                  </div>
-                  <div className="spotlight-highlight-item">
-                    <span className="sh-dot" />
-                    <div>
-                      <strong>Operant Habit Lab:</strong> Clinical adherence loops, environmental cue restructuring &amp; reinforcement
-                    </div>
-                  </div>
-                  <div className="spotlight-highlight-item">
-                    <span className="sh-dot" />
-                    <div>
-                      <strong>Self-Assessment &amp; Quiz:</strong> 5-question clinical vignette challenge with instant explanations
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
                 {/* Action buttons */}
@@ -135,15 +302,15 @@ export default function NewArrivalsSection() {
                   </Link>
 
                   <Link
-                    to="/learn?category=healthcare_psychology"
+                    to={latestModuleLink}
                     className="btn outline spotlight-mod-btn"
                   >
-                    <span>Explore Module Lessons (3)</span>
+                    <span>Explore Module Lessons ({latestModuleLessonsCount})</span>
                   </Link>
 
                   <div className="spotlight-meta-pill">
                     <Clock size={14} />
-                    <span>{latestLesson.time || 5} min interactive read</span>
+                    <span>{formattedTime} interactive read</span>
                   </div>
                 </div>
               </div>
@@ -157,47 +324,41 @@ export default function NewArrivalsSection() {
                       <span className="tl-yellow" />
                       <span className="tl-green" />
                     </div>
-                    <span className="spotlight-card-title">Interactive Module Engine</span>
+                    <span className="spotlight-card-title">
+                      {latestLesson.title?.length > 28 ? `${latestLesson.title.slice(0, 28)}...` : latestLesson.title} Engine
+                    </span>
                   </div>
 
                   <div className="spotlight-preview-body">
                     <div className="spotlight-model-chip-list">
-                      <div className="sm-chip active">
-                        <Activity size={13} />
-                        <span>Biopsychosocial Simulator</span>
-                      </div>
-                      <div className="sm-chip">
-                        <Brain size={13} />
-                        <span>HPA Stress Pathway</span>
-                      </div>
-                      <div className="sm-chip">
-                        <Award size={13} />
-                        <span>Skinnerian Loop</span>
-                      </div>
+                      {dynamicChips.map((chip, idx) => {
+                        const IconComponent = chip.icon || Activity;
+                        return (
+                          <div key={idx} className={`sm-chip ${idx === 0 ? 'active' : ''}`}>
+                            <IconComponent size={13} />
+                            <span>{chip.label}</span>
+                          </div>
+                        );
+                      })}
                     </div>
 
                     <div className="spotlight-diagram-box">
-                      <div className="s-node biological">
-                        <span className="s-badge">BIO</span>
-                        <strong>Biological</strong>
-                        <small>Genetics, HPA Axis, Neurochemistry</small>
-                      </div>
-                      <div className="s-connector">⇄</div>
-                      <div className="s-node psychological active-pulse">
-                        <span className="s-badge">PSYCH</span>
-                        <strong>Psychological</strong>
-                        <small>Stress, Cognition, Habit Loops</small>
-                      </div>
-                      <div className="s-connector">⇄</div>
-                      <div className="s-node social">
-                        <span className="s-badge">SOC</span>
-                        <strong>Social</strong>
-                        <small>Support, Culture, Environment</small>
-                      </div>
+                      {diagramNodes.map((node, idx) => (
+                        <div key={idx} style={{ display: 'contents' }}>
+                          <div className={`s-node ${node.active ? 'active-pulse' : ''}`}>
+                            <span className="s-badge">{node.badge}</span>
+                            <strong>{node.title}</strong>
+                            <small>{node.desc}</small>
+                          </div>
+                          {idx < diagramNodes.length - 1 && (
+                            <div className="s-connector">➔</div>
+                          )}
+                        </div>
+                      ))}
                     </div>
 
                     <div className="spotlight-preview-foot">
-                      <span>✨ Newest clinical behavioral framework</span>
+                      <span>✨ Latest addition in {latestModuleName}</span>
                       <Link to={`/lesson/${latestLesson.id}`} className="spotlight-quick-launch">
                         Launch <ArrowRight size={12} />
                       </Link>
@@ -373,7 +534,7 @@ export default function NewArrivalsSection() {
                             <span className="mg-topic-tag">{lesson.topic}</span>
                             {isLatest && <span className="badge-new-tiny">✨ JUST ADDED</span>}
                             <span className="mg-time-tag">
-                              <Clock size={12} /> {lesson.time} min
+                              <Clock size={12} /> {formatReadTime(lesson.time)}
                             </span>
                             {lesson.animation && <span className="mg-feat-tag">🧬 Interactive Model</span>}
                             {lesson.quiz && <span className="mg-feat-tag">📝 Quiz</span>}
@@ -425,7 +586,7 @@ export default function NewArrivalsSection() {
           <div className="new-arrivals-grid">
             {filteredLessons.map((l, index) => {
               const isFirst = index === 0;
-              const isLatestAddition = l.isLatest || l.id === 'introduction-to-healthcare-psychology';
+              const isLatestAddition = l.isLatest || (filteredLessons[0]?.id === l.id);
 
               return (
                 <div
@@ -454,8 +615,10 @@ export default function NewArrivalsSection() {
 
                   {/* Feature Badges */}
                   <div className="feature-badges">
-                    {l.id === 'introduction-to-healthcare-psychology' && (
-                      <span className="feat-chip accent">🧠 Biopsychosocial Model</span>
+                    {l.frameworks && l.frameworks.length > 0 && (
+                      <span className="feat-chip accent">
+                        📐 {l.frameworks[0].name || 'Clinical Framework'}
+                      </span>
                     )}
                     {l.spikesSteps && (
                       <span className="feat-chip">📋 6-Stage SPIKES Protocol</span>
@@ -463,10 +626,16 @@ export default function NewArrivalsSection() {
                     {l.solerSteps && (
                       <span className="feat-chip">🧘 SOLER Posture Framework</span>
                     )}
+                    {l.pharmacologySteps && (
+                      <span className="feat-chip">🧬 {l.pharmacologySteps.length}-Stage Pathway</span>
+                    )}
+                    {l.physiologySteps && (
+                      <span className="feat-chip">👂 {l.physiologySteps.length}-Stage Mechanism</span>
+                    )}
                     {l.animation && (
                       <span className="feat-chip">🧬 Interactive Simulation</span>
                     )}
-                    {l.video && (
+                    {l.video && l.video.youtubeId && (
                       <span className="feat-chip">🎥 Video Included</span>
                     )}
                     {l.quiz && l.quiz.length > 0 && (
@@ -477,7 +646,7 @@ export default function NewArrivalsSection() {
                   <div className="new-lesson-footer">
                     <div className="time-est">
                       <Clock size={15} />
-                      <span>{l.time} min read</span>
+                      <span>{formatReadTime(l.time)}</span>
                     </div>
                     <Link
                       to={`/lesson/${l.id}`}

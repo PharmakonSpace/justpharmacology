@@ -3,7 +3,7 @@
 export const hearingStructureAndPhysiologyLesson = {
   id: 'hearing-structure-and-physiology',
   isNew: true,
-  isLatest: true,
+  isLatest: false,
   badge: 'NEW LESSON',
   dateAdded: '2026-09-18',
   addedOrder: 13,
