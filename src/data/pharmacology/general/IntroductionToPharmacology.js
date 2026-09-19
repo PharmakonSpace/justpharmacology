@@ -5,7 +5,7 @@ export const introductionToPharmacologyLesson = {
   isNew: true,
   isLatest: false,
   badge: 'NEW CHAPTER',
-  dateAdded: '2026-09-17',
+  dateAdded: '2026-08-15',
   addedOrder: 12,
 
   categoryId: 'general_pharmacology',
