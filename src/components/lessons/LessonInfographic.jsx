@@ -19,7 +19,7 @@ export default function LessonInfographic({ infographic, lessonTitle }) {
   const candidateSrcs = [
     infographic.src,
     ...(infographic.fallbackSrcs || []),
-    '/routes-of-drug-administration.png',
+    '/routes-of-drug-administration.jpg',
     '/image.png',
     '/images/routes-of-drug-administration.png',
   ].filter(Boolean);
